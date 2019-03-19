@@ -5,25 +5,10 @@
  */
 package marioparty;
 
-import DLibX.DConsole;
-
 /**
  *
  * @author Cole
  */
-public class Character {
-
-    private final DConsole dc;
-
-    public Character(DConsole dc) {
-        this.dc = dc;
-    }
-
-    public void move() {
-
-    }
-
-    public void draw() {
-
-    }
+public enum InputAction {
+    MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT
 }

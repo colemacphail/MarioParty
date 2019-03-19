@@ -12,14 +12,43 @@ import DLibX.DConsole;
  * @author Cole
  */
 public class Board {
-    
-    private final DConsole dc;
+
+    private static Board instance;
+
+    public static Board getInstance() {
+        if (instance == null) {
+            instance = new Board();
+        }
+        return instance;
+    }
+
+    private final DConsole dc = new DConsole();
     private GameState currentGameState;
     private Tile[] tileset;
-    
-    public Board(DConsole dc){
-        this.dc = dc;
+    private int numOfPlayers = 0;
+    private int playerTurn = 0;
+
+    private Board() {
         this.currentGameState = GameState.BOARD;
     }
-    
+
+    public void draw() {
+
+    }
+
+    public void update() {
+        switch (currentGameState) {
+            case INIT:
+                break;
+            case BOARD:
+                break;
+            case MINIGAME_INIT:
+                break;
+            case MINIGAME:
+                break;
+            case END:
+                break;
+        }
+    }
+
 }

@@ -10,5 +10,5 @@ package marioparty;
  * @author Cole
  */
 public enum GameState {
-    BOARD, MINIGAME
+    INIT, BOARD, MINIGAME_INIT, MINIGAME, END
 }
