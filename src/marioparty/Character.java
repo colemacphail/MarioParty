@@ -19,6 +19,7 @@ public class Character {
     private int y;
     private int coins;
     private int stars;
+    private int tilePos;
 
     public Character(DConsole dc) {
         this.dc = dc;
