@@ -1,5 +1,7 @@
 package marioparty;
 
+import Tiles.Tile;
+import marioparty.Minigames.Minigame;
 import DLibX.DConsole;
 
 /**

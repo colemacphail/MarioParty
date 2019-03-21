@@ -1,4 +1,4 @@
-package marioparty;
+package ControllerInput;
 
 import com.studiohartman.jamepad.ControllerManager;
 import com.studiohartman.jamepad.ControllerState;

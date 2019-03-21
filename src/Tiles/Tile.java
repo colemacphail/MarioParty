@@ -1,6 +1,8 @@
-package marioparty;
+package Tiles;
 
 import DLibX.DConsole;
+import marioparty.Console;
+import ControllerInput.InputAction;
 
 /**
  *

@@ -1,6 +1,7 @@
-package marioparty;
+package marioparty.Minigames;
 
 import DLibX.DConsole;
+import marioparty.Console;
 
 /**
  *
@@ -17,13 +18,13 @@ public abstract class Minigame {
         this.startTime = System.currentTimeMillis();
     }
 
-    abstract void run();
+    public abstract void run();
 
     public boolean hasTimeoutOccurred() {
         return System.currentTimeMillis() > this.startTime + this.timeout;
     }
 
-    abstract boolean isDone();
+    public abstract boolean isDone();
 
     public MinigameType getType() {
         return this.type;
