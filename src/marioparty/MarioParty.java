@@ -17,7 +17,6 @@ public class MarioParty {
         
         while (true) {
             game.update();
-            game.draw();
             DConsole.pause(20);
         }
     }

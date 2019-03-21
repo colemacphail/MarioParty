@@ -1,6 +1,8 @@
-package marioparty;
+package Tiles;
 
 import DLibX.DConsole;
+import marioparty.Console;
+import ControllerInput.InputAction;
 
 /**
  *
@@ -8,11 +10,11 @@ import DLibX.DConsole;
  */
 public abstract class Tile {
 
-    private final DConsole dc;
-    private InputAction[] possibleDirections;
+    protected final DConsole dc;
+    protected InputAction[] possibleDirections;
     
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
 
     Tile(int x, int y) {
         this.dc = Console.getInstance();
@@ -25,5 +27,6 @@ public abstract class Tile {
         this.dc.fillEllipse(this.x, this.y, 20, 20);
     }
     
+    public abstract void triggerEvent();
     
 }

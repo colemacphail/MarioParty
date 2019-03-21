@@ -1,5 +1,5 @@
 
-package marioparty;
+package marioparty.Minigames;
 
 import java.util.ArrayList;
 import java.util.Random;
