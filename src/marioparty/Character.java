@@ -9,10 +9,10 @@ import DLibX.DConsole;
 public class Character {
 
     public enum CharacterName {
-        LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT, 
+        LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT,
         DONKEY_KONG, MR_L
     }
-    
+
     private final DConsole dc;
     private CharacterName name;
     private int x;
@@ -31,13 +31,21 @@ public class Character {
     public void draw() {
 
     }
-    
+
     public void check() {
         if (this.coins < 0) {
             this.coins = 0;
-        } 
+        }
         if (this.stars < 0) {
             this.stars = 0;
         }
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
     }
 }

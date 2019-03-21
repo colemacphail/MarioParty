@@ -22,7 +22,8 @@ public class Board {
     private final DConsole dc = Console.getInstance();
     private GameState currentGameState;
     private Tile[] tileset;
-    private int numOfPlayers = 0;
+    private final int numOfPlayers = 0;
+    private Character[] characters = new Character[this.numOfPlayers];
     private int playerTurn = 0;
     private Minigame selectedMinigame;
     private int cameraOffsetX = 0;
@@ -36,36 +37,50 @@ public class Board {
 
     }
 
+    private void drawTiles() {
+
+        for (int i = 0; i < tileset.length; i++) {
+            tileset[i].draw();
+        }
+    }
+
     public void update() {
         switch (currentGameState) {
             case INIT:
                 break;
+                
             case BOARD:
+                this.drawTiles();
+                this.setCameraCenterPoint(this.characters[this.playerTurn].getX(), this.characters[this.playerTurn].getY());
                 break;
+                
             case MINIGAME_INIT:
                 this.selectedMinigame.init();
                 this.currentGameState = GameState.MINIGAME;
                 break;
+                
             case MINIGAME:
                 this.selectedMinigame.run();
                 if (this.selectedMinigame.isDone() || this.selectedMinigame.hasTimeoutOccurred()) {
                     this.currentGameState = GameState.BOARD;
                 }
                 break;
+                
             case END:
                 break;
+                
         }
     }
 
     public int getCameraOffsetX() {
         return this.cameraOffsetX;
     }
-    
+
     public int getCameraOffsetY() {
         return this.cameraOffsetY;
     }
-    
-    public void setCameraCenterPoint(int focusX, int focusY){
+
+    public void setCameraCenterPoint(int focusX, int focusY) {
         this.cameraOffsetX = focusX - this.dc.getWidth() / 2;
         this.cameraOffsetY = focusY - this.dc.getHeight() / 2;
     }
