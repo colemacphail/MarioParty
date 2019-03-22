@@ -1,4 +1,4 @@
-package marioparty;
+package marioparty.Items;
 
 public abstract class Item {
 

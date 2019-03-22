@@ -1,5 +1,6 @@
 package marioparty;
 
+import marioparty.Items.Item;
 import DLibX.DConsole;
 
 /**
@@ -20,6 +21,8 @@ public class Character {
     private int coins;
     private int stars;
     private int tilePos;
+    private Item[] item = new Item[4];
+    private boolean itemUsed = false;
 
     public Character(DConsole dc) {
         this.dc = dc;
@@ -30,7 +33,12 @@ public class Character {
     }
 
     public void draw() {
-
+        this.dc.drawImage(this.name.toString() + ".png", x, y);
+    }
+    
+    public void useItem(int itemPosition) {
+        item[itemPosition].TriggerEvent();
+        itemUsed = true;
     }
 
     public void check() {
