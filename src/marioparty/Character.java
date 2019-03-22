@@ -2,6 +2,7 @@ package marioparty;
 
 import marioparty.Items.Item;
 import DLibX.DConsole;
+import java.awt.Color;
 
 /**
  *
@@ -14,7 +15,7 @@ public class Character {
         DONKEY_KONG, MR_L
     }
 
-    private final DConsole dc;
+    private final DConsole dc = Console.getInstance();
     private CharacterName name;
     private int x;
     private int y;
@@ -24,16 +25,18 @@ public class Character {
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
 
-    public Character(DConsole dc) {
-        this.dc = dc;
+    public Character() {
     }
 
     public void move() {
-
+        this.tilePos++;
     }
 
     public void draw() {
-        this.dc.drawImage(this.name.toString() + ".png", x, y);
+//        this.dc.drawImage(this.name.toString() + ".png", x, y);
+        //place holders
+        this.dc.setPaint(Color.BLACK);
+        this.dc.drawRect(this.x, this.y, 40, 40);
     }
     
     public void useItem(int itemPosition) {
@@ -56,5 +59,9 @@ public class Character {
 
     public int getY() {
         return this.y;
+    }
+
+    public void setTilePos(int position) {
+        this.tilePos = position;
     }
 }
