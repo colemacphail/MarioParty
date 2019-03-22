@@ -15,7 +15,7 @@ import marioparty.Console;
  */
 public class Tilesets {
 
-    public static final Tile[] BASIC = new Tile[]{new AddCoinTile(450, 300), new AddCoinTile(400, 300), new AddCoinTile(350, 300), new AddCoinTile(300, 300)};
+    public static final Tile[] BASIC = new Tile[]{new AddCoinTile(450, 300), new AddCoinTile(400, 300), new AddCoinTile(350, 300), new AddCoinTile(300, 300), new SubtractCoinTile(250, 300), new StarTile(250, 250)};
 
     private Tile[] selectedTileset;
     private final DConsole dc = Console.getInstance();
