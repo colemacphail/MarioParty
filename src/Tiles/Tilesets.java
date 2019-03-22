@@ -6,6 +6,8 @@
 package Tiles;
 
 import DLibX.DConsole;
+import java.awt.Color;
+import marioparty.Console;
 
 /**
  *
@@ -13,6 +15,29 @@ import DLibX.DConsole;
  */
 public class Tilesets {
 
-    public static final Tile[] BASIC = new Tile[]{};
+    public static final Tile[] BASIC = new Tile[]{new AddCoinTile(450, 300), new AddCoinTile(400, 300), new AddCoinTile(350, 300), new AddCoinTile(300, 300)};
+
+    private Tile[] selectedTileset;
+    private final DConsole dc = Console.getInstance();
+
+    public Tilesets(Tile[] tileset) {
+        this.selectedTileset = tileset;
+    }
+
+    public void draw() {
+        for (int i = 0; i < this.selectedTileset.length; i++) {
+            this.dc.setPaint(Color.BLACK);
+            if (i < this.selectedTileset.length - 1) {
+                this.dc.drawLine(this.selectedTileset[i].getX(), this.selectedTileset[i].getY(), this.selectedTileset[i + 1].getX(), this.selectedTileset[i + 1].getY());
+            } else {
+                this.dc.drawLine(this.selectedTileset[i].getX(), this.selectedTileset[i].getY(), this.selectedTileset[0].getX(), this.selectedTileset[0].getY());
+            }
+
+        }
+
+        for (int i = 0; i < this.selectedTileset.length; i++) {
+            this.selectedTileset[i].draw();
+        }
+    }
 
 }

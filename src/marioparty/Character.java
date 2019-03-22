@@ -1,6 +1,7 @@
 package marioparty;
 
 import DLibX.DConsole;
+import java.awt.Color;
 
 /**
  *
@@ -13,7 +14,7 @@ public class Character {
         DONKEY_KONG, MR_L
     }
 
-    private final DConsole dc;
+    private final DConsole dc = Console.getInstance();
     private CharacterName name;
     private int x;
     private int y;
@@ -21,16 +22,16 @@ public class Character {
     private int stars;
     private int tilePos;
 
-    public Character(DConsole dc) {
-        this.dc = dc;
+    public Character() {
     }
 
     public void move() {
-
+        this.tilePos++;
     }
 
     public void draw() {
-
+        this.dc.setPaint(Color.BLACK);
+        this.dc.drawRect(this.x, this.y, 40, 40);
     }
 
     public void check() {
@@ -48,5 +49,9 @@ public class Character {
 
     public int getY() {
         return this.y;
+    }
+
+    public void setTilePos(int position) {
+        this.tilePos = position;
     }
 }
