@@ -17,7 +17,7 @@ public class Tilesets {
 
     public static final Tile[] BASIC = new Tile[]{new AddCoinTile(450, 300), new AddCoinTile(400, 300), new AddCoinTile(350, 300), new AddCoinTile(300, 300), new SubtractCoinTile(250, 300), new StarTile(250, 250)};
 
-    private Tile[] selectedTileset;
+    private final Tile[] selectedTileset;
     private final DConsole dc = Console.getInstance();
 
     public Tilesets(Tile[] tileset) {
@@ -38,6 +38,10 @@ public class Tilesets {
         for (int i = 0; i < this.selectedTileset.length; i++) {
             this.selectedTileset[i].draw();
         }
+    }
+
+    public Tile[] getSelectedTileset() {
+        return this.selectedTileset;
     }
 
 }

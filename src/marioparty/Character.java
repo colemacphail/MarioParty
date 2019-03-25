@@ -2,6 +2,7 @@ package marioparty;
 
 import marioparty.Items.Item;
 import DLibX.DConsole;
+import Tiles.Tile;
 import java.awt.Color;
 
 /**
@@ -19,17 +20,24 @@ public class Character {
     private CharacterName name;
     private int x;
     private int y;
-    private int coins;
-    private int stars;
-    private int tilePos;
+    private int coins = 0;
+    private int stars = 0;
+    private int tilePos = 0;
+    private int targetTilePos = 0;
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
 
     public Character() {
+
     }
 
-    public void move() {
-        this.tilePos++;
+    public void move(int deltaX, int deltaY) {
+        this.x += deltaX;
+        this.y += deltaY;
+    }
+
+    public void moveToNextTile(Tile tile) {
+        
     }
 
     public void draw() {
@@ -38,7 +46,7 @@ public class Character {
         this.dc.setPaint(Color.BLACK);
         this.dc.drawRect(this.x, this.y, 40, 40);
     }
-    
+
     public void useItem(int itemPosition) {
         item[itemPosition].TriggerEvent();
         itemUsed = true;
@@ -61,7 +69,23 @@ public class Character {
         return this.y;
     }
 
+    public void setTargetTilePos(int position) {
+        this.targetTilePos = position;
+    }
+
     public void setTilePos(int position) {
         this.tilePos = position;
+    }
+
+    public int getTilePos() {
+        return this.tilePos;
+    }
+
+    public int getTargetTile() {
+        return this.targetTilePos;
+    }
+
+    public boolean isWithinRange(Tile tile) {
+        return this.x > tile.getX() - 3 && this.x < tile.getX() + 3 && this.y > tile.getY() - 3 && this.y < tile.getX() + 3;
     }
 }
