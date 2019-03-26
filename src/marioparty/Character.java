@@ -27,8 +27,9 @@ public class Character {
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
 
-    public Character() {
-
+    public Character(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void move(int deltaX, int deltaY) {
@@ -37,7 +38,29 @@ public class Character {
     }
 
     public void moveToNextTile(Tile tile) {
-        
+        double xChange = 0;
+        double yChange = 0;
+
+        //set angle based on position relative to player
+        double angle;
+        if (tile.getX() == this.x) {
+            angle = Math.atan((tile.getY() - this.y));
+        } else {
+            angle = Math.atan((tile.getY() - this.y) / (tile.getX() - this.x));
+        }
+        //constantly move towards player based on angle
+        if (tile.getX() >= x) {
+            xChange = Math.cos((angle));
+            yChange = Math.sin((angle));
+        } else if (tile.getX() < x) {
+            xChange = -Math.cos((angle));
+            yChange = -Math.sin((angle));
+        }
+
+        System.out.println("xchange: " + xChange);
+        System.out.println("ychange: " + yChange);
+
+        this.move((int) xChange, (int) yChange);
     }
 
     public void draw() {
