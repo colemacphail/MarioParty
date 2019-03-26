@@ -3,9 +3,14 @@ package marioparty;
 import marioparty.Minigames.Minigame;
 import DLibX.DConsole;
 import Tiles.Tilesets;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import static java.awt.SystemColor.menu;
 import java.util.Random;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -48,6 +53,12 @@ public class Board {
 
         System.out.println(this.currentTurnState);
         switch (this.currentGameState) {
+            case MENU:
+               // dc.drawImage("menu.jpg",0,0);
+                //JPanel p = new JPanel();
+                //p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
+                
+                break;
             case INIT:
                 this.tileset = new Tilesets(Tilesets.BASIC);
                 for (int i = 0; i < this.characters.length; i++) {
