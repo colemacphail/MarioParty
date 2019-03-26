@@ -62,7 +62,7 @@ public class Board {
                 for (Character character : this.characters) {
                     character.draw();
                 }
-                this.setCameraCenterPoint(this.characters[this.playerTurn].getX(), this.characters[this.playerTurn].getY());
+//                this.setCameraCenterPoint(this.characters[this.playerTurn].getX(), this.characters[this.playerTurn].getY());
 
                 switch (currentTurnState) {
                     case ROLLING:
@@ -74,15 +74,14 @@ public class Board {
                         break;
 
                     case MOVING:
+                        this.drawCountDownDie();
                         if (this.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[this.characters[playerTurn].getTargetTile()])) {
                             this.characters[playerTurn].setTilePos(this.characters[playerTurn].getTargetTile());
                             this.currentTurnState = TurnState.END;
-                            System.out.println("at last tile");
                         } else {
                             this.characters[playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
                             if (this.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
                                 this.characters[playerTurn].setTilePos((this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length);
-                                System.out.println("moving to next tile");
                             }
                         }
                         break;
@@ -132,6 +131,14 @@ public class Board {
         this.currentRoll = ranGen.nextInt(10) + 1;
         dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
         dc.drawString(this.currentRoll, 450, 135);
+    }
+
+    public void drawCountDownDie() {
+        dc.setPaint(Color.BLACK);
+        dc.drawRect(450, 150, 100, 100);
+        this.currentRoll = ranGen.nextInt(10) + 1;
+        dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
+        dc.drawString((this.characters[this.playerTurn].getTargetTile() - this.characters[this.playerTurn].getTilePos()) % this.tileset.getSelectedTileset().length, 450, 135);
     }
 
 }

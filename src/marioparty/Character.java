@@ -18,8 +18,8 @@ public class Character {
 
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int coins = 0;
     private int stars = 0;
     private int tilePos = 0;
@@ -27,12 +27,12 @@ public class Character {
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
 
-    public Character(int x, int y) {
+    public Character(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public void move(int deltaX, int deltaY) {
+    public void move(double deltaX, double deltaY) {
         this.x += deltaX;
         this.y += deltaY;
     }
@@ -60,7 +60,7 @@ public class Character {
         System.out.println("xchange: " + xChange);
         System.out.println("ychange: " + yChange);
 
-        this.move((int) xChange, (int) yChange);
+        this.move(xChange, yChange);
     }
 
     public void draw() {
@@ -84,11 +84,11 @@ public class Character {
         }
     }
 
-    public int getX() {
+    public double getX() {
         return this.x;
     }
 
-    public int getY() {
+    public double getY() {
         return this.y;
     }
 
@@ -109,6 +109,6 @@ public class Character {
     }
 
     public boolean isWithinRange(Tile tile) {
-        return this.x > tile.getX() - 3 && this.x < tile.getX() + 3 && this.y > tile.getY() - 3 && this.y < tile.getX() + 3;
+        return this.x > tile.getX() - 1 && this.x < tile.getX() + 1 && this.y > tile.getY() - 1 && this.y < tile.getX() + 1;
     }
 }
