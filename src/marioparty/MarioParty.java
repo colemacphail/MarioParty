@@ -22,7 +22,7 @@ public class MarioParty {
             dc.clear();
             game.update();
             dc.redraw();
-            DConsole.pause(40);
+            DConsole.pause(20);
         }
     }
     
