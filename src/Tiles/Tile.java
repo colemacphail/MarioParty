@@ -2,6 +2,7 @@ package Tiles;
 
 import DLibX.DConsole;
 import marioparty.Console;
+import marioparty.Character;
 import ControllerInput.InputAction;
 
 /**
@@ -35,6 +36,6 @@ public abstract class Tile {
         return this.y;
     }
 
-    public abstract void triggerEvent();
+    public abstract void triggerEvent(Character player);
 
 }

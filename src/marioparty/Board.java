@@ -45,10 +45,6 @@ public class Board {
 
     }
 
-    public void draw() {
-
-    }
-
     public void update() {
 
         switch (this.currentGameState) {

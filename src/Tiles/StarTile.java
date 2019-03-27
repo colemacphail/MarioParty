@@ -2,6 +2,7 @@
 package Tiles;
 
 import java.awt.Color;
+import marioparty.Character;
 
 /**
  *
@@ -19,7 +20,7 @@ public class StarTile extends Tile {
     }
 
     @Override
-    public void triggerEvent() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void triggerEvent(Character player) {
+        player.changeStars(1);
     }
 }

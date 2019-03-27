@@ -112,4 +112,12 @@ public class Character {
     public boolean isWithinRange(Tile tile) {
         return this.x > tile.getX() - 1 && this.x < tile.getX() + 1 && this.y > tile.getY() - 1 && this.y < tile.getY() + 1;
     }
+
+    public void changeCoins(int coins) {
+        this.coins += coins;
+    }
+
+    public void changeStars(int stars) {
+        this.stars += stars;
+    }
 }
