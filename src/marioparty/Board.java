@@ -51,13 +51,12 @@ public class Board {
 
     public void update() {
 
-        System.out.println(this.currentTurnState);
         switch (this.currentGameState) {
             case MENU:
-               // dc.drawImage("menu.jpg",0,0);
+                // dc.drawImage("menu.jpg",0,0);
                 //JPanel p = new JPanel();
                 //p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
-                
+
                 break;
             case INIT:
                 this.tileset = new Tilesets(Tilesets.BASIC);

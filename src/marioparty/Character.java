@@ -44,7 +44,11 @@ public class Character {
         //set angle based on position relative to player
         double angle;
         if (tile.getX() == this.x) {
-            angle = Math.atan((tile.getY() - this.y));
+            if (tile.getY() > this.y) {
+                angle = 90;
+            } else {
+                angle = 270;
+            }
         } else {
             angle = Math.atan((tile.getY() - this.y) / (tile.getX() - this.x));
         }
@@ -56,9 +60,6 @@ public class Character {
             xChange = -Math.cos((angle));
             yChange = -Math.sin((angle));
         }
-
-        System.out.println("xchange: " + xChange);
-        System.out.println("ychange: " + yChange);
 
         this.move(xChange, yChange);
     }
@@ -110,5 +111,5 @@ public class Character {
 
     public boolean isWithinRange(Tile tile) {
         return this.x > tile.getX() - 1 && this.x < tile.getX() + 1 && this.y > tile.getY() - 1 && this.y < tile.getX() + 1;
+        }
     }
-}
