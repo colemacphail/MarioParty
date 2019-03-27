@@ -21,6 +21,7 @@ public class GamepadInput {
     public Set<InputAction> actions() {
         ControllerState currState = controllers.getState(this.controllerInUse);
         if (!currState.isConnected) {
+            System.out.println("NOT CONNECTED");
             return Collections.emptySet();
         }
 
@@ -37,6 +38,19 @@ public class GamepadInput {
         if (currState.dpadDown) {
             actions.add(InputAction.MOVE_DOWN);
         }
+        if (currState.a) {
+            actions.add(InputAction.A);
+        }
+        if (currState.b) {
+            actions.add(InputAction.B);
+        }
+        if (currState.x) {
+            actions.add(InputAction.X);
+        }
+        if (currState.y) {
+            actions.add(InputAction.Y);
+        }
+
         return actions;
     }
 }

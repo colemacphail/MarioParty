@@ -1,5 +1,6 @@
 package marioparty;
 
+import ControllerInput.GamepadInput;
 import marioparty.Minigames.Minigame;
 import DLibX.DConsole;
 import Tiles.Tilesets;
@@ -9,6 +10,7 @@ import java.awt.Component;
 import java.awt.Font;
 import static java.awt.SystemColor.menu;
 import java.util.Random;
+import java.util.Set;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import marioparty.Minigames.MinigameBuilder;
@@ -19,16 +21,16 @@ import marioparty.Minigames.MinigameType;
  * @author Cole
  */
 public class Board {
-    
+
     private static Board instance;
-    
+
     public static Board getInstance() {
         if (instance == null) {
             instance = new Board();
         }
         return instance;
     }
-    
+
     private final DConsole dc = Console.getInstance();
     private GameState currentGameState;
     private TurnState currentTurnState;
@@ -41,15 +43,20 @@ public class Board {
     private int cameraOffsetY = 0;
     private final Random ranGen = new Random();
     private int currentRoll = 0;
-    private MinigameBuilder minigameBuilder = new MinigameBuilder();
-    
+    private final MinigameBuilder minigameBuilder = new MinigameBuilder();
+    private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
+
     private Board() {
         this.currentGameState = GameState.INIT;
-        
+
+        for (int i = 0; i < this.playerInputs.length; i++) {
+            this.playerInputs[i] = new GamepadInput(i);
+        }
+
     }
-    
+
     public void update() {
-        
+
         switch (this.currentGameState) {
             case MENU:
                 // dc.drawImage("menu.jpg",0,0);
@@ -65,7 +72,7 @@ public class Board {
                 this.currentGameState = GameState.BOARD;
                 this.currentTurnState = TurnState.ROLLING;
                 break;
-            
+
             case BOARD:
                 this.tileset.draw();
                 for (Character character : this.characters) {
@@ -81,7 +88,7 @@ public class Board {
                             this.characters[playerTurn].setTargetTilePos((this.characters[playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
                         }
                         break;
-                    
+
                     case MOVING:
                         this.drawCountDownDie();
                         if (this.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[this.characters[playerTurn].getTargetTile()])
@@ -97,7 +104,7 @@ public class Board {
                             }
                         }
                         break;
-                    
+
                     case END:
                         this.tileset.getSelectedTileset()[this.characters[this.playerTurn].getTargetTile()].triggerEvent(this.characters[this.playerTurn]);
                         this.currentTurnState = TurnState.ROLLING;
@@ -106,43 +113,43 @@ public class Board {
                             this.currentGameState = GameState.MINIGAME_INIT;
                         }
                         break;
-                    
+
                 }
                 break;
-            
+
             case MINIGAME_INIT:
                 this.selectedMinigame
-                        = this.minigameBuilder.chooseMinigame(new MinigameType[]{MinigameType.FFA});                
+                        = this.minigameBuilder.chooseMinigame(new MinigameType[]{MinigameType.FFA});
                 this.selectedMinigame.init();
                 this.currentGameState = GameState.MINIGAME;
                 break;
-            
+
             case MINIGAME:
                 this.selectedMinigame.run();
                 if (this.selectedMinigame.isDone() || this.selectedMinigame.hasTimeoutOccurred()) {
                     this.currentGameState = GameState.BOARD;
                 }
                 break;
-            
+
             case END:
                 break;
-            
+
         }
     }
-    
+
     public int getCameraOffsetX() {
         return this.cameraOffsetX;
     }
-    
+
     public int getCameraOffsetY() {
         return this.cameraOffsetY;
     }
-    
+
     public void setCameraCenterPoint(int focusX, int focusY) {
         this.cameraOffsetX = focusX - this.dc.getWidth() / 2;
         this.cameraOffsetY = focusY - this.dc.getHeight() / 2;
     }
-    
+
     public void drawRollingDie() {
         dc.setPaint(Color.BLACK);
         dc.drawRect(450, 150, 100, 100);
@@ -150,12 +157,12 @@ public class Board {
         dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
         dc.drawString(this.currentRoll, 450, 135);
     }
-    
+
     public void drawCountDownDie() {
         dc.setPaint(Color.BLACK);
         dc.drawRect(450, 150, 100, 100);
         dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
         dc.drawString(this.currentRoll, 450, 135);
     }
-    
+
 }
