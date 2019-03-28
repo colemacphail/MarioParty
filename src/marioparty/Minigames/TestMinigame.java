@@ -9,14 +9,13 @@ import marioparty.Console;
  */
 public class TestMinigame extends Minigame {
 
-    public TestMinigame(MinigameType type) {
-        super(type);
+    public TestMinigame() {
+        super(MinigameType.FFA, 15000);
     }
 
     @Override
     public void init() {
         this.startTime = System.currentTimeMillis();
-        this.timeout = 15000;
     }
 
     @Override

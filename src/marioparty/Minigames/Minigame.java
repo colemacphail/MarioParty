@@ -14,8 +14,9 @@ public abstract class Minigame {
     protected long timeout;
     private final MinigameType type;
 
-    public Minigame(MinigameType type) {
+    public Minigame(MinigameType type, long timeout) {
         this.type = type;
+        this.timeout = timeout;
     }
 
     public abstract void init();

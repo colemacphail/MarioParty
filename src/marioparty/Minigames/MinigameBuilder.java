@@ -15,7 +15,7 @@ public class MinigameBuilder {
     public MinigameBuilder() {
         // add all created minigames here
         // i.e. this.minigames.add(new FunGame());
-        minigames.add(new TestMinigame(MinigameType.FFA));
+        minigames.add(new TestMinigame());
     }
 
     //takes in an array of valid types and spits out a minigame that matches one of the types
