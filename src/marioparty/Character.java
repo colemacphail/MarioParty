@@ -18,6 +18,7 @@ public class Character {
 
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
+    private int playerNum;
     private double x;
     private double y;
     private int coins = 0;
