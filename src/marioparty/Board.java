@@ -25,10 +25,10 @@ public class Board {
     private static Board instance;
 
     public static Board getInstance() {
-        if (instance == null) {
-            instance = new Board();
+        if (Board.instance == null) {
+            Board.instance = new Board();
         }
-        return instance;
+        return Board.instance;
     }
 
     private final DConsole dc = Console.getInstance();
@@ -43,7 +43,7 @@ public class Board {
     private int cameraOffsetY = 0;
     private final Random ranGen = new Random();
     private int currentRoll = 0;
-    private final MinigameBuilder minigameBuilder = new MinigameBuilder();
+    private final MinigameBuilder minigameBuilder = MinigameBuilder.getInstance();
     private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
 
     private Board() {
@@ -78,7 +78,6 @@ public class Board {
                 for (Character character : this.characters) {
                     character.draw();
                 }
-//                this.setCameraCenterPoint(this.characters[this.playerTurn].getX(), this.characters[this.playerTurn].getY());
 
                 switch (currentTurnState) {
                     case ROLLING:
@@ -151,18 +150,18 @@ public class Board {
     }
 
     public void drawRollingDie() {
-        dc.setPaint(Color.BLACK);
-        dc.drawRect(450, 150, 100, 100);
+        this.dc.setPaint(Color.BLACK);
+        this.dc.drawRect(450, 150, 100, 100);
         this.currentRoll = ranGen.nextInt(10) + 1;
-        dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
-        dc.drawString(this.currentRoll, 450, 135);
+        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
+        this.dc.drawString(this.currentRoll, 450, 135);
     }
 
     public void drawCountDownDie() {
-        dc.setPaint(Color.BLACK);
-        dc.drawRect(450, 150, 100, 100);
-        dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
-        dc.drawString(this.currentRoll, 450, 135);
+        this.dc.setPaint(Color.BLACK);
+        this.dc.drawRect(450, 150, 100, 100);
+        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
+        this.dc.drawString(this.currentRoll, 450, 135);
     }
 
 }

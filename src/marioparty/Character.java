@@ -73,8 +73,8 @@ public class Character {
     }
 
     public void useItem(int itemPosition) {
-        item[itemPosition].TriggerEvent();
-        itemUsed = true;
+        this.item[itemPosition].TriggerEvent();
+        this.itemUsed = true;
     }
 
     public void check() {

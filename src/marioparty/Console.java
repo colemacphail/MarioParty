@@ -16,10 +16,10 @@ public class Console {
     private static DConsole instance = null;
 
     public static DConsole getInstance() {
-        if (instance == null) {
-            instance = new DConsole();
+        if (Console.instance == null) {
+            Console.instance = new DConsole();
         }
 
-        return instance;
+        return Console.instance;
     }
 }

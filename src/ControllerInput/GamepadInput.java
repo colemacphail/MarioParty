@@ -14,12 +14,12 @@ public class GamepadInput {
 
     public GamepadInput(int controller) {
         this.controllerInUse = controller;
-        controllers = new ControllerManager();
-        controllers.initSDLGamepad();
+        this.controllers = new ControllerManager();
+        this.controllers.initSDLGamepad();
     }
 
     public Set<InputAction> actions() {
-        ControllerState currState = controllers.getState(this.controllerInUse);
+        ControllerState currState = this.controllers.getState(this.controllerInUse);
         if (!currState.isConnected) {
             System.out.println("NOT CONNECTED");
             return Collections.emptySet();

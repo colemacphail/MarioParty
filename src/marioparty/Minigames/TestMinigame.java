@@ -20,7 +20,7 @@ public class TestMinigame extends Minigame {
 
     @Override
     public void run() {
-        dc.drawString("Press space", 450, 300);
+        this.dc.drawString("Press space", 450, 300);
     }
 
     @Override

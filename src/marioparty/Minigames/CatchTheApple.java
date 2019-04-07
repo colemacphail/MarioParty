@@ -20,45 +20,47 @@ class Apple {
         this.fallspeed = 5;
         this.radius = 5;
         this.x = rg.nextInt(900);
-        this.y = rg.nextInt(300)- 300;
+        this.y = rg.nextInt(300) - 300;
         this.color = Color.RED;
     }
-    
-    public int getX(){
-    return this.x;
+
+    public int getX() {
+        return this.x;
     }
-    
-    public int getY(){
-    return this.y;
+
+    public int getY() {
+        return this.y;
     }
-    public int getRad(){
-    return this.radius;
+
+    public int getRad() {
+        return this.radius;
     }
-    
+
 }
 
-class Net{
+class Net {
+
     private int x;
     private int y;
     private int width;
     private int height;
     private Color color;
     private int movespeed;
-   
-    
-    public Net(){
-    this.x = 50;
-    this.y = 20;
-    this.width = 30;
-    this.height = 10;
-    this.color = new Color(110,60,10);
-    this.movespeed = 4;
+
+    public Net() {
+        this.x = 50;
+        this.y = 20;
+        this.width = 30;
+        this.height = 10;
+        this.color = new Color(110, 60, 10);
+        this.movespeed = 4;
     }
 }
 
 public class CatchTheApple extends Minigame {
 
     private Apple[] apples = new Apple[12];
+
     public CatchTheApple() {
         super(MinigameType.FFA, 15000);
     }
@@ -66,10 +68,9 @@ public class CatchTheApple extends Minigame {
     @Override
     public void init() {
         this.startTime = System.currentTimeMillis();
-        for (int i = 0; i < apples.length; i++){
-        apples[i] = new Apple();
+        for (int i = 0; i < this.apples.length; i++) {
+            this.apples[i] = new Apple();
         }
-        
 
     }
 
@@ -77,8 +78,8 @@ public class CatchTheApple extends Minigame {
     public void run() {
 
         if (!isDone()) {
-            for (int i = 0; i< apples.length; i++){
-            dc.fillEllipse(apples[i].getX(), apples[i].getY(), apples[i].getRad(), apples[i].getRad());
+            for (int i = 0; i < this.apples.length; i++) {
+                this.dc.fillEllipse(this.apples[i].getX(), this.apples[i].getY(), this.apples[i].getRad(), this.apples[i].getRad());
             }
         }
     }
