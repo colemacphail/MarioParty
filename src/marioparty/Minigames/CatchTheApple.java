@@ -18,7 +18,7 @@ class Apple {
 
     public Apple() {
         this.fallspeed = 5;
-        this.radius = 5;
+        this.radius = 10;
         this.x = rg.nextInt(900);
         this.y = rg.nextInt(300) - 300;
         this.color = Color.RED;
@@ -34,6 +34,14 @@ class Apple {
 
     public int getRad() {
         return this.radius;
+    }
+    
+    public int getFallspeed(){
+        return this.fallspeed;
+        }
+    
+    public void setY(int a){
+    this.y = this.y + a;
     }
 
 }
@@ -60,6 +68,7 @@ class Net {
 public class CatchTheApple extends Minigame {
 
     private Apple[] apples = new Apple[12];
+    private Net[] nets = new Net[]
 
     public CatchTheApple() {
         super(MinigameType.FFA, 15000);
@@ -79,8 +88,11 @@ public class CatchTheApple extends Minigame {
 
         if (!isDone()) {
             for (int i = 0; i < this.apples.length; i++) {
+                apples[i].setY(apples[i].getFallspeed());
                 this.dc.fillEllipse(this.apples[i].getX(), this.apples[i].getY(), this.apples[i].getRad(), this.apples[i].getRad());
+                
             }
+        
         }
     }
 
