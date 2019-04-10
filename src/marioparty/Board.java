@@ -43,7 +43,7 @@ public class Board {
     private int cameraOffsetY = 0;
     private final Random ranGen = new Random();
     private int currentRoll = 0;
-    private final MinigameBuilder minigameBuilder = MinigameBuilder.getInstance();
+    private MinigameBuilder minigameBuilder;
     private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
 
     private Board() {
@@ -65,6 +65,7 @@ public class Board {
 
                 break;
             case INIT:
+                this.minigameBuilder = MinigameBuilder.getInstance();
                 this.tileset = new Tilesets(Tilesets.BASIC);
                 for (int i = 0; i < this.characters.length; i++) {
                     this.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY());
@@ -142,6 +143,10 @@ public class Board {
 
     public int getCameraOffsetY() {
         return this.cameraOffsetY;
+    }
+
+    public int getNumOfPlayers() {
+        return this.numOfPlayers;
     }
 
     public void setCameraCenterPoint(int focusX, int focusY) {

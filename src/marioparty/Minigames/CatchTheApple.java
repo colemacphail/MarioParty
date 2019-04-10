@@ -2,6 +2,7 @@ package marioparty.Minigames;
 
 import java.awt.Color;
 import java.util.Random;
+import marioparty.Board;
 
 /**
  *
@@ -63,12 +64,31 @@ class Net {
         this.color = new Color(110, 60, 10);
         this.movespeed = 4;
     }
+    
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+    public int getSpeed(){
+    return this.movespeed;
+    }
 }
 
 public class CatchTheApple extends Minigame {
 
+    private Board board = Board.getInstance();
     private Apple[] apples = new Apple[12];
-    private Net[] nets = new Net[]
+    private Net[] nets = new Net[board.getNumOfPlayers()];
 
     public CatchTheApple() {
         super(MinigameType.FFA, 15000);
@@ -79,6 +99,9 @@ public class CatchTheApple extends Minigame {
         this.startTime = System.currentTimeMillis();
         for (int i = 0; i < this.apples.length; i++) {
             this.apples[i] = new Apple();
+        }
+        for (int i = 0; i < nets.length; i ++ ){
+            this.nets[i] = new Net();
         }
 
     }
@@ -91,6 +114,9 @@ public class CatchTheApple extends Minigame {
                 apples[i].setY(apples[i].getFallspeed());
                 this.dc.fillEllipse(this.apples[i].getX(), this.apples[i].getY(), this.apples[i].getRad(), this.apples[i].getRad());
                 
+            }
+            for (int i = 0; i < nets.length; i ++ ){
+            this.dc.fillRect(this.nets[i].getX(), nets[i].getY(), nets[i].getWidth(), nets[i].getHeight());
             }
         
         }
