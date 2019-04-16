@@ -44,14 +44,9 @@ public class Board {
     private final Random ranGen = new Random();
     private int currentRoll = 0;
     private final MinigameBuilder minigameBuilder = MinigameBuilder.getInstance();
-    private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
 
     private Board() {
         this.currentGameState = GameState.INIT;
-
-        for (int i = 0; i < this.playerInputs.length; i++) {
-            this.playerInputs[i] = new GamepadInput(i);
-        }
 
     }
 
@@ -134,7 +129,7 @@ public class Board {
                 break;
 
         }
-    }
+    }        
 
     public int getCameraOffsetX() {
         return this.cameraOffsetX;

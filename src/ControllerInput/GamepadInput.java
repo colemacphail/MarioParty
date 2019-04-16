@@ -9,8 +9,8 @@ import java.util.Set;
 public class GamepadInput {
 
     private final ControllerManager controllers;
-
     private int controllerInUse = 0;
+
 
     public GamepadInput(int controller) {
         this.controllerInUse = controller;
@@ -50,7 +50,12 @@ public class GamepadInput {
         if (currState.y) {
             actions.add(InputAction.Y);
         }
-
+        if (currState.lb) {
+            actions.add(InputAction.L);
+        }
+        if (currState.rb) {
+            actions.add(InputAction.R);
+        }
         return actions;
     }
 }
