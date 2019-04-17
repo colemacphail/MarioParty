@@ -46,7 +46,7 @@ class Apple {
     }
 
 }
- 
+
 class Net {
 
     private int x;
@@ -85,19 +85,20 @@ class Net {
         return this.movespeed;
     }
 
-    public void setX(int a) {
-        this.x += a;
+    public void changeX(int x) {
+        this.x += x;
     }
-    
-    public boolean hitbox(){
-    //TODO
-    return true;
+
+    public boolean hitbox() {
+        //TODO
+        return true;
+    }
 }
 
 public class CatchTheApple extends Minigame {
 
     private Board board = Board.getInstance();
-   private Apple[] apples = new Apple[12];
+    private Apple[] apples = new Apple[12];
     private Net[] nets = new Net[board.getNumOfPlayers()];
 
     public CatchTheApple() {
@@ -120,26 +121,26 @@ public class CatchTheApple extends Minigame {
     public void run() {
 
         if (!isDone()) {
-            for (int i = 0; i < this.apples.length; i++) {
+            for (int i = 0; i < this.apples.length; i++) { // make apples fall
                 apples[i].setY(apples[i].getFallspeed());
                 this.dc.fillEllipse(this.apples[i].getX(), this.apples[i].getY(), this.apples[i].getRad(), this.apples[i].getRad());
 
             }
 
-            for (int i = 0; i < nets.length; i++) {
+            for (int i = 0; i < nets.length; i++) { //move around
                 if (this.dc.isKeyPressed(68)) {
-                    nets[i].setX(nets[i].getSpeed());
+                    nets[i].changeX(nets[i].getSpeed());
                 } else if (this.dc.isKeyPressed(65)) {
-                    nets[i].setX(-(nets[i].getSpeed()));
+                    nets[i].changeX(-(nets[i].getSpeed()));
                 }
-                this.dc.fillRect(this.nets[i].getX(), nets[i].getY(), nets[i].getWidth(), nets[i].getHeight());
+                this.dc.fillRect(this.nets[i].getX(), nets[i].getY(), nets[i].getWidth(), nets[i].getHeight()); //draw nets
             }
 
         }
     }
 
     @Override
-    public boolean isDone() {
+    public boolean isDone() {//TODO: have actual finishing condition
         return this.dc.isKeyPressed(' ');
     }
 }
