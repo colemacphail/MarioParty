@@ -35,7 +35,7 @@ public class Board {
     private GameState currentGameState;
     private TurnState currentTurnState;
     private Tilesets tileset;
-    private final int numOfPlayers = 1;
+    private final int numOfPlayers = 2;
     private final Character[] characters = new Character[this.numOfPlayers];
     private int playerTurn = 0;
     private Minigame selectedMinigame;
