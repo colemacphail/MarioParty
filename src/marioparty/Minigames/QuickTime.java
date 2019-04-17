@@ -36,13 +36,17 @@ class Button {
 
 public class QuickTime extends Minigame {
 
+    private Button[] buttonList = new Button[15];
+
     public QuickTime(MinigameType type, long timeout) {
         super(type, timeout);
     }
 
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (int i = 0; i < buttonList.length; i++) {
+            buttonList = new Button[i];
+        }
     }
 
     @Override
