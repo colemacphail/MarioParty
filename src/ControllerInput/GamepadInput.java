@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GamepadInput {
+    //VARIABLES
     private final ControllerManager controllers;
 
     private int controllerInUse = 0;
