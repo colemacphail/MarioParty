@@ -51,7 +51,7 @@ class Apple {
 }
 
 class Net {
-    
+
     //VARIABLES
     private int x;
     private int y;
@@ -59,7 +59,7 @@ class Net {
     private int height;
     private Color color;
     private int movespeed;
-    
+
     //INIT
     public Net() {
         this.x = 50;
@@ -69,7 +69,7 @@ class Net {
         this.color = new Color(110, 60, 10);
         this.movespeed = 6;
     }
-    
+
     //METHODS
     public int getX() {
         return this.x;
@@ -99,59 +99,59 @@ class Net {
         //TODO
         return true;
     }
+}
 
-    public class CatchTheApple extends Minigame {
-        
-        //INIT
-        private Board board = Board.getInstance();
-        private Apple[] apples = new Apple[12];
-        private Net[] nets = new Net[board.getNumOfPlayers()];
-        
-        //SET TYPE
-        public CatchTheApple() {
-            super(MinigameType.FFA, 15000);
+public class CatchTheApple extends Minigame {
+
+    //INIT
+    private Board board = Board.getInstance();
+    private Apple[] apples = new Apple[12];
+    private Net[] nets = new Net[board.getNumOfPlayers()];
+
+    //SET TYPE
+    public CatchTheApple() {
+        super(MinigameType.FFA, 15000);
+    }
+
+    //SETUP
+    @Override
+    public void init() {
+        this.startTime = System.currentTimeMillis();
+        for (int i = 0; i < this.apples.length; i++) {
+            this.apples[i] = new Apple();
+        }
+        for (int i = 0; i < nets.length; i++) {
+            this.nets[i] = new Net();
         }
 
-        //SETUP
-        @Override
-        public void init() {
-            this.startTime = System.currentTimeMillis();
+    }
+
+    //UPDATE CYCLE
+    @Override
+    public void run() {
+
+        if (!isDone()) {
             for (int i = 0; i < this.apples.length; i++) {
-                this.apples[i] = new Apple();
+                apples[i].setY(apples[i].getFallspeed());
+                this.dc.fillEllipse(this.apples[i].getX(), this.apples[i].getY(), this.apples[i].getRad(), this.apples[i].getRad());
+
             }
+
             for (int i = 0; i < nets.length; i++) {
-                this.nets[i] = new Net();
+                if (this.dc.isKeyPressed(68)) {
+                    nets[i].setX(nets[i].getSpeed());
+                } else if (this.dc.isKeyPressed(65)) {
+                    nets[i].setX(-(nets[i].getSpeed()));
+                }
+                this.dc.fillRect(this.nets[i].getX(), nets[i].getY(), nets[i].getWidth(), nets[i].getHeight());
             }
 
         }
-        
-        //UPDATE CYCLE
-        @Override
-        public void run() {
+    }
 
-            if (!isDone()) {
-                for (int i = 0; i < this.apples.length; i++) {
-                    apples[i].setY(apples[i].getFallspeed());
-                    this.dc.fillEllipse(this.apples[i].getX(), this.apples[i].getY(), this.apples[i].getRad(), this.apples[i].getRad());
-
-                }
-
-                for (int i = 0; i < nets.length; i++) {
-                    if (this.dc.isKeyPressed(68)) {
-                        nets[i].setX(nets[i].getSpeed());
-                    } else if (this.dc.isKeyPressed(65)) {
-                        nets[i].setX(-(nets[i].getSpeed()));
-                    }
-                    this.dc.fillRect(this.nets[i].getX(), nets[i].getY(), nets[i].getWidth(), nets[i].getHeight());
-                }
-
-            }
-        }
-        
-        //END CLAUSE
-        @Override
-        public boolean isDone() {
-            return this.dc.isKeyPressed(' ');
-        }
+    //END CLAUSE
+    @Override
+    public boolean isDone() {
+        return this.dc.isKeyPressed(' ');
     }
 }
