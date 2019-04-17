@@ -10,3 +10,4 @@ public abstract class Item {
     
     public abstract void TriggerEvent();
 }
+//SO FAR ITS JUST A STRUCTURE

@@ -7,17 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GamepadInput {
-
+    //VARIABLES
     private final ControllerManager controllers;
     private int controllerInUse = 0;
-
-
+    
+    //CONSTRUCTORS
     public GamepadInput(int controller) {
         this.controllerInUse = controller;
         this.controllers = new ControllerManager();
         this.controllers.initSDLGamepad();
     }
 
+    
+    //INPUTS
     public Set<InputAction> actions() {
         ControllerState currState = this.controllers.getState(this.controllerInUse);
         if (!currState.isConnected) {
