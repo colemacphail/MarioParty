@@ -15,7 +15,7 @@ public class Character {
         LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT,
         DONKEY_KONG, MR_L
     }
-
+    //VARIABLES
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
     private int playerNum;
@@ -27,12 +27,15 @@ public class Character {
     private int targetTilePos = 0;
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
-
+    
+    //CONSTRUCTOR
     public Character(double x, double y) {
         this.x = x;
         this.y = y;
     }
-
+    
+    
+    //METHODS
     public void move(double deltaX, double deltaY) {
         this.x += deltaX;
         this.y += deltaY;

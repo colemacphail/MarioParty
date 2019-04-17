@@ -30,7 +30,7 @@ public class Board {
         }
         return Board.instance;
     }
-
+    //VARIABLES
     private final DConsole dc = Console.getInstance();
     private GameState currentGameState;
     private TurnState currentTurnState;
@@ -46,6 +46,7 @@ public class Board {
     private MinigameBuilder minigameBuilder;
     private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
 
+    //INITIALIZER
     private Board() {
         this.currentGameState = GameState.INIT;
 
@@ -56,7 +57,7 @@ public class Board {
     }
 
     public void update() {
-
+        //TURN STATES
         switch (this.currentGameState) {
             case MENU: //TODO: make an actual menu
                 // dc.drawImage("menu.jpg",0,0);
@@ -140,6 +141,7 @@ public class Board {
         }
     }
 
+    //METHODS
     public int getCameraOffsetX() {
         return this.cameraOffsetX;
     }

@@ -9,16 +9,19 @@ import marioparty.Console;
  */
 public abstract class Minigame {
 
+    //VARIABLES
     protected final DConsole dc = Console.getInstance();
     protected long startTime;
     protected long timeout;
     private final MinigameType type;
 
+    //CONSTRUCTOR
     public Minigame(MinigameType type, long timeout) { // all minigames must have a type and timeout
         this.type = type;
         this.timeout = timeout;
     }
 
+    //METHODS
     public abstract void init();
 
     public abstract void run();
