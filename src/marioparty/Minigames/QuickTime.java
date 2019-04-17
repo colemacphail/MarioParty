@@ -5,6 +5,8 @@
  */
 package marioparty.Minigames;
 
+import ControllerInput.Controllers;
+import ControllerInput.GamepadInput;
 import ControllerInput.InputAction;
 import java.util.Random;
 
@@ -12,14 +14,23 @@ import java.util.Random;
  *
  * @author arnav
  */
+// People will have to press teh sequence of buttons first.
 class Button {
 
     private final Random rand = new Random();
     private InputAction buttonType;
+    private Controllers controller;
 
     public Button() {
-        int i = rand.nextInt(6) + 5;
-        buttonType = InputAction.values()[i];
+        controller = Controllers.getInstance();
+        buttonType = InputAction.values()[rand.nextInt(6) + 5];
+    }
+
+    public boolean isPressed() {
+        for (GamepadInput playerInput : controller.getPlayerInput()) {
+            return playerInput.actions().size() == 1 && playerInput.actions().contains(buttonType);
+        }
+        return false;
     }
 }
 
