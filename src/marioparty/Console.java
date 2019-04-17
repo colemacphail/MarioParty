@@ -14,7 +14,8 @@ import DLibX.DConsole;
 public class Console {
 
     private static DConsole instance = null;
-
+    
+    //IF CONSOLE EXISTS, DONT MAKE, ELSE MAKE
     public static DConsole getInstance() {
         if (Console.instance == null) {
             Console.instance = new DConsole();

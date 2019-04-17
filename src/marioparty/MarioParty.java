@@ -13,12 +13,13 @@ public class MarioParty {
      */
     public static void main(String[] args) {
         
+        //INITIALIZATION
         Board game = Board.getInstance();
         DConsole dc = Console.getInstance();
-        
         dc.setOrigin(DConsole.ORIGIN_CENTER);
         
         while (true) {
+            //UPDATES
             dc.clear();
             game.update();
             dc.redraw();

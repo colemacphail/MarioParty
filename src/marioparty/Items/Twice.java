@@ -9,6 +9,8 @@ package marioparty.Items;
  *
  * @author arnav
  */
+
+//STRUCTURE FOR A CANDY
 public class Twice extends Item {
 
     @Override
