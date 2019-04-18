@@ -27,6 +27,7 @@ public class MinigameBuilder {
         // i.e. this.minigames.add(new FunGame());
         this.minigames.add(new TestMinigame());
         this.minigames.add(new CatchTheApple());
+        this.minigames.add(new ShootEmUp());
     }
 
     //takes in an array of valid types and spits out a minigame that matches one of the types
