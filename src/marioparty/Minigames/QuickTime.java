@@ -9,6 +9,7 @@ import ControllerInput.Controllers;
 import ControllerInput.GamepadInput;
 import ControllerInput.InputAction;
 import java.util.Random;
+import marioparty.Board;
 
 /**
  *
@@ -27,8 +28,8 @@ class Button {
     }
 
     public boolean isPressed() {
-        for (GamepadInput playerInput : controller.getPlayerInput()) {
-            return playerInput.actions().size() == 1 && playerInput.actions().contains(buttonType);
+        for (int i = 0; i < Board.getInstance().getNumOfPlayers(); i++){
+            return controller.getControllerInput(i).actions().size() == 1 && controller.getControllerInput(i).actions().contains(buttonType);
         }
         return false;
     }

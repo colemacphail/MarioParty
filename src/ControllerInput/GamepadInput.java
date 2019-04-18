@@ -31,11 +31,9 @@ public class GamepadInput {
         //Get what buttons are being pressed, then add them to the set
         if (currState.dpadLeft) {
             actions.add(InputAction.MOVE_LEFT);
-            System.out.println("LEFT");
         }
         if (currState.dpadRight) {
             actions.add(InputAction.MOVE_RIGHT);
-            System.out.println("right");
         }
         if (currState.dpadUp) {
             actions.add(InputAction.MOVE_UP);
@@ -45,7 +43,6 @@ public class GamepadInput {
         }
         if (currState.a) {
             actions.add(InputAction.A);
-            System.out.println("a");
         }
         if (currState.b) {
             actions.add(InputAction.B);

@@ -30,6 +30,10 @@ public abstract class Minigame {
         return System.currentTimeMillis() > this.startTime + this.timeout;
     }
 
+    /**
+     *
+     * @return -1 if not done, otherwise return winning player(s)
+     */
     public abstract int isDone();
 
     public MinigameType getType() {

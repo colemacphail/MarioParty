@@ -44,16 +44,10 @@ public class Board {
     private final Random ranGen = new Random();
     private int currentRoll = 0;
     private MinigameBuilder minigameBuilder;
-    private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
 
     //INITIALIZER
     private Board() {
         this.currentGameState = GameState.INIT;
-
-        for (int i = 0; i < this.playerInputs.length; i++) { // create all controllers
-            this.playerInputs[i] = new GamepadInput(i);
-        }
-
     }
 
     public void update() {
@@ -175,12 +169,5 @@ public class Board {
         this.dc.drawString(this.currentRoll, 450, 135);
     }
 
-    public GamepadInput getControllerInput(int n) {
-        try {
-            return this.playerInputs[n];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("not a valid controller!");
-            return this.playerInputs[0];
-        }
-    }
+    
 }

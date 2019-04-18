@@ -5,30 +5,36 @@
  */
 package ControllerInput;
 
+import marioparty.Board;
+
 /**
  *
  * @author arnav
  */
 public class Controllers {
-    
+
     private static Controllers instance;
-    private final int numOfPlayers = 1;
-    private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
-    
+    private final GamepadInput[] playerInputs = new GamepadInput[Board.getInstance().getNumOfPlayers()];
+
     public static Controllers getInstance() {
         if (Controllers.instance == null) {
             Controllers.instance = new Controllers();
         }
         return Controllers.instance;
     }
-    
-    public Controllers () {
+
+    public Controllers() {
         for (int i = 0; i < this.playerInputs.length; i++) {
             this.playerInputs[i] = new GamepadInput(i);
         }
     }
-        
-    public GamepadInput[] getPlayerInput() {
-        return playerInputs;
+
+    public GamepadInput getControllerInput(int n) {
+        try {
+            return this.playerInputs[n];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Not a valid controller!");
+            return this.playerInputs[0];
+        }
     }
 }
