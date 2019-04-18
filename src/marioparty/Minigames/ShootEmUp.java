@@ -9,7 +9,7 @@ package marioparty.Minigames;
  *
  * @author Jacob
  */
-public class ShootEmUp extends Minigame{
+public class ShootEmUp extends Minigame {
 
     public ShootEmUp() {
         super(MinigameType.FFA, 15000);
@@ -17,7 +17,7 @@ public class ShootEmUp extends Minigame{
 
     @Override
     public void init() {
-       this.startTime = System.currentTimeMillis();
+        this.startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -26,8 +26,10 @@ public class ShootEmUp extends Minigame{
     }
 
     @Override
-    public boolean isDone() {
-        return this.timeout == 0;
+    public int isDone() {//TODO: have actual finishing condition
+        if (this.dc.isKeyPressed(' ')) {
+            return 1;
+        }
+        return -1;
     }
-    
 }

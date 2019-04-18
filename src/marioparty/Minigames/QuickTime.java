@@ -51,8 +51,10 @@ public class QuickTime extends Minigame {
     }
 
     @Override
-    public boolean isDone() {
-        return false;
+    public int isDone() {//TODO: have actual finishing condition
+        if (this.dc.isKeyPressed(' ')) {
+            return 1;
+        }
+        return -1;
     }
-
 }

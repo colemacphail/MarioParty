@@ -21,8 +21,11 @@ public class Masher extends Minigame {
     }
 
     @Override
-    public boolean isDone() {
-        return System.currentTimeMillis() > this.startTime + this.timeout;
+    public int isDone() {//TODO: have actual finishing condition
+        if (this.dc.isKeyPressed(' ')) {
+            return 1;
+        }
+        return -1;
     }
 
 }

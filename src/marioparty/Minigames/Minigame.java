@@ -30,7 +30,7 @@ public abstract class Minigame {
         return System.currentTimeMillis() > this.startTime + this.timeout;
     }
 
-    public abstract boolean isDone();
+    public abstract int isDone();
 
     public MinigameType getType() {
         return this.type;
