@@ -109,7 +109,7 @@ public class CatchTheApple extends Minigame {
 
     //SET TYPE
     public CatchTheApple() {
-        super(MinigameType.FFA, 15000);
+        super(MinigameType.FFA, 5000);
     }
 
     //SETUP
@@ -150,7 +150,9 @@ public class CatchTheApple extends Minigame {
 
     //END CLAUSE
     @Override
+
     public boolean isDone() {//TODO: have actual finishing condition
         return this.dc.isKeyPressed(' ');
+
     }
 }
