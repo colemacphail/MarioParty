@@ -5,19 +5,44 @@
  */
 package marioparty.Minigames;
 
+import java.awt.Color;
+import java.util.Random;
+
 /**
  *
  * @author Jacob
  */
+class Target {
+
+    private int x;
+    private int y;
+    private int diameter;
+    private boolean visible;
+    private Color color;
+    private Random rg = new Random();
+    
+    public Target(){
+    this.visible = false;
+    this.diameter = 50;
+    this.x = rg.nextInt(850)+ 50;
+    this.y = rg.nextInt(550) + 50;
+    this.color = color;
+    }
+}
+
 public class ShootEmUp extends Minigame {
+    Target[] targets = new Target[10];
 
     public ShootEmUp() {
-        super(MinigameType.FFA, 15000);
+        super(MinigameType.FFA, 10000);
     }
 
     @Override
     public void init() {
         this.startTime = System.currentTimeMillis();
+        for(int i = 0; i < targets.length; i++){
+            targets[i] = new Target();
+        }
     }
 
     @Override
