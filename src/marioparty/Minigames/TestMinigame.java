@@ -4,6 +4,7 @@ import ControllerInput.InputAction;
 import DLibX.DConsole;
 import marioparty.Board;
 import marioparty.Console;
+import marioparty.Constants;
 
 /**
  *
@@ -27,7 +28,7 @@ public class TestMinigame extends Minigame {
 
     @Override
     public int isDone() {
-        for (int i = 0; i < Board.getInstance().getNumOfPlayers(); i++) {
+        for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             if (Board.getInstance().getControllerInput(i).actions().contains(InputAction.A)) {
                 return i;
             }
