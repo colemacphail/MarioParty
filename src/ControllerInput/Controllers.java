@@ -12,24 +12,30 @@ import marioparty.Constants;
  * @author arnav
  */
 public class Controllers {
-    
+
     private static Controllers instance;
+
     private final GamepadInput[] playerInputs = new GamepadInput[Constants.NUM_OF_PLAYERS];
-    
+
     public static Controllers getInstance() {
         if (Controllers.instance == null) {
             Controllers.instance = new Controllers();
         }
         return Controllers.instance;
     }
-    
-    public Controllers () {
+
+    public Controllers() {
         for (int i = 0; i < this.playerInputs.length; i++) {
             this.playerInputs[i] = new GamepadInput(i);
         }
     }
-        
-    public GamepadInput[] getPlayerInput() {
-        return playerInputs;
+
+    public GamepadInput getControllerInput(int n) {
+        try {
+            return this.playerInputs[n];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Not a valid controller!");
+            return this.playerInputs[0];
+        }
     }
 }

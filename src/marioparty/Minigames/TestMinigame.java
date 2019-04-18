@@ -1,5 +1,6 @@
 package marioparty.Minigames;
 
+import ControllerInput.Controllers;
 import ControllerInput.InputAction;
 import DLibX.DConsole;
 import marioparty.Board;
@@ -29,7 +30,9 @@ public class TestMinigame extends Minigame {
     @Override
     public int isDone() {
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-            if (Board.getInstance().getControllerInput(i).actions().contains(InputAction.A)) {
+
+            if (Controllers.getInstance().getControllerInput(i).actions().contains(InputAction.A)) {
+
                 return i;
             }
         }
