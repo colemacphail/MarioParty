@@ -3,6 +3,7 @@ package marioparty.Minigames;
 import java.awt.Color;
 import java.util.Random;
 import marioparty.Board;
+import marioparty.Constants;
 
 /**
  *
@@ -105,7 +106,7 @@ public class CatchTheApple extends Minigame {
 
     private Board board = Board.getInstance();
     private Apple[] apples = new Apple[12];
-    private Net[] nets = new Net[board.getNumOfPlayers()];
+    private Net[] nets = new Net[Constants.NUM_OF_PLAYERS];
 
     //SET TYPE
     public CatchTheApple() {

@@ -15,7 +15,7 @@ import marioparty.Board;
  *
  * @author arnav
  */
-// People will have to press teh sequence of buttons first.
+// People will have to press the sequence of buttons before anyone else.
 class Button {
 
     private final Random rand = new Random();
