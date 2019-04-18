@@ -5,6 +5,8 @@
  */
 package ControllerInput;
 
+import marioparty.Constants;
+
 /**
  *
  * @author arnav
@@ -12,8 +14,7 @@ package ControllerInput;
 public class Controllers {
     
     private static Controllers instance;
-    private final int numOfPlayers = 1;
-    private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
+    private final GamepadInput[] playerInputs = new GamepadInput[Constants.NUM_OF_PLAYERS];
     
     public static Controllers getInstance() {
         if (Controllers.instance == null) {
