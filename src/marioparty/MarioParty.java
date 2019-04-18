@@ -17,14 +17,14 @@ public class MarioParty {
         Board game = Board.getInstance();
         DConsole dc = Console.getInstance();
         dc.setOrigin(DConsole.ORIGIN_CENTER);
-        
+
         while (true) {
             //UPDATES
             dc.clear();
-            game.update();
+            game.update(); // handles all game logic
             dc.redraw();
             DConsole.pause(20);
         }
     }
-    
+
 }

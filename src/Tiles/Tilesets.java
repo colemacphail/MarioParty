@@ -25,7 +25,7 @@ public class Tilesets {
     }
 
     public void draw() {
-        for (int i = 0; i < this.selectedTileset.length; i++) {
+        for (int i = 0; i < this.selectedTileset.length; i++) { // draw lines between tiles
             this.dc.setPaint(Color.BLACK);
             if (i < this.selectedTileset.length - 1) {
                 this.dc.drawLine(this.selectedTileset[i].getX(), this.selectedTileset[i].getY(), this.selectedTileset[i + 1].getX(), this.selectedTileset[i + 1].getY());
@@ -36,7 +36,7 @@ public class Tilesets {
         }
 
         for (int i = 0; i < this.selectedTileset.length; i++) {
-            this.selectedTileset[i].draw();
+            this.selectedTileset[i].draw(); // draw all tiles
         }
     }
 

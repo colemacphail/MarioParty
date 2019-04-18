@@ -17,7 +17,7 @@ public abstract class Tile {
     protected int x;
     protected int y;
 
-    Tile(int x, int y) {
+    Tile(int x, int y) { // all tiles must have a position
         this.dc = Console.getInstance();
         this.x = x;
         this.y = y;
@@ -36,6 +36,6 @@ public abstract class Tile {
         return this.y;
     }
 
-    public abstract void triggerEvent(Character player);
+    public abstract void triggerEvent(Character player); // must provide an event when landing on
 
 }

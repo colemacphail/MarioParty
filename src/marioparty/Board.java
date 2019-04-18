@@ -50,12 +50,16 @@ public class Board {
     private Board() {
         this.currentGameState = GameState.INIT;
 
+        for (int i = 0; i < this.playerInputs.length; i++) { // create all controllers
+            this.playerInputs[i] = new GamepadInput(i);
+        }
+
     }
-    
+
     public void update() {
         //TURN STATES
         switch (this.currentGameState) {
-            case MENU:
+            case MENU: //TODO: make an actual menu
                 // dc.drawImage("menu.jpg",0,0);
                 //JPanel p = new JPanel();
                 //p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
@@ -63,8 +67,8 @@ public class Board {
                 break;
             case INIT:
                 this.minigameBuilder = MinigameBuilder.getInstance();
-                this.tileset = new Tilesets(Tilesets.BASIC);
-                for (int i = 0; i < this.characters.length; i++) {
+                this.tileset = new Tilesets(Tilesets.BASIC); //create the tileset //TODO: make a tileset selector
+                for (int i = 0; i < this.characters.length; i++) {//create all characters 
                     this.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY());
                 }
                 this.currentGameState = GameState.BOARD;
@@ -72,28 +76,29 @@ public class Board {
                 break;
 
             case BOARD:
-                this.tileset.draw();
+                this.tileset.draw();//draw all tiles
                 for (Character character : this.characters) {
-                    character.draw();
+                    character.draw();//draw all characters
                 }
 
                 switch (currentTurnState) {
                     case ROLLING:
-                        this.drawRollingDie();
-                        if (dc.isKeyPressed(' ')) {
+                        this.drawRollingDie();//draw the die
+                        if (dc.isKeyPressed(' ')) {//if you press space, roll the die
                             this.currentTurnState = TurnState.MOVING;
+                            //set selected tile to current position + whatever you rolled
                             this.characters[playerTurn].setTargetTilePos((this.characters[playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
                         }
                         break;
 
                     case MOVING:
-                        this.drawCountDownDie();
+                        this.drawCountDownDie(); // draw the die as the player moves
                         if (this.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[this.characters[playerTurn].getTargetTile()])
                                 && this.characters[playerTurn].getTilePos() == this.characters[playerTurn].getTargetTile()
-                                && this.currentRoll == 0) {
+                                && this.currentRoll == 0) { //if you're on the last tile, end turn
                             this.characters[playerTurn].setTilePos(this.characters[playerTurn].getTargetTile());
                             this.currentTurnState = TurnState.END;
-                        } else {
+                        } else { // if you're not on the last tile, move towards the next one
                             this.characters[playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
                             if (this.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
                                 this.currentRoll--;
@@ -102,12 +107,12 @@ public class Board {
                         }
                         break;
 
-                    case END:
+                    case END://if the turn is over, trigger the tile and go to the next turn
                         this.tileset.getSelectedTileset()[this.characters[this.playerTurn].getTargetTile()].triggerEvent(this.characters[this.playerTurn]);
                         this.currentTurnState = TurnState.ROLLING;
                         this.playerTurn = (this.playerTurn + 1) % (this.numOfPlayers);
                         if (this.playerTurn == 0) {
-                            this.currentGameState = GameState.MINIGAME_INIT;
+                            this.currentGameState = GameState.MINIGAME_INIT;//if finished turn order, play a minigame
                         }
                         break;
 
@@ -116,23 +121,26 @@ public class Board {
 
             case MINIGAME_INIT:
                 this.selectedMinigame
-                        = this.minigameBuilder.chooseMinigame(new MinigameType[]{MinigameType.FFA});
+                        = this.minigameBuilder.chooseMinigame(new MinigameType[]{MinigameType.FFA});//select the minigame
                 this.selectedMinigame.init();
                 this.currentGameState = GameState.MINIGAME;
                 break;
 
             case MINIGAME:
                 this.selectedMinigame.run();
-                if (this.selectedMinigame.isDone() || this.selectedMinigame.hasTimeoutOccurred()) {
+                if (this.selectedMinigame.isDone() || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
                     this.currentGameState = GameState.BOARD;
                 }
                 break;
 
             case END:
+                this.dc.dispose();
+                System.exit(1);
                 break;
 
         }
     }
+
     //METHODS
     public int getCameraOffsetX() {
         return this.cameraOffsetX;

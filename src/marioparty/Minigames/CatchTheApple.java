@@ -91,8 +91,8 @@ class Net {
         return this.movespeed;
     }
 
-    public void setX(int a) {
-        this.x += a;
+    public void changeX(int x) {
+        this.x += x;
     }
 
     public boolean hitbox() {
@@ -130,6 +130,7 @@ public class CatchTheApple extends Minigame {
     public void run() {
 
         if (!isDone()) {
+
             for (Apple apple : this.apples) {
                 apple.setY(apple.getFallspeed());
                 this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getRad(), apple.getRad());
@@ -137,9 +138,9 @@ public class CatchTheApple extends Minigame {
 
             for (Net net : nets) {
                 if (this.dc.isKeyPressed(68)) {
-                    net.setX(net.getSpeed());
+                    net.changeX(net.getSpeed());
                 } else if (this.dc.isKeyPressed(65)) {
-                    net.setX(-(net.getSpeed()));
+                    net.changeX(-(net.getSpeed()));
                 }
                 this.dc.fillRect(net.getX(), net.getY(), net.getWidth(), net.getHeight());
             }
@@ -149,8 +150,9 @@ public class CatchTheApple extends Minigame {
 
     //END CLAUSE
     @Override
-    public boolean isDone() {
-        return (this.timeout == 0);
-        
+
+    public boolean isDone() {//TODO: have actual finishing condition
+        return this.dc.isKeyPressed(' ');
+
     }
 }

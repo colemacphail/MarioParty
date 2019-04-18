@@ -41,7 +41,7 @@ public class MinigameBuilder {
                 }
             }
         }
-
+        // grab a minigame at a random index
         int index = this.randGen.nextInt(possibleMinigames.size());
         return possibleMinigames.get(index);
 
