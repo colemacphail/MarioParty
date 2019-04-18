@@ -127,8 +127,9 @@ public class Board {
 
             case MINIGAME:
                 this.selectedMinigame.run();
-                if (this.selectedMinigame.isDone() || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
+                if (this.selectedMinigame.isDone() != -1 || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
                     this.currentGameState = GameState.BOARD;
+                    this.characters[this.selectedMinigame.isDone()].changeCoins(5);
                 }
                 break;
 
@@ -169,4 +170,12 @@ public class Board {
         this.dc.drawString(this.currentRoll, 450, 135);
     }
 
+    public GamepadInput getControllerInput(int n) {
+        try {
+            return this.playerInputs[n];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("not a valid controller!");
+            return this.playerInputs[0];
+        }
+    }
 }

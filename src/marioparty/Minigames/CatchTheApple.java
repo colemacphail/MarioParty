@@ -130,30 +130,28 @@ public class CatchTheApple extends Minigame {
     @Override
     public void run() {
 
-        if (!isDone()) {
-
-            for (Apple apple : this.apples) {
-                apple.setY(apple.getFallspeed());
-                this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getRad(), apple.getRad());
-            }
-
-            for (Net net : nets) {
-                if (this.dc.isKeyPressed(68)) {
-                    net.changeX(net.getSpeed());
-                } else if (this.dc.isKeyPressed(65)) {
-                    net.changeX(-(net.getSpeed()));
-                }
-                this.dc.fillRect(net.getX(), net.getY(), net.getWidth(), net.getHeight());
-            }
-
+        for (Apple apple : this.apples) {
+            apple.setY(apple.getFallspeed());
+            this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getRad(), apple.getRad());
         }
+
+        for (Net net : nets) {
+            if (this.dc.isKeyPressed(68)) {
+                net.changeX(net.getSpeed());
+            } else if (this.dc.isKeyPressed(65)) {
+                net.changeX(-(net.getSpeed()));
+            }
+            this.dc.fillRect(net.getX(), net.getY(), net.getWidth(), net.getHeight());
+        }
+
     }
 
     //END CLAUSE
     @Override
-
-    public boolean isDone() {//TODO: have actual finishing condition
-        return this.dc.isKeyPressed(' ');
-
+    public int isDone() {//TODO: have actual finishing condition
+        if (this.dc.isKeyPressed(' ')) {
+            return 1;
+        }
+        return -1;
     }
 }

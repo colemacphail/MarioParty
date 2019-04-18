@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marioparty.Minigames;
 
 /**
  *
- * @author Jacob
+ * @author Cole
  */
-public class ShootEmUp extends Minigame {
+public class Masher extends Minigame {
 
-    public ShootEmUp() {
-        super(MinigameType.FFA, 15000);
+    public Masher(MinigameType type, long timeout) {
+        super(type, timeout);
     }
 
     @Override
@@ -22,7 +17,7 @@ public class ShootEmUp extends Minigame {
 
     @Override
     public void run() {
-        this.dc.drawString("SHOOT EM UP", 450, 20);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -32,4 +27,5 @@ public class ShootEmUp extends Minigame {
         }
         return -1;
     }
+
 }

@@ -1,6 +1,8 @@
 package marioparty.Minigames;
 
+import ControllerInput.InputAction;
 import DLibX.DConsole;
+import marioparty.Board;
 import marioparty.Console;
 
 /**
@@ -20,12 +22,17 @@ public class TestMinigame extends Minigame {
 
     @Override
     public void run() {
-        this.dc.drawString("Press space", 450, 300);
+        this.dc.drawString("Press A", 450, 300);
     }
 
     @Override
-    public boolean isDone() {
-        return this.dc.isKeyPressed(' ');
+    public int isDone() {
+        for (int i = 0; i < Board.getInstance().getNumOfPlayers(); i++) {
+            if (Board.getInstance().getControllerInput(i).actions().contains(InputAction.A)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
