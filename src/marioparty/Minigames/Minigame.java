@@ -14,13 +14,13 @@ public abstract class Minigame {
     protected long startTime;
     protected long timeout;
     private final MinigameType type;
-    
+
     //CONSTRUCTOR
-    public Minigame(MinigameType type, long timeout) {
+    public Minigame(MinigameType type, long timeout) { // all minigames must have a type and timeout
         this.type = type;
         this.timeout = timeout;
     }
-    
+
     //METHODS
     public abstract void init();
 

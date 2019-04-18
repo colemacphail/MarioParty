@@ -28,6 +28,7 @@ public class GamepadInput {
         }
 
         Set<InputAction> actions = new HashSet<>();
+        //Get what buttons are being pressed, then add them to the set
         if (currState.dpadLeft) {
             actions.add(InputAction.MOVE_LEFT);
         }
