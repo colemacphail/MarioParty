@@ -15,6 +15,7 @@ public class Character {
         LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT,
         DONKEY_KONG, MR_L
     }
+    
     //VARIABLES
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
