@@ -35,8 +35,7 @@ public class Board {
     private GameState currentGameState;
     private TurnState currentTurnState;
     private Tilesets tileset;
-    private final int numOfPlayers = 1;
-    private final Character[] characters = new Character[this.numOfPlayers];
+    private final Character[] characters = new Character[Constants.NUM_OF_PLAYERS];
     private int playerTurn = 0;
     private Minigame selectedMinigame;
     private int cameraOffsetX = 0;
@@ -44,7 +43,7 @@ public class Board {
     private final Random ranGen = new Random();
     private int currentRoll = 0;
     private MinigameBuilder minigameBuilder;
-    private final GamepadInput[] playerInputs = new GamepadInput[this.numOfPlayers];
+    private final GamepadInput[] playerInputs = new GamepadInput[Constants.NUM_OF_PLAYERS];
 
     //INITIALIZER
     private Board() {
@@ -110,7 +109,7 @@ public class Board {
                     case END://if the turn is over, trigger the tile and go to the next turn
                         this.tileset.getSelectedTileset()[this.characters[this.playerTurn].getTargetTile()].triggerEvent(this.characters[this.playerTurn]);
                         this.currentTurnState = TurnState.ROLLING;
-                        this.playerTurn = (this.playerTurn + 1) % (this.numOfPlayers);
+                        this.playerTurn = (this.playerTurn + 1) % (Constants.NUM_OF_PLAYERS);
                         if (this.playerTurn == 0) {
                             this.currentGameState = GameState.MINIGAME_INIT;//if finished turn order, play a minigame
                         }
@@ -148,10 +147,6 @@ public class Board {
 
     public int getCameraOffsetY() {
         return this.cameraOffsetY;
-    }
-
-    public int getNumOfPlayers() {
-        return this.numOfPlayers;
     }
 
     public void setCameraCenterPoint(int focusX, int focusY) {
