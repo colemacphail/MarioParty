@@ -123,7 +123,13 @@ public class Board {
                 this.selectedMinigame.run();
                 if (this.selectedMinigame.isDone() != -1 || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
                     this.currentGameState = GameState.BOARD;
-                    this.characters[this.selectedMinigame.isDone()].changeCoins(5);
+                    if (this.selectedMinigame.isDone() != -1) {
+                        try {
+                            this.characters[this.selectedMinigame.isDone()].changeCoins(5);
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Not a valid winner!");
+                        }
+                    }
                 }
                 break;
 
@@ -164,5 +170,4 @@ public class Board {
         this.dc.drawString(this.currentRoll, 450, 135);
     }
 
-    
 }
