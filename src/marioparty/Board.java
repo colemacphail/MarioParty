@@ -30,7 +30,6 @@ public class Board {
     private GameState currentGameState;
     private TurnState currentTurnState;
     private Tilesets tileset;
-    private final Character[] characters = new Character[Constants.NUM_OF_PLAYERS];
     private final Controllers controllers = Controllers.getInstance();
     private int playerTurn = 0;
     private Minigame selectedMinigame;
@@ -39,10 +38,12 @@ public class Board {
     private final Random ranGen = new Random();
     private int currentRoll = 0;
     private MinigameBuilder minigameBuilder;
+    private Characters characters;
 
     //INITIALIZER
     private Board() {
         this.currentGameState = GameState.INIT;
+        characters = Characters.getInstance();
     }
 
     public void update() {
@@ -57,8 +58,9 @@ public class Board {
             case INIT:
                 this.minigameBuilder = MinigameBuilder.getInstance();
                 this.tileset = new Tilesets(Tilesets.BASIC); //create the tileset //TODO: make a tileset selector
-                for (int i = 0; i < this.characters.length; i++) {//create all characters 
-                    this.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY(), i);
+
+                for (int i = 0; i < Characters.getLength(); i++) {//create all characters 
+                    Characters.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY(), i);
                 }
                 this.currentGameState = GameState.BOARD;
                 this.currentTurnState = TurnState.ROLLING;
@@ -66,8 +68,8 @@ public class Board {
 
             case BOARD:
                 this.tileset.draw();//draw all tiles
-                for (Character character : this.characters) {
-                    character.draw();//draw all characters
+                for (int i = 0; i < Characters.getLength(); i++) {
+                    Characters.characters[i].draw(); //draw all characters
                 }
 
                 switch (currentTurnState) {
@@ -76,28 +78,28 @@ public class Board {
                         if (this.dc.isKeyPressed(' ') || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {//if you press space, roll the die
                             this.currentTurnState = TurnState.MOVING;
                             //set selected tile to current position + whatever you rolled
-                            this.characters[playerTurn].setTargetTilePos((this.characters[playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
+                            Characters.characters[playerTurn].setTargetTilePos((Characters.characters[playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
                         }
                         break;
 
                     case MOVING:
                         this.drawCountDownDie(); // draw the die as the player moves
-                        if (this.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[this.characters[playerTurn].getTargetTile()])
-                                && this.characters[playerTurn].getTilePos() == this.characters[playerTurn].getTargetTile()
+                        if (Characters.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[Characters.characters[playerTurn].getTargetTile()])
+                                && Characters.characters[playerTurn].getTilePos() == Characters.characters[playerTurn].getTargetTile()
                                 && this.currentRoll == 0) { //if you're on the last tile, end turn
-                            this.characters[playerTurn].setTilePos(this.characters[playerTurn].getTargetTile());
+                            Characters.characters[playerTurn].setTilePos(Characters.characters[playerTurn].getTargetTile());
                             this.currentTurnState = TurnState.END;
                         } else { // if you're not on the last tile, move towards the next one
-                            this.characters[playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
-                            if (this.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
+                            Characters.characters[playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
+                            if (Characters.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
                                 this.currentRoll--;
-                                this.characters[playerTurn].setTilePos((this.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length);
+                                Characters.characters[playerTurn].setTilePos((Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length);
                             }
                         }
                         break;
 
                     case END://if the turn is over, trigger the tile and go to the next turn
-                        this.tileset.getSelectedTileset()[this.characters[this.playerTurn].getTargetTile()].triggerEvent(this.characters[this.playerTurn]);
+                        this.tileset.getSelectedTileset()[Characters.characters[this.playerTurn].getTargetTile()].triggerEvent(Characters.characters[this.playerTurn]);
                         this.currentTurnState = TurnState.ROLLING;
                         this.playerTurn = (this.playerTurn + 1) % (Constants.NUM_OF_PLAYERS);
                         if (this.playerTurn == 0) {
@@ -121,7 +123,7 @@ public class Board {
                     this.currentGameState = GameState.BOARD;
                     if (this.selectedMinigame.isDone() != -1) {
                         try {
-                            this.characters[this.selectedMinigame.isDone()].changeCoins(5);
+                            Characters.characters[this.selectedMinigame.isDone()].changeCoins(5);
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Not a valid winner!");
                         }

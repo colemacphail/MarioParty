@@ -28,6 +28,7 @@ public class Character {
     private int targetTilePos = 0;
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
+    private int minigameScore = 0;
     
     //CONSTRUCTOR
     public Character(double x, double y, int playerNum) {
