@@ -16,6 +16,7 @@ import marioparty.Constants;
  *
  * @author arnav
  */
+
 // People will have to press the sequence of buttons before anyone else.
 class Button {
 
@@ -58,8 +59,8 @@ public class QuickTime extends Minigame {
 
     @Override
     public int isDone() {//TODO: have actual finishing condition
-        if (this.dc.isKeyPressed(' ')) {
-            return 1;
+        for (int i = 0; i < 1; i++) {
+            
         }
         return -1;
     }
