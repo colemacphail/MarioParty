@@ -1,18 +1,13 @@
 package marioparty;
 
-import ControllerInput.GamepadInput;
-import marioparty.Minigames.Minigame;
+import ControllerInput.Controllers;
+import ControllerInput.InputAction;
 import DLibX.DConsole;
 import Tiles.Tilesets;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import static java.awt.SystemColor.menu;
 import java.util.Random;
-import java.util.Set;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+import marioparty.Minigames.Minigame;
 import marioparty.Minigames.MinigameBuilder;
 import marioparty.Minigames.MinigameType;
 
@@ -36,6 +31,7 @@ public class Board {
     private TurnState currentTurnState;
     private Tilesets tileset;
     private final Character[] characters = new Character[Constants.NUM_OF_PLAYERS];
+    private final Controllers controllers = Controllers.getInstance();
     private int playerTurn = 0;
     private Minigame selectedMinigame;
     private int cameraOffsetX = 0;
@@ -62,7 +58,7 @@ public class Board {
                 this.minigameBuilder = MinigameBuilder.getInstance();
                 this.tileset = new Tilesets(Tilesets.BASIC); //create the tileset //TODO: make a tileset selector
                 for (int i = 0; i < this.characters.length; i++) {//create all characters 
-                    this.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY());
+                    this.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY(), i);
                 }
                 this.currentGameState = GameState.BOARD;
                 this.currentTurnState = TurnState.ROLLING;
@@ -77,7 +73,7 @@ public class Board {
                 switch (currentTurnState) {
                     case ROLLING:
                         this.drawRollingDie();//draw the die
-                        if (dc.isKeyPressed(' ')) {//if you press space, roll the die
+                        if (this.dc.isKeyPressed(' ') || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {//if you press space, roll the die
                             this.currentTurnState = TurnState.MOVING;
                             //set selected tile to current position + whatever you rolled
                             this.characters[playerTurn].setTargetTilePos((this.characters[playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
