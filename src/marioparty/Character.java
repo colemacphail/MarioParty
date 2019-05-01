@@ -126,4 +126,12 @@ public class Character {
     public void changeStars(int stars) {
         this.stars += stars;
     }
+    
+    public void setMinigameScore(int minigameScore) {
+        this.minigameScore = minigameScore;
+    }
+    
+    public int getMinigameScore() {
+        return this.minigameScore;
+    }
 }
