@@ -2,9 +2,6 @@ package marioparty.Minigames;
 
 import ControllerInput.Controllers;
 import ControllerInput.InputAction;
-import DLibX.DConsole;
-import marioparty.Board;
-import marioparty.Console;
 import marioparty.Constants;
 
 /**
@@ -32,7 +29,7 @@ public class TestMinigame extends Minigame {
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
 
             if (Controllers.getInstance().getControllerInput(i).actions().contains(InputAction.A)) {
-
+                System.out.println(i);
                 return i;
             }
         }

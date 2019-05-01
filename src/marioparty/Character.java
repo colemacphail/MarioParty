@@ -1,9 +1,9 @@
 package marioparty;
 
-import marioparty.Items.Item;
 import DLibX.DConsole;
 import Tiles.Tile;
 import java.awt.Color;
+import marioparty.Items.Item;
 
 /**
  *
@@ -31,7 +31,7 @@ public class Character {
     private int minigameScore = 0;
     
     //CONSTRUCTOR
-    public Character(double x, double y) {
+    public Character(double x, double y, int playerNum) {
         this.x = x;
         this.y = y;
     }
