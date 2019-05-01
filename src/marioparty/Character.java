@@ -130,6 +130,10 @@ public class Character {
         this.minigameScore += delta;
     }
 
+    public void setMinigameScore(int minigameScore) {
+        this.minigameScore = minigameScore;
+    }
+
     public int getMinigameScore() {
         return this.minigameScore;
     }
