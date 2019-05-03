@@ -38,12 +38,12 @@ public class Board {
     private final Random ranGen = new Random();
     private int currentRoll = 0;
     private MinigameBuilder minigameBuilder;
-    private Characters characters;
+    private final Characters characters;
 
     //INITIALIZER
     private Board() {
         this.currentGameState = GameState.INIT;
-        characters = Characters.getInstance();
+        this.characters = Characters.getInstance();
     }
 
     public void update() {

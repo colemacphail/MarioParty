@@ -5,8 +5,6 @@
  */
 package ControllerInput;
 
-import marioparty.Constants;
-
 /**
  *
  * @author arnav
@@ -15,7 +13,7 @@ public class Controllers {
 
     private static Controllers instance;
 
-    private final GamepadInput[] playerInputs = new GamepadInput[Constants.NUM_OF_PLAYERS];
+    private final GamepadInput[] playerInputs = new GamepadInput[4];
 
     public static Controllers getInstance() {
         if (Controllers.instance == null) {
@@ -28,6 +26,18 @@ public class Controllers {
         for (int i = 0; i < this.playerInputs.length; i++) {
             this.playerInputs[i] = new GamepadInput(i);
         }
+    }
+
+    public int getNumOfControllers() {
+        int numOfControllers = 0;
+
+        for (int i = 0; i < 4; i++) {
+            if (this.playerInputs[i].getIsConnected()) {
+                numOfControllers++;
+            }
+        }
+
+        return numOfControllers;
     }
 
     public GamepadInput getControllerInput(int n) {
