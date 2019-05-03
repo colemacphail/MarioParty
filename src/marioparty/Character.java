@@ -15,7 +15,7 @@ public class Character {
         LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT,
         DONKEY_KONG, MR_L
     }
-    
+
     //VARIABLES
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
@@ -29,14 +29,13 @@ public class Character {
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
     private int minigameScore = 0;
-    
+
     //CONSTRUCTOR
     public Character(double x, double y, int playerNum) {
         this.x = x;
         this.y = y;
     }
-    
-    
+
     //METHODS
     public void move(double deltaX, double deltaY) {
         this.x += deltaX;
@@ -126,11 +125,15 @@ public class Character {
     public void changeStars(int stars) {
         this.stars += stars;
     }
-    
+
+    public void changeMinigameScore(int delta) {
+        this.minigameScore += delta;
+    }
+
     public void setMinigameScore(int minigameScore) {
         this.minigameScore = minigameScore;
     }
-    
+
     public int getMinigameScore() {
         return this.minigameScore;
     }
