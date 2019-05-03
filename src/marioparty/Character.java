@@ -20,8 +20,8 @@ public class Character {
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
     private int playerNum;
-    private double x;
-    private double y;
+    protected double x;
+    protected double y;
     private int coins = 0;
     private int stars = 0;
     private int tilePos = 0;
@@ -31,7 +31,7 @@ public class Character {
     private int minigameScore = 0;
 
     //CONSTRUCTOR
-    public Character(double x, double y, int playerNum) {
+    public Character(double x, double y) {
         this.x = x;
         this.y = y;
     }

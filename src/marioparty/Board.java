@@ -60,7 +60,7 @@ public class Board {
                 this.tileset = new Tilesets(Tilesets.BASIC); //create the tileset //TODO: make a tileset selector
 
                 for (int i = 0; i < Characters.getLength(); i++) {//create all characters 
-                    Characters.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY(), i);
+                    Characters.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY());
                 }
                 this.currentGameState = GameState.BOARD;
                 this.currentTurnState = TurnState.ROLLING;
