@@ -51,20 +51,19 @@ class Apple {
 
 }
 
-class Net {
+class Net extends MinigameObject {
 
     //VARIABLES
-    private int x;
-    private int y;
     private int width;
     private int height;
     private Color color;
     private int movespeed;
 
     //INIT
-    public Net() {
-        this.x = 50;
+    public Net(){
+        this.x = 30;
         this.y = 580;
+                
         this.width = 30;
         this.height = 10;
         this.color = new Color(110, 60, 10);
@@ -72,13 +71,6 @@ class Net {
     }
 
     //METHODS
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
 
     public int getWidth() {
         return this.width;
@@ -100,6 +92,16 @@ class Net {
         //TODO
         return true;
     }
+
+    @Override
+    public void init() {
+       //TODO
+    }
+
+    @Override
+    public void score() {
+       //TODO 
+   }
 }
 
 public class CatchTheApple extends Minigame {
@@ -120,9 +122,6 @@ public class CatchTheApple extends Minigame {
                         && (apple.getX() - (apple.getDia() / 2) <= net.getX() + net.getWidth() / 2)
                         && apple.getY() >= net.getY() - apple.getDia()
                         && apple.getY() <= net.getY()) {
-                    
-                    
-
                 }
             }
         }
