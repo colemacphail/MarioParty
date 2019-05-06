@@ -10,7 +10,7 @@ package ControllerInput;
  * @author arnav
  */
 public class Controllers {
-// I hate everything
+
     private static Controllers instance;
 
     private final GamepadInput[] playerInputs = new GamepadInput[4];
