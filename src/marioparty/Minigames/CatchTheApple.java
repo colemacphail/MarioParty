@@ -37,7 +37,7 @@ class Apple {
         return this.y;
     }
 
-    public int getRad() {
+    public int getDia() {
         return this.radius;
     }
 
@@ -113,6 +113,21 @@ public class CatchTheApple extends Minigame {
         super(MinigameType.FFA, 5000);
     }
 
+    public void hitbox() {
+        for (Net net : nets) {
+            for (Apple apple : apples) {
+                if (apple.getX() + (apple.getDia() / 2) >= net.getX() - (net.getWidth() / 2)
+                        && (apple.getX() - (apple.getDia() / 2) <= net.getX() + net.getWidth() / 2)
+                        && apple.getY() >= net.getY() - apple.getDia()
+                        && apple.getY() <= net.getY()) {
+                    
+                    
+
+                }
+            }
+        }
+    }
+
     //SETUP
     @Override
     public void init() {
@@ -132,7 +147,7 @@ public class CatchTheApple extends Minigame {
 
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
-            this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getRad(), apple.getRad());
+            this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getDia(), apple.getDia());
         }
 
         for (Net net : nets) {
