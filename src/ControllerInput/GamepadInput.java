@@ -7,10 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GamepadInput {
+
     //VARIABLES
     private final ControllerManager controllers;
     private int controllerInUse = 0;
-    
+
     //CONSTRUCTORS
     public GamepadInput(int controller) {
         this.controllerInUse = controller;
@@ -18,7 +19,10 @@ public class GamepadInput {
         this.controllers.initSDLGamepad();
     }
 
-    
+    public boolean getIsConnected() {
+        return this.controllers.getState(this.controllerInUse).isConnected;
+    }
+
     //INPUTS
     public Set<InputAction> actions() {
         ControllerState currState = this.controllers.getState(this.controllerInUse);

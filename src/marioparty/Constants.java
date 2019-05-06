@@ -10,5 +10,5 @@ package marioparty;
  * @author arnav
  */
 public class Constants {
-    public static final int NUM_OF_PLAYERS = 1;
+    public static int NUM_OF_PLAYERS = 1;
 }
