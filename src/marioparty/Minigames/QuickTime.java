@@ -55,6 +55,7 @@ public class QuickTime extends Minigame {
     @Override
     public void init() {
         cons = Console.getInstance();
+        characters = Characters.getInstance();
         for (int i = 0; i < buttonList.length; i++) {
             buttonList = new Button[i];
         }
@@ -72,6 +73,7 @@ public class QuickTime extends Minigame {
                 characters.characterAtI(i).changeMinigameScore(1);
             }
         }
+        super.displayMinigameScoreCornerSplitscreen();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package marioparty.Minigames;
 
 import DLibX.DConsole;
+import marioparty.Characters;
 import marioparty.Console;
+import marioparty.Constants;
 
 /**
  *
@@ -13,6 +15,7 @@ public abstract class Minigame {
     protected final DConsole dc = Console.getInstance();
     protected long startTime;
     protected long timeout;
+    private final Characters characters = Characters.getInstance();
     private final MinigameType type;
 
     //CONSTRUCTOR
@@ -38,6 +41,22 @@ public abstract class Minigame {
 
     public MinigameType getType() {
         return this.type;
+    }
+
+    public void displayMinigameScoreCornerSplitscreen() {
+        for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+            dc.drawString(characters.characterAtI(i).getMinigameScore(),
+                    dc.getWidth() / 4 * (i % 2 == 1 ? 3 : 1) - dc.getWidth() / 8,
+                    dc.getHeight() / 4 * (i > 1 ? 3 : 1) - dc.getHeight() / 8);
+        }
+    }
+    
+    public void displayMinigameScoreVerticalSplitscreen() {
+        for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+            dc.drawString(characters.characterAtI(i).getMinigameScore(),
+                    dc.getWidth() / 8 * (i) + dc.getWidth() / 8 * (i + 1),
+                    dc.getHeight() / 8 * (7));
+        }
     }
 
 }
