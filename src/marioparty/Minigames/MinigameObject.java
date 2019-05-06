@@ -9,6 +9,23 @@ package marioparty.Minigames;
  *
  * @author Jacob
  */
-public class MinigameObject {
+public abstract class MinigameObject {
+    public double x, y;
+    
+    public double getX(){
+    return this.x;
+    }
+    
+    public double getY(){
+    return this.y;
+    }
+    
+    public abstract void init();
+    
+    public abstract void score();   
+    
+            
+            
+    
     
 }
