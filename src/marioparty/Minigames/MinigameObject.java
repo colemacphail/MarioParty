@@ -20,9 +20,7 @@ public abstract class MinigameObject {
     return this.y;
     }
     
-    public abstract void init();
     
-    public abstract void score();   
     
             
             

@@ -13,7 +13,7 @@ public class Character {
 
     public enum CharacterName {
         LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT,
-        DONKEY_KONG, MR_L
+        DONKEY_KONG, MR_L, ARNAV_EMOJI
     }
 
     //VARIABLES
@@ -29,6 +29,7 @@ public class Character {
     private Item[] item = new Item[4];
     private boolean itemUsed = false;
     private int minigameScore = 0;
+    
 
     //CONSTRUCTOR
     public Character(double x, double y) {

@@ -3,6 +3,7 @@ package marioparty.Minigames;
 import java.awt.Color;
 import java.util.Random;
 import marioparty.Board;
+import marioparty.Characters;
 import marioparty.Constants;
 
 /**
@@ -87,26 +88,10 @@ class Net extends MinigameObject {
     public void changeX(int x) {
         this.x += x;
     }
-
-    public boolean hitbox() {
-        //TODO
-        return true;
-    }
-
-    @Override
-    public void init() {
-       //TODO
-    }
-
-    @Override
-    public void score() {
-       //TODO 
-   }
 }
 
 public class CatchTheApple extends Minigame {
-
-    private Board board = Board.getInstance();
+    Characters characters = Characters.getInstance();
     private Apple[] apples = new Apple[12];
     private Net[] nets = new Net[Constants.NUM_OF_PLAYERS];
 
@@ -122,6 +107,7 @@ public class CatchTheApple extends Minigame {
                         && (apple.getX() - (apple.getDia() / 2) <= net.getX() + net.getWidth() / 2)
                         && apple.getY() >= net.getY() - apple.getDia()
                         && apple.getY() <= net.getY()) {
+                    
                 }
             }
         }
