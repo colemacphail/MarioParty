@@ -13,8 +13,8 @@ import marioparty.Constants;
 public class Masher extends Minigame {
 
     private boolean[] buttonWasPressed = new boolean[Constants.NUM_OF_PLAYERS];
-    private Controllers controllers = Controllers.getInstance();
-    private Random rangen = new Random();
+    private final Controllers controllers = Controllers.getInstance();
+    private final Random rangen = new Random();
     private InputAction desiredAction;
 
     public Masher() {
@@ -24,12 +24,12 @@ public class Masher extends Minigame {
     @Override
     public void init() {
         this.startTime = System.currentTimeMillis();
-        this.desiredAction = InputAction.values()[rangen.nextInt()];
+        this.desiredAction = InputAction.values()[rangen.nextInt(InputAction.values().length - 4) + 4];
     }
 
     @Override
     public void run() {
-        this.dc.drawString("Press " + this.desiredAction, 450, 300);
+        this.dc.drawString("Mash " + this.desiredAction, 450, 300);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             if (this.controllers.getControllerInput(i).actions().contains(this.desiredAction) && !this.buttonWasPressed[i]) {
                 Characters.characters[i].changeMinigameScore(1);

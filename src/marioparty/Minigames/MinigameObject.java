@@ -5,12 +5,16 @@
  */
 package marioparty.Minigames;
 
+import ControllerInput.GamepadInput;
+
 /**
  *
  * @author Jacob
  */
 public abstract class MinigameObject {
-    public double x, y;
+    double x;
+    double y;
+    private GamepadInput controller;
     
     public double getX(){
     return this.x;
@@ -20,9 +24,11 @@ public abstract class MinigameObject {
     return this.y;
     }
     
-    public abstract void init();
+    /*public int getPlayerNum(){
+    return 
+    }*/
     
-    public abstract void score();   
+
     
             
             

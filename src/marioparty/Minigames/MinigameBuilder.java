@@ -28,6 +28,7 @@ public class MinigameBuilder {
 //        this.minigames.add(new TestMinigame());
 //        this.minigames.add(new CatchTheApple());
 //        this.minigames.add(new ShootEmUp());
+//        this.minigames.add(new Masher());
         this.minigames.add(new QuickTime());
     }
 
