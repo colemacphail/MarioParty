@@ -50,13 +50,17 @@ public abstract class Minigame {
                     dc.getHeight() / 4 * (i > 1 ? 3 : 1) - dc.getHeight() / 8);
         }
     }
-    
+
     public void displayMinigameScoreVerticalSplitscreen() {
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             dc.drawString(characters.characterAtI(i).getMinigameScore(),
                     dc.getWidth() / 8 * (i) + dc.getWidth() / 8 * (i + 1),
                     dc.getHeight() / 8 * (7));
         }
+    }
+
+    public void setStartTime() {
+        this.startTime = System.currentTimeMillis();
     }
 
 }

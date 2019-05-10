@@ -6,11 +6,9 @@
 package marioparty.Minigames;
 
 import ControllerInput.Controllers;
-import ControllerInput.GamepadInput;
 import ControllerInput.InputAction;
 import DLibX.DConsole;
 import java.util.Random;
-import marioparty.Board;
 import marioparty.Characters;
 import marioparty.Console;
 import marioparty.Constants;
@@ -27,17 +25,17 @@ class Button {
     private Controllers controller;
 
     public Button() {
-        controller = Controllers.getInstance();
-        buttonType = InputAction.values()[rand.nextInt(6) + 5];
+        this.controller = Controllers.getInstance();
+        this.buttonType = InputAction.values()[this.rand.nextInt(6) + 5];
     }
 
     public boolean isPressed(int i) {
-        return controller.getControllerInput(i).actions().size() == 1
-                && controller.getControllerInput(i).actions().contains(buttonType);
+        return this.controller.getControllerInput(i).actions().size() == 1
+                && this.controller.getControllerInput(i).actions().contains(this.buttonType);
     }
 
     public InputAction getButtonType() {
-        return buttonType;
+        return this.buttonType;
     }
 
 }
@@ -48,16 +46,16 @@ public class QuickTime extends Minigame {
     private Characters characters;
     private DConsole cons;
 
-    public QuickTime(MinigameType type, long timeout) {
-        super(type, timeout);
+    public QuickTime() {
+        super(MinigameType.FFA, 15000);
     }
 
     @Override
     public void init() {
-        cons = Console.getInstance();
-        characters = Characters.getInstance();
-        for (int i = 0; i < buttonList.length; i++) {
-            buttonList = new Button[i];
+        this.cons = Console.getInstance();
+        this.characters = Characters.getInstance();
+        for (int i = 0; i < this.buttonList.length; i++) {
+            this.buttonList = new Button[i];
         }
     }
 
@@ -65,15 +63,15 @@ public class QuickTime extends Minigame {
     public void run() {
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
 
-            cons.drawString(buttonList[characters.characterAtI(i).getMinigameScore()].getButtonType(),
-                    cons.getWidth() / 4 * (i % 2 == 1 ? 3 : 1),
-                    cons.getHeight() / 4 * (i > 1 ? 3 : 1));
+            this.cons.drawString(this.buttonList[characters.characterAtI(i).getMinigameScore()].getButtonType(),
+                    this.cons.getWidth() / 4 * (i % 2 == 1 ? 3 : 1),
+                    this.cons.getHeight() / 4 * (i > 1 ? 3 : 1));
 
-            if (buttonList[characters.characterAtI(i).getMinigameScore()].isPressed(i)) {
-                characters.characterAtI(i).changeMinigameScore(1);
+            if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].isPressed(i)) {
+                this.characters.characterAtI(i).changeMinigameScore(1);
             }
         }
-        super.displayMinigameScoreCornerSplitscreen();
+        this.displayMinigameScoreCornerSplitscreen();
     }
 
     @Override
