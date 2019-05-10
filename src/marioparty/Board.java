@@ -119,6 +119,7 @@ public class Board {
                 this.selectedMinigame
                         = this.minigameBuilder.chooseMinigame(new MinigameType[]{MinigameType.FFA});//select the minigame
                 this.selectedMinigame.init();
+                this.selectedMinigame.setStartTime();
                 this.currentGameState = GameState.MINIGAME;
                 break;
 

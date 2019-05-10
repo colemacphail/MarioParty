@@ -6,11 +6,9 @@
 package marioparty.Minigames;
 
 import ControllerInput.Controllers;
-import ControllerInput.GamepadInput;
 import ControllerInput.InputAction;
 import DLibX.DConsole;
 import java.util.Random;
-import marioparty.Board;
 import marioparty.Characters;
 import marioparty.Console;
 import marioparty.Constants;
@@ -33,12 +31,12 @@ class Button {
     }
 
     public boolean isPressed(int i) {
-        return controller.getControllerInput(i).actions().size() == 1
-                && controller.getControllerInput(i).actions().contains(buttonType);
+        return this.controller.getControllerInput(i).actions().size() == 1
+                && this.controller.getControllerInput(i).actions().contains(this.buttonType);
     }
 
     public InputAction getButtonType() {
-        return buttonType;
+        return this.buttonType;
     }
 
 }
@@ -55,11 +53,10 @@ public class QuickTime extends Minigame {
 
     @Override
     public void init() {
-        this.startTime = System.currentTimeMillis();
         this.cons = Console.getInstance();
         this.characters = Characters.getInstance();
-        for (int i = 0; i < buttonList.length; i++) {
-            this.buttonList[i] = new Button();
+        for (int i = 0; i < this.buttonList.length; i++) {
+            this.buttonList = new Button[i];
         }
     }
 

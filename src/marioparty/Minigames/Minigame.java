@@ -70,4 +70,8 @@ public abstract class Minigame {
         }
     }
 
+    public void setStartTime() {
+        this.startTime = System.currentTimeMillis();
+    }
+
 }

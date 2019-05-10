@@ -22,8 +22,6 @@ public class GamepadInput {
     public boolean getIsConnected() {
         return this.controllers.getState(this.controllerInUse).isConnected;
     }
-    
-    
 
     //INPUTS
     public Set<InputAction> actions() {

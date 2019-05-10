@@ -16,7 +16,7 @@ public class TestMinigame extends Minigame {
 
     @Override
     public void init() {
-        this.startTime = System.currentTimeMillis();
+
     }
 
     @Override

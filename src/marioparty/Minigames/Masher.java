@@ -23,7 +23,6 @@ public class Masher extends Minigame {
 
     @Override
     public void init() {
-        this.startTime = System.currentTimeMillis();
         this.desiredAction = InputAction.values()[rangen.nextInt(InputAction.values().length - 4) + 4];
     }
 
@@ -46,7 +45,7 @@ public class Masher extends Minigame {
     public int isDone() {//TODO: have actual finishing condition
 
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-            if (Characters.characters[i].getMinigameScore() >= 20){
+            if (Characters.characters[i].getMinigameScore() >= 20) {
                 return i;
             }
         }
