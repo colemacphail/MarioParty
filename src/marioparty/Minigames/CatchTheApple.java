@@ -90,10 +90,7 @@ class Net extends MinigameObject {
         this.x += x;
     }
 
-    @Override
-    public void setController() {
-       this.
-    }
+    
 }
 
 public class CatchTheApple extends Minigame {
