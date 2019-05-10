@@ -138,4 +138,8 @@ public class Character {
     public int getMinigameScore() {
         return this.minigameScore;
     }
+    
+    public void setPlayerNum(int i){
+        this.playerNum = i;
+    }
 }

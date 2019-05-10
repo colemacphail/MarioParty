@@ -59,6 +59,7 @@ class Net extends MinigameObject {
     private int height;
     private Color color;
     private int movespeed;
+    
 
     //INIT
     public Net(){
@@ -88,6 +89,11 @@ class Net extends MinigameObject {
     public void changeX(int x) {
         this.x += x;
     }
+
+    @Override
+    public void setController() {
+       this.
+    }
 }
 
 public class CatchTheApple extends Minigame {
@@ -116,12 +122,14 @@ public class CatchTheApple extends Minigame {
     //SETUP
     @Override
     public void init() {
+        
         this.startTime = System.currentTimeMillis();
         for (int i = 0; i < this.apples.length; i++) {
             this.apples[i] = new Apple();
         }
         for (int i = 0; i < nets.length; i++) {
             this.nets[i] = new Net();
+            
         }
 
     }

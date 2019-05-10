@@ -5,6 +5,8 @@
  */
 package ControllerInput;
 
+import marioparty.Characters;
+
 /**
  *
  * @author arnav
