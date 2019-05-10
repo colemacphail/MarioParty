@@ -39,6 +39,8 @@ public class Board {
     private int currentRoll = 0;
     private MinigameBuilder minigameBuilder;
     private final Characters characters;
+    private int turn = 0;
+    private int maxTurns = 20;
 
     //INITIALIZER
     private Board() {
@@ -120,7 +122,14 @@ public class Board {
             case MINIGAME:
                 this.selectedMinigame.run();
                 if (this.selectedMinigame.isDone() != -1 || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
+
                     this.currentGameState = GameState.BOARD;
+                    
+                    this.turn++;
+                    if (this.turn >= this.maxTurns) {
+                        this.currentGameState = GameState.END;
+                    }
+                    
                     if (this.selectedMinigame.isDone() != -1) {
                         try {
                             Characters.characters[this.selectedMinigame.isDone()].changeCoins(5);
