@@ -33,8 +33,8 @@ public class Controllers {
     public int getNumOfControllers() {
         int numOfControllers = 0;
 
-        for (int i = 0; i < 4; i++) {
-            if (this.playerInputs[i].getIsConnected()) {
+        for (GamepadInput playerInput : this.playerInputs) {
+            if (playerInput.getIsConnected()) {
                 numOfControllers++;
             }
         }

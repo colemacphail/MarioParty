@@ -26,7 +26,8 @@ public class MinigameBuilder {
         // add all created minigames here
         // i.e. this.minigames.add(new FunGame());
         //this.minigames.add(new TestMinigame());
-        this.minigames.add(new CatchTheApple());
+//        this.minigames.add(new CatchTheApple());
+        this.minigames.add(new Masher());
         //this.minigames.add(new ShootEmUp());
     }
 
