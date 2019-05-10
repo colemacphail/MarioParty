@@ -19,6 +19,7 @@ import marioparty.Constants;
  *
  * @author arnav
  */
+
 // People will have to press the sequence of buttons before anyone else.
 class Button {
 
@@ -28,7 +29,7 @@ class Button {
 
     public Button() {
         controller = Controllers.getInstance();
-        buttonType = InputAction.values()[rand.nextInt(6) + 5];
+        buttonType = InputAction.values()[rand.nextInt(6) + 4];
     }
 
     public boolean isPressed(int i) {
@@ -48,32 +49,33 @@ public class QuickTime extends Minigame {
     private Characters characters;
     private DConsole cons;
 
-    public QuickTime(MinigameType type, long timeout) {
-        super(type, timeout);
+    public QuickTime() {
+        super(MinigameType.FFA, 15000);
     }
 
     @Override
     public void init() {
-        cons = Console.getInstance();
-        characters = Characters.getInstance();
+        this.startTime = System.currentTimeMillis();
+        this.cons = Console.getInstance();
+        this.characters = Characters.getInstance();
         for (int i = 0; i < buttonList.length; i++) {
-            buttonList = new Button[i];
+            this.buttonList[i] = new Button();
         }
     }
 
     @Override
     public void run() {
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+            this.cons.drawString(this.buttonList[this.characters.characterAtI(i).getMinigameScore()].getButtonType(),
+                    this.cons.getWidth() / 4 * (i % 2 == 1 ? 3 : 1),
+                    this.cons.getHeight() / 4 * (i > 1 ? 3 : 1));
 
-            cons.drawString(buttonList[characters.characterAtI(i).getMinigameScore()].getButtonType(),
-                    cons.getWidth() / 4 * (i % 2 == 1 ? 3 : 1),
-                    cons.getHeight() / 4 * (i > 1 ? 3 : 1));
-
-            if (buttonList[characters.characterAtI(i).getMinigameScore()].isPressed(i)) {
-                characters.characterAtI(i).changeMinigameScore(1);
+            if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].isPressed(i)) {
+                this.characters.characterAtI(i).changeMinigameScore(1);
             }
         }
-        super.displayMinigameScoreCornerSplitscreen();
+        this.displayMinigameScoreCornerSplitscreen();
+        this.drawCornerSplitscreen();
     }
 
     @Override

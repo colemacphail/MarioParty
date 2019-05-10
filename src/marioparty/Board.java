@@ -111,6 +111,9 @@ public class Board {
                 break;
 
             case MINIGAME_INIT:
+                for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                    Characters.characters[i].setMinigameScore(0);
+                }
                 this.selectedMinigame
                         = this.minigameBuilder.chooseMinigame(new MinigameType[]{MinigameType.FFA});//select the minigame
                 this.selectedMinigame.init();

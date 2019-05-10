@@ -27,7 +27,8 @@ public class GamepadInput {
     public Set<InputAction> actions() {
         ControllerState currState = this.controllers.getState(this.controllerInUse);
         if (!currState.isConnected) {
-            System.out.println("NOT CONNECTED");
+//            TODO: Uncomment this when we test controllers
+//            System.out.println("NOT CONNECTED");
             return Collections.emptySet();
         }
 

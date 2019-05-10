@@ -1,6 +1,8 @@
 package marioparty.Minigames;
 
 import DLibX.DConsole;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import marioparty.Characters;
 import marioparty.Console;
 import marioparty.Constants;
@@ -43,19 +45,28 @@ public abstract class Minigame {
         return this.type;
     }
 
+    public void drawCornerSplitscreen() {
+        this.dc.setPaint(Color.BLACK);
+        this.dc.setStroke(new BasicStroke(2));
+        this.dc.drawLine(0, this.dc.getHeight() / 2, this.dc.getWidth(), this.dc.getHeight() / 2);
+        this.dc.drawLine(this.dc.getWidth() / 2, 0, this.dc.getWidth() / 2, this.dc.getHeight());
+    }
+
     public void displayMinigameScoreCornerSplitscreen() {
+        this.dc.setPaint(Color.BLACK);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-            dc.drawString(characters.characterAtI(i).getMinigameScore(),
-                    dc.getWidth() / 4 * (i % 2 == 1 ? 3 : 1) - dc.getWidth() / 8,
-                    dc.getHeight() / 4 * (i > 1 ? 3 : 1) - dc.getHeight() / 8);
+            this.dc.drawString(this.characters.characterAtI(i).getMinigameScore(),
+                    this.dc.getWidth() / 8 * (i % 2 == 1 ? 5 : 1) - this.dc.getWidth() / 16,
+                    this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
         }
     }
-    
+
     public void displayMinigameScoreVerticalSplitscreen() {
+        this.dc.setPaint(Color.BLACK);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-            dc.drawString(characters.characterAtI(i).getMinigameScore(),
-                    dc.getWidth() / 8 * (i) + dc.getWidth() / 8 * (i + 1),
-                    dc.getHeight() / 8 * (7));
+            this.dc.drawString(this.characters.characterAtI(i).getMinigameScore(),
+                    this.dc.getWidth() / 8 * (i) + this.dc.getWidth() / 8 * (i + 1),
+                    this.dc.getHeight() / 8 * (7));
         }
     }
 
