@@ -48,7 +48,11 @@ class Apple {
     public void setY(int a) {
         this.y = this.y + a;
     }
-
+    public void remove(){
+    this.x = -5;
+    this.y = -5;
+    this.fallspeed = 0;
+    }
 }
 
 class Net extends MinigameObject {
@@ -86,6 +90,7 @@ class Net extends MinigameObject {
     public void changeX(int x) {
         this.x += x;
     }
+    
 
 }
 
@@ -101,13 +106,16 @@ public class CatchTheApple extends Minigame {
     }
 
     public void hitbox() {
-        for (Net net : nets) {
-            for (Apple apple : apples) {
-                if (apple.getX() + (apple.getDia() / 2) >= net.getX() - (net.getWidth() / 2)
-                        && (apple.getX() - (apple.getDia() / 2) <= net.getX() + net.getWidth() / 2)
-                        && apple.getY() >= net.getY() - apple.getDia()
-                        && apple.getY() <= net.getY()) {
 
+        for (int i = 0; i < nets.length; i++) {
+            for (Apple apple : apples) {
+                if (apple.getX() + (apple.getDia() / 2) >= nets[i].getX() - (nets[i].getWidth() / 2)
+                        && (apple.getX() - (apple.getDia() / 2) <= nets[i].getX() + nets[i].getWidth() / 2)
+                        && apple.getY() >= nets[i].getY() - apple.getDia()
+                        && apple.getY() <= nets[i].getY()) {
+                    characters.characterAtI(i).setMinigameScore(100);
+                    apple.remove();
+                    System.out.println(characters.characterAtI(i).getMinigameScore());
                 }
             }
         }
