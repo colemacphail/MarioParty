@@ -137,6 +137,7 @@ public class Board {
                     if (this.selectedMinigame.isDone() != -1) {
                         try {
                             Characters.characters[this.selectedMinigame.isDone()].changeCoins(5);
+                            System.out.println("Player " + (this.selectedMinigame.isDone() + 1) + " won!");
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Not a valid winner!");
                         }
