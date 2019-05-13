@@ -56,7 +56,7 @@ public class QuickTime extends Minigame {
         this.cons = Console.getInstance();
         this.characters = Characters.getInstance();
         for (int i = 0; i < this.buttonList.length; i++) {
-            this.buttonList = new Button[i];
+            this.buttonList[i] = new Button();
         }
     }
 
