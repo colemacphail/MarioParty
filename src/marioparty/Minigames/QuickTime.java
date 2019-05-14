@@ -25,8 +25,8 @@ class Button {
     private Controllers controller;
 
     public Button() {
-        controller = Controllers.getInstance();
-        buttonType = InputAction.values()[rand.nextInt(6) + 4];
+        this.controller = Controllers.getInstance();
+        this.buttonType = InputAction.values()[this.rand.nextInt(6) + 4];
     }
 
     public boolean isPressed(int i) {
@@ -71,11 +71,11 @@ public class QuickTime extends Minigame {
                     this.cons.getWidth() / 4 * (i % 2 == 1 ? 3 : 1),
                     this.cons.getHeight() / 4 * (i > 1 ? 3 : 1));
 
-            if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].isPressed(i) && !wasPressed) {
+            if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].isPressed(i) && !this.wasPressed) {
                 this.characters.characterAtI(i).changeMinigameScore(1);
                 this.wasPressed = true;
             } else if(this.buttonList[this.characters.characterAtI(i).getMinigameScore()].nonePressed(i)) {
-                wasPressed = false;
+                this.wasPressed = false;
             }
         }
         this.displayMinigameScoreCornerSplitscreen();

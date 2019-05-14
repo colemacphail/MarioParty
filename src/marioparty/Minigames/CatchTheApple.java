@@ -48,10 +48,11 @@ class Apple {
     public void setY(int a) {
         this.y = this.y + a;
     }
-    public void remove(){
-    this.x = -5;
-    this.y = -5;
-    this.fallspeed = 0;
+
+    public void remove() {
+        this.x = -5;
+        this.y = -5;
+        this.fallspeed = 0;
     }
 }
 
@@ -90,7 +91,11 @@ class Net extends MinigameObject {
     public void changeX(int x) {
         this.x += x;
     }
-    
+
+    @Override
+    protected void draw() {
+        this.dc.fillRect(this.x, this.y, this.width, this.height);
+    }
 
 }
 
@@ -107,15 +112,15 @@ public class CatchTheApple extends Minigame {
 
     public void hitbox() {
 
-        for (int i = 0; i < nets.length; i++) {
-            for (Apple apple : apples) {
-                if (apple.getX() + (apple.getDia() / 2) >= nets[i].getX() - (nets[i].getWidth() / 2)
-                        && (apple.getX() - (apple.getDia() / 2) <= nets[i].getX() + nets[i].getWidth() / 2)
+        for (int i = 0; i < this.nets.length; i++) {
+            for (Apple apple : this.apples) {
+                if (apple.getX() + (apple.getDia() / 2) >= this.nets[i].getX() - (this.nets[i].getWidth() / 2)
+                        && (apple.getX() - (apple.getDia() / 2) <= this.nets[i].getX() + this.nets[i].getWidth() / 2)
                         && apple.getY() >= nets[i].getY() - apple.getDia()
                         && apple.getY() <= nets[i].getY()) {
-                    characters.characterAtI(i).setMinigameScore(100);
+                    this.characters.characterAtI(i).setMinigameScore(100);
                     apple.remove();
-                    System.out.println(characters.characterAtI(i).getMinigameScore());
+                    System.out.println(this.characters.characterAtI(i).getMinigameScore());
                 }
             }
         }
@@ -128,9 +133,8 @@ public class CatchTheApple extends Minigame {
         for (int i = 0; i < this.apples.length; i++) {
             this.apples[i] = new Apple();
         }
-        for (int i = 0; i < nets.length; i++) {
+        for (int i = 0; i < this.nets.length; i++) {
             this.nets[i] = new Net();
-
         }
 
     }
@@ -150,7 +154,7 @@ public class CatchTheApple extends Minigame {
             } else if (this.dc.isKeyPressed(65)) {
                 net.changeX(-(net.getSpeed()));
             }
-            this.dc.fillRect(net.getX(), net.getY(), net.getWidth(), net.getHeight());
+            net.draw();
         }
 
     }
