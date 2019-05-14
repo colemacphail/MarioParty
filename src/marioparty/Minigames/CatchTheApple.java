@@ -21,10 +21,10 @@ class Apple {
 
     //INIT
     public Apple() {
-        this.fallspeed = 5;
+        this.fallspeed = rg.nextInt(6)+4;
         this.radius = 10;
         this.x = rg.nextInt(900);
-        this.y = rg.nextInt(300) - 300;
+        this.y = rg.nextInt(300) - 500;
         this.color = Color.RED;
     }
 
@@ -110,22 +110,6 @@ public class CatchTheApple extends Minigame {
         super(MinigameType.FFA, 5000);
     }
 
-    public void hitbox() {
-
-        for (int i = 0; i < this.nets.length; i++) {
-            for (Apple apple : this.apples) {
-                if (apple.getX() + (apple.getDia() / 2) >= this.nets[i].getX() - (this.nets[i].getWidth() / 2)
-                        && (apple.getX() - (apple.getDia() / 2) <= this.nets[i].getX() + this.nets[i].getWidth() / 2)
-                        && apple.getY() >= nets[i].getY() - apple.getDia()
-                        && apple.getY() <= nets[i].getY()) {
-                    this.characters.characterAtI(i).setMinigameScore(100);
-                    apple.remove();
-                    System.out.println(this.characters.characterAtI(i).getMinigameScore());
-                }
-            }
-        }
-    }
-
     //SETUP
     @Override
     public void init() {
@@ -142,7 +126,19 @@ public class CatchTheApple extends Minigame {
     //UPDATE CYCLE
     @Override
     public void run() {
-
+        
+        for (int i = 0; i < nets.length; i++) {
+            for (Apple apple : apples) {
+                if (apple.getX() + (apple.getDia() / 2) >= nets[i].getX() - (nets[i].getWidth() / 2)
+                        && (apple.getX() - (apple.getDia() / 2) <= nets[i].getX() + nets[i].getWidth() / 2)
+                        && apple.getY() >= nets[i].getY() - apple.getDia()
+                        && apple.getY() <= nets[i].getY()) {
+                    characters.characterAtI(i).changeMinigameScore(100);
+                    apple.remove();
+                }
+            }
+        }
+        
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
             this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getDia(), apple.getDia());

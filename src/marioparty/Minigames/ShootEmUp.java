@@ -91,6 +91,7 @@ public class ShootEmUp extends Minigame {
     private Crosshair[] crosshairs = new Crosshair[Constants.NUM_OF_PLAYERS];
     private Controllers controllers;
     
+
     public ShootEmUp() {
         super(MinigameType.FFA, 10000);
     }
