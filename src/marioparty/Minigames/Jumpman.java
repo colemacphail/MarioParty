@@ -36,9 +36,9 @@ class Block {
     public int getSize() {
         return this.size;
     }
-    
-    public int getMovespeed(){
-    return this.movespeed;
+
+    public int getMovespeed() {
+        return this.movespeed;
     }
 
     public void move() {
@@ -47,8 +47,14 @@ class Block {
 }
 
 class Jumper extends MinigameObject {
-private int size;
-private Color color;
+
+    private int size;
+    private Color color;
+
+    @Override
+    protected void draw() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
 
 public class Jumpman extends Minigame {
