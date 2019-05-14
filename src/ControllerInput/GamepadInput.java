@@ -23,6 +23,22 @@ public class GamepadInput {
         return this.controllers.getState(this.controllerInUse).isConnected;
     }
 
+    public float getLeftStickX(){
+        return this.controllers.getState(this.controllerInUse).leftStickX;
+    }
+    
+    public float getLeftStickY(){
+        return this.controllers.getState(this.controllerInUse).leftStickY;
+    }
+    
+    public float getRightStickX(){
+        return this.controllers.getState(this.controllerInUse).rightStickX;
+    }
+    
+    public float getRightStickY(){
+        return this.controllers.getState(this.controllerInUse).rightStickY;
+    }
+    
     //INPUTS
     public Set<InputAction> actions() {
         ControllerState currState = this.controllers.getState(this.controllerInUse);
