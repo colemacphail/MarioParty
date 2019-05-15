@@ -58,8 +58,6 @@ class Target {
 
 class Crosshair extends MinigameObject {
     
-    private int x;
-    private int y;
     private DConsole dc;
     private Color color;
     private int diameter;
@@ -98,6 +96,7 @@ public class ShootEmUp extends Minigame {
     
     @Override
     public void init() {
+        this.targets.clear();
         this.controllers = Controllers.getInstance();
         
         for (int i = 0; i < 10; i++) {
@@ -132,12 +131,12 @@ public class ShootEmUp extends Minigame {
         for (int i = 0; i < this.crosshairs.length; i++) {
             GamepadInput playerIn = this.controllers.getControllerInput(i);
             this.crosshairs[i].draw();
-            this.crosshairs[i].move(playerIn.getLeftStickX(), playerIn.getLeftStickY());
+            this.crosshairs[i].move(playerIn.getLeftStickX(), -playerIn.getLeftStickY());
             if (playerIn.actions().contains(InputAction.A)) {
-                for (Target target : this.targets) {
-                    double distance = Math.sqrt(Math.pow(this.crosshairs[i].getX() - target.getX(), 2) + Math.pow(this.crosshairs[i].getY() - target.getY(), 2));
-                    if (distance < target.getDiameter() / 2) {
-                        this.targets.remove(target);
+                for (int j = 0; j < this.targets.size(); j++) {
+                    double distance = Math.sqrt(Math.pow(this.crosshairs[i].getX() - targets.get(j).getX(), 2) + Math.pow(this.crosshairs[i].getY() - targets.get(j).getY(), 2));                  
+                    if (distance < targets.get(j).getDiameter() / 2) {
+                        this.targets.remove(targets.get(j));
                         Characters.getInstance().characterAtI(i).changeMinigameScore(1);
                     }
                 }

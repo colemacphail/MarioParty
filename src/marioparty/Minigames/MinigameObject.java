@@ -14,18 +14,19 @@ import marioparty.Console;
  * @author Jacob
  */
 public abstract class MinigameObject {
+
     protected double x;
     protected double y;
     private GamepadInput controller;
     protected final DConsole dc = Console.getInstance();
-    
-    public double getX(){
-    return this.x;
+
+    public double getX() {
+        return this.x;
     }
-    
-    public double getY(){
-    return this.y;
+
+    public double getY() {
+        return this.y;
     }
-    
+
     protected abstract void draw();
 }
