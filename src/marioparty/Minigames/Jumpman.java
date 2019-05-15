@@ -19,7 +19,7 @@ class Block {
     private Color color;
     private int movespeed;
 
-    public Block() {
+    public Block(int x) {
         this.y = 580;
         this.size = 20;
         this.movespeed = 5;
@@ -51,31 +51,42 @@ class Jumper extends MinigameObject {
     private int size;
     private Color color;
 
+    public Jumper(){
+        
+        this.size = 30;
+        this.color = new Color (145,30,30);
+}
     @Override
     protected void draw() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        dc.setPaint(color);
+        dc.fillRect(x, y, size, size);
     }
 }
 
 public class Jumpman extends Minigame {
-
-    public Jumpman(MinigameType type, long timeout) {
+    Block[] block = new Block[10];
+    public Jumpman() {
         super(MinigameType.FFA, 15000);
     }
 
+    
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       for(int i = 0; i < 10; i ++){
+           block[i] = new Block((i * 50) + 900);       
+       }
     }
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < block.length; i ++){
+            block[i].move();
+        }
     }
 
     @Override
     public int isDone() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return -1;
     }
 
 }
