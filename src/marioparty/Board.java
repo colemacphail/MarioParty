@@ -41,6 +41,7 @@ public class Board {
     private final Characters characters;
     private int turn = 0;
     private int maxTurns = 20;
+    private int counter = 0;
 
     //INITIALIZER
     private Board() {
@@ -127,26 +128,36 @@ public class Board {
                 this.selectedMinigame.run();
                 if (this.selectedMinigame.isDone() != -1 || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
 
-                    this.currentGameState = GameState.BOARD;
-                    
+                    this.currentGameState = GameState.MINIGAME_END;
+
                     this.turn++;
                     if (this.turn >= this.maxTurns) {
                         this.currentGameState = GameState.END;
                     }
-                    
-                    if (this.selectedMinigame.isDone() != -1) {
-                        try {
-                            Characters.characters[this.selectedMinigame.isDone()].changeCoins(5);
-                            System.out.println("Player " + (this.selectedMinigame.isDone() + 1) + " won!");
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Not a valid winner!");
-                        }
-                    }
                 }
                 break;
 
+            case MINIGAME_END:
+                this.counter++;
+                this.selectedMinigame.drawHorizontalSplitscreen();
+                for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                    this.dc.drawString(this.characters.characterAtI(i).getCoins(), this.dc.getWidth() / 4, this.dc.getHeight() / 4 * i + this.dc.getHeight() / 8);
+                }
+                if (this.counter > 1500) {
+                    try {
+                        Characters.characters[this.selectedMinigame.isDone()].changeCoins(10);
+                        System.out.println("Player " + (this.selectedMinigame.isDone() + 1) + " won!");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Not a valid winner!");
+                    }
+                }
+
+                if (this.counter > 3000) {
+                    this.counter = 0;
+                    this.currentGameState = GameState.BOARD;
+                }
+                break;
             case END:
-                this.dc.dispose();
                 System.exit(1);
                 break;
 

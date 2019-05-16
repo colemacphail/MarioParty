@@ -5,6 +5,9 @@
  */
 package marioparty;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  *
  * @author arnav
@@ -23,6 +26,11 @@ public class Characters {
     
     public static int getLength() {
         return Constants.NUM_OF_PLAYERS;
+    }
+    
+    public static void sortCharacters() {
+//        Arrays.sort(characters, Comparator.comparing(Character::getStars));
+
     }
     
     public Character characterAtI(int i) {

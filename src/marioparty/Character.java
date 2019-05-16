@@ -142,4 +142,12 @@ public class Character {
     public void setPlayerNum(int i){
         this.playerNum = i;
     }
+    
+    public int getCoins() {
+        return this.coins;
+    }
+    
+    public int getStars() {
+        return this.stars;
+    }
 }

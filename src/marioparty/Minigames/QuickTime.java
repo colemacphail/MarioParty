@@ -33,7 +33,7 @@ class Button {
         return this.controller.getControllerInput(i).actions().size() == 1
                 && this.controller.getControllerInput(i).actions().contains(this.buttonType);
     }
-    
+
     public boolean nonePressed(int i) {
         return this.controller.getControllerInput(i).actions().isEmpty();
     }
@@ -70,11 +70,10 @@ public class QuickTime extends Minigame {
             this.cons.drawString(this.buttonList[this.characters.characterAtI(i).getMinigameScore()].getButtonType(),
                     this.cons.getWidth() / 4 * (i % 2 == 1 ? 3 : 1),
                     this.cons.getHeight() / 4 * (i > 1 ? 3 : 1));
-
             if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].isPressed(i) && !wasPressed) {
                 this.characters.characterAtI(i).changeMinigameScore(1);
                 this.wasPressed = true;
-            } else if(this.buttonList[this.characters.characterAtI(i).getMinigameScore()].nonePressed(i)) {
+            } else if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].nonePressed(i)) {
                 wasPressed = false;
             }
         }

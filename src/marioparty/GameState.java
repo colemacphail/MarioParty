@@ -6,5 +6,5 @@ package marioparty;
  */
 public enum GameState {
     //GAMESTATES YAY
-    MENU, INIT, BOARD, MINIGAME_INIT, MINIGAME, END
+    MENU, INIT, BOARD, MINIGAME_INIT, MINIGAME, MINIGAME_END, END
 }

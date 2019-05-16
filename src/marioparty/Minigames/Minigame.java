@@ -61,12 +61,37 @@ public abstract class Minigame {
         }
     }
 
+    public void drawVerticalSplitscreen() {
+        this.dc.setPaint(Color.BLACK);
+        this.dc.setStroke(new BasicStroke(2));
+        this.dc.drawLine(this.dc.getWidth() / 4, 0, this.dc.getWidth() / 4, this.dc.getHeight());
+        this.dc.drawLine(this.dc.getWidth() / 2, 0, this.dc.getWidth() / 2, this.dc.getHeight());
+        this.dc.drawLine(this.dc.getWidth() / 4 * 3, 0, this.dc.getWidth() / 4 * 3, this.dc.getHeight());
+    }
+
     public void displayMinigameScoreVerticalSplitscreen() {
         this.dc.setPaint(Color.BLACK);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             this.dc.drawString(this.characters.characterAtI(i).getMinigameScore(),
                     this.dc.getWidth() / 8 * (i) + this.dc.getWidth() / 8 * (i + 1),
                     this.dc.getHeight() / 8 * (7));
+        }
+    }
+    
+    public void drawHorizontalSplitscreen() {
+        this.dc.setPaint(Color.BLACK);
+        this.dc.setStroke(new BasicStroke(2));
+        this.dc.drawLine(0, this.dc.getHeight() / 4, this.dc.getWidth(), this.dc.getHeight() / 4);
+        this.dc.drawLine(0, this.dc.getHeight() / 2, this.dc.getWidth(), this.dc.getHeight() / 2);
+        this.dc.drawLine(0, this.dc.getHeight() / 4 * 3, this.dc.getWidth(), this.dc.getHeight() / 4 * 3);
+    }
+
+    public void displayMinigameScoreHorizontalSplitscreen() {
+        this.dc.setPaint(Color.BLACK);
+        for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+            this.dc.drawString(this.characters.characterAtI(i).getMinigameScore(),
+                    this.dc.getWidth() / 8 * (7),
+                    this.dc.getHeight() / 8 * (i) + this.dc.getHeight() / 8 * (i + 1));
         }
     }
 
