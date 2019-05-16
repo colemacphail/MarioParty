@@ -27,6 +27,15 @@ public abstract class MinigameObject {
     public double getY() {
         return this.y;
     }
+    
+    public void setX(double destination){
+    this.x = destination;
+    }
+    
+    public void setY(double destination){
+    this.y = destination;
+    //deep space presented by the boeing company
+    }
 
     protected abstract void draw();
 }
