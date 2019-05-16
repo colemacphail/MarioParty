@@ -6,32 +6,27 @@
 package marioparty.Minigames;
 
 import ControllerInput.GamepadInput;
+import DLibX.DConsole;
+import marioparty.Console;
 
 /**
  *
  * @author Jacob
  */
 public abstract class MinigameObject {
-    double x;
-    double y;
-    private GamepadInput controller;
-    
-    public double getX(){
-    return this.x;
-    }
-    
-    public double getY(){
-    return this.y;
-    }
-    
-    /*public int getPlayerNum(){
-    return 
-    }*/
-    
 
-    
-            
-            
-    
-    
+    protected double x;
+    protected double y;
+    private GamepadInput controller;
+    protected final DConsole dc = Console.getInstance();
+
+    public double getX() {
+        return this.x;
+    }
+
+    public double getY() {
+        return this.y;
+    }
+
+    protected abstract void draw();
 }

@@ -27,10 +27,10 @@ public class MinigameBuilder {
         // i.e. this.minigames.add(new FunGame());
 
 //        this.minigames.add(new CatchTheApple());
-//        this.minigames.add(new ShootEmUp());
+        this.minigames.add(new ShootEmUp());
 //        this.minigames.add(new Masher());
 //        this.minigames.add(new QuickTime());
-        this.minigames.add(new PressAButton());
+//        this.minigames.add(new PressAButton());
     }
 
     //takes in an array of valid types and spits out a minigame that matches one of the types

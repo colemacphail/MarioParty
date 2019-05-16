@@ -29,8 +29,8 @@ public class Characters {
     }
     
     public static void sortCharacters() {
-//        Arrays.sort(characters, Comparator.comparing(Character::getStars));
-
+        Arrays.sort(characters, Comparator.comparing(Character::getStars));
+        //TODO: also sort by coins
     }
     
     public Character characterAtI(int i) {

@@ -21,10 +21,10 @@ class Apple {
 
     //INIT
     public Apple() {
-        this.fallspeed = 5;
+        this.fallspeed = rg.nextInt(6)+4;
         this.radius = 10;
         this.x = rg.nextInt(900);
-        this.y = rg.nextInt(300) - 300;
+        this.y = rg.nextInt(300) - 500;
         this.color = Color.RED;
     }
 
@@ -48,10 +48,11 @@ class Apple {
     public void setY(int a) {
         this.y = this.y + a;
     }
-    public void remove(){
-    this.x = -5;
-    this.y = -5;
-    this.fallspeed = 0;
+
+    public void remove() {
+        this.x = -5;
+        this.y = -5;
+        this.fallspeed = 0;
     }
 }
 
@@ -90,7 +91,11 @@ class Net extends MinigameObject {
     public void changeX(int x) {
         this.x += x;
     }
-    
+
+    @Override
+    protected void draw() {
+        this.dc.fillRect(this.x, this.y, this.width, this.height);
+    }
 
 }
 
@@ -105,22 +110,6 @@ public class CatchTheApple extends Minigame {
         super(MinigameType.FFA, 5000);
     }
 
-    public void hitbox() {
-
-        for (int i = 0; i < nets.length; i++) {
-            for (Apple apple : apples) {
-                if (apple.getX() + (apple.getDia() / 2) >= nets[i].getX() - (nets[i].getWidth() / 2)
-                        && (apple.getX() - (apple.getDia() / 2) <= nets[i].getX() + nets[i].getWidth() / 2)
-                        && apple.getY() >= nets[i].getY() - apple.getDia()
-                        && apple.getY() <= nets[i].getY()) {
-                    characters.characterAtI(i).setMinigameScore(100);
-                    apple.remove();
-                    System.out.println(characters.characterAtI(i).getMinigameScore());
-                }
-            }
-        }
-    }
-
     //SETUP
     @Override
     public void init() {
@@ -128,9 +117,8 @@ public class CatchTheApple extends Minigame {
         for (int i = 0; i < this.apples.length; i++) {
             this.apples[i] = new Apple();
         }
-        for (int i = 0; i < nets.length; i++) {
+        for (int i = 0; i < this.nets.length; i++) {
             this.nets[i] = new Net();
-
         }
 
     }
@@ -138,7 +126,19 @@ public class CatchTheApple extends Minigame {
     //UPDATE CYCLE
     @Override
     public void run() {
-
+        
+        for (int i = 0; i < nets.length; i++) {
+            for (Apple apple : apples) {
+                if (apple.getX() + (apple.getDia() / 2) >= nets[i].getX() - (nets[i].getWidth() / 2)
+                        && (apple.getX() - (apple.getDia() / 2) <= nets[i].getX() + nets[i].getWidth() / 2)
+                        && apple.getY() >= nets[i].getY() - apple.getDia()
+                        && apple.getY() <= nets[i].getY()) {
+                    characters.characterAtI(i).changeMinigameScore(100);
+                    apple.remove();
+                }
+            }
+        }
+        
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
             this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getDia(), apple.getDia());
@@ -150,7 +150,7 @@ public class CatchTheApple extends Minigame {
             } else if (this.dc.isKeyPressed(65)) {
                 net.changeX(-(net.getSpeed()));
             }
-            this.dc.fillRect(net.getX(), net.getY(), net.getWidth(), net.getHeight());
+            net.draw();
         }
 
     }
