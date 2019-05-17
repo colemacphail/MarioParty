@@ -140,9 +140,13 @@ public class Jumpman extends Minigame {
 
         for (Jumper jumper : jumpers) {
             for (Block block : blocks) {
-                if(jumper.getX() + jumper.getSize() >= block.getX() 
-                        && jumper.getX() + jumper.getSize()<= block.getX() + block.getWidth() 
-                        && jumper.getY() + jumper.getSize() >= block.getY() - block.getLength()){
+                if((jumper.getX() + jumper.getSize() /2 >= block.getX() - block.getWidth() / 2 
+                        && jumper.getY() + jumper.getSize() / 2 >= block.getY() - block.getLength() / 2 
+                        && jumper.getX() - jumper.getSize() / 2 <= block.getX() + block.getWidth() / 2))
+                        {
+                            System.out.println("hitting");
+                            System.out.println(jumper.getX() + "," + block.getX());
+                            System.out.println(jumper.getY() + "," + block.getY());
                     jumper.setX(-40);
                     jumper.setY(-40);
                 }
