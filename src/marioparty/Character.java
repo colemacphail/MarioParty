@@ -67,7 +67,7 @@ public class Character {
             yChange = -Math.sin((angle));
         }
 
-        this.move(xChange, yChange);
+        this.move(xChange * 2, yChange * 2);
     }
 
     public void draw() {
