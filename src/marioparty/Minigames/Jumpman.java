@@ -7,8 +7,11 @@ package marioparty.Minigames;
 
 import DLibX.DConsole;
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.Set;
 import marioparty.Console;
 import marioparty.Constants;
+import marioparty.Players;
 
 /**
  *
@@ -26,14 +29,15 @@ class Block {
     private DConsole dc = Console.getInstance();
 
     public Block() {
-        
+
         this.y = 580;
         this.width = 20;
         this.length = 40;
         this.movespeed = 5;
     }
-    public void setX(int x){
-    this.x = x;
+
+    public void setX(int x) {
+        this.x = x;
     }
 
     public int getX() {
@@ -80,11 +84,10 @@ class Jumper extends MinigameObject {
         this.yChange = 0;
         this.pressed = false;
     }
-    
-    public int getSize(){
-    return this.size;
+
+    public int getSize() {
+        return this.size;
     }
-    
 
     @Override
     protected void draw() {
@@ -126,7 +129,7 @@ public class Jumpman extends Minigame {
     @Override
     public void init() {
         for (int i = 0; i < 10; i++) {
-            
+
             blocks[i] = new Block();
             blocks[i].setX((i * 275) + 900);
         }
@@ -140,13 +143,12 @@ public class Jumpman extends Minigame {
 
         for (Jumper jumper : jumpers) {
             for (Block block : blocks) {
-                if((jumper.getX() + jumper.getSize() /2 >= block.getX() - block.getWidth() / 2 
-                        && jumper.getY() + jumper.getSize() / 2 >= block.getY() - block.getLength() / 2 
-                        && jumper.getX() - jumper.getSize() / 2 <= block.getX() + block.getWidth() / 2))
-                        {
-                            System.out.println("hitting");
-                            System.out.println(jumper.getX() + "," + block.getX());
-                            System.out.println(jumper.getY() + "," + block.getY());
+                if ((jumper.getX() + jumper.getSize() / 2 >= block.getX() - block.getWidth() / 2
+                        && jumper.getY() + jumper.getSize() / 2 >= block.getY() - block.getLength() / 2
+                        && jumper.getX() - jumper.getSize() / 2 <= block.getX() + block.getWidth() / 2)) {
+                    System.out.println("hitting");
+                    System.out.println(jumper.getX() + "," + block.getX());
+                    System.out.println(jumper.getY() + "," + block.getY());
                     jumper.setX(-40);
                     jumper.setY(-40);
                 }
@@ -163,11 +165,14 @@ public class Jumpman extends Minigame {
     }
 
     @Override
-    public int isDone() {
+    public Set isDone() {
+        Set<Players> winningPlayers = new HashSet<>();
+
         if (this.dc.isKeyPressed('f')) {
-            return 1;
+            winningPlayers.add(Players.PLAYER_1);
+            return winningPlayers;
         }
-        return -1;
+        return winningPlayers;
     }
 
 }

@@ -2,9 +2,12 @@ package marioparty.Minigames;
 
 import ControllerInput.Controllers;
 import ControllerInput.InputAction;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import marioparty.Characters;
 import marioparty.Constants;
+import marioparty.Players;
 
 /**
  *
@@ -42,15 +45,15 @@ public class Masher extends Minigame {
     }
 
     @Override
-    public int isDone() {//TODO: have actual finishing condition
-
+    public Set<Players> isDone() {//TODO: have actual finishing condition
+        Set<Players> winningPlayers = new HashSet<>();
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             if (Characters.characters[i].getMinigameScore() >= 20) {
-                return i;
+                winningPlayers.add(Players.values()[i]);
             }
         }
 
-        return -1;
+        return winningPlayers;
     }
 
 }

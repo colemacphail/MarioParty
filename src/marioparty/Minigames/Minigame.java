@@ -3,9 +3,11 @@ package marioparty.Minigames;
 import DLibX.DConsole;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.util.Set;
 import marioparty.Characters;
 import marioparty.Console;
 import marioparty.Constants;
+import marioparty.Players;
 
 /**
  *
@@ -37,9 +39,9 @@ public abstract class Minigame {
 
     /**
      *
-     * @return -1 if not done, otherwise return winning player(s)
+     * @return winning players
      */
-    public abstract int isDone();
+    public abstract Set<Players> isDone();
 
     public MinigameType getType() {
         return this.type;
