@@ -7,8 +7,11 @@ package marioparty.Minigames;
 
 import DLibX.DConsole;
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.Set;
 import marioparty.Console;
 import marioparty.Constants;
+import marioparty.Players;
 
 /**
  *
@@ -140,6 +143,7 @@ public class Jumpman extends Minigame {
 
         for (Jumper jumper : jumpers) {
             for (Block block : blocks) {
+
                 if ((jumper.getX() + (jumper.getSize() / 2) >= block.getX() - (block.getWidth() / 2)
                         && jumper.getX() - (jumper.getSize() / 2) <= block.getX() + (block.getWidth() / 2)
                         && jumper.getY() + (jumper.getSize() / 2) >= block.getY() - (block.getLength() / 2))) {
@@ -163,11 +167,14 @@ public class Jumpman extends Minigame {
     }
 
     @Override
-    public int isDone() {
+    public Set isDone() {
+        Set<Players> winningPlayers = new HashSet<>();
+
         if (this.dc.isKeyPressed('f')) {
-            return 1;
+            winningPlayers.add(Players.PLAYER_1);
+            return winningPlayers;
         }
-        return -1;
+        return winningPlayers;
     }
 
 }

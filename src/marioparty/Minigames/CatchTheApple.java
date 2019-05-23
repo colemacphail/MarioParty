@@ -1,9 +1,12 @@
 package marioparty.Minigames;
 
 import java.awt.Color;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import marioparty.Characters;
 import marioparty.Constants;
+import marioparty.Players;
 
 /**
  *
@@ -21,7 +24,7 @@ class Apple {
 
     //INIT
     public Apple() {
-        this.fallspeed = rg.nextInt(6)+4;
+        this.fallspeed = rg.nextInt(6) + 4;
         this.radius = 10;
         this.x = rg.nextInt(900);
         this.y = rg.nextInt(300) - 500;
@@ -126,7 +129,7 @@ public class CatchTheApple extends Minigame {
     //UPDATE CYCLE
     @Override
     public void run() {
-        
+
         for (int i = 0; i < nets.length; i++) {
             for (Apple apple : apples) {
                 if (apple.getX() + (apple.getDia() / 2) >= nets[i].getX() - (nets[i].getWidth() / 2)
@@ -138,7 +141,7 @@ public class CatchTheApple extends Minigame {
                 }
             }
         }
-        
+
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
             this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getDia(), apple.getDia());
@@ -157,10 +160,13 @@ public class CatchTheApple extends Minigame {
 
     //END CLAUSE
     @Override
-    public int isDone() {//TODO: have actual finishing condition
+    public Set isDone() {//TODO: have actual finishing condition
+        Set<Players> winningPlayers = new HashSet<>();
+
         if (this.dc.isKeyPressed(' ')) {
-            return 1;
+            winningPlayers.add(Players.PLAYER_1);
+            return winningPlayers;
         }
-        return -1;
+        return winningPlayers;
     }
 }

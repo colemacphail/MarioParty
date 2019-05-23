@@ -8,10 +8,13 @@ package marioparty.Minigames;
 import ControllerInput.Controllers;
 import ControllerInput.InputAction;
 import DLibX.DConsole;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import marioparty.Characters;
 import marioparty.Console;
 import marioparty.Constants;
+import marioparty.Players;
 
 /**
  *
@@ -73,7 +76,7 @@ public class QuickTime extends Minigame {
             if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].isPressed(i) && !this.wasPressed) {
                 this.characters.characterAtI(i).changeMinigameScore(1);
                 this.wasPressed = true;
-            } else if(this.buttonList[this.characters.characterAtI(i).getMinigameScore()].nonePressed(i)) {
+            } else if (this.buttonList[this.characters.characterAtI(i).getMinigameScore()].nonePressed(i)) {
                 this.wasPressed = false;
             }
         }
@@ -82,12 +85,13 @@ public class QuickTime extends Minigame {
     }
 
     @Override
-    public int isDone() {
+    public Set isDone() {
+        Set<Players> winningPlayers = new HashSet<>();
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             if (Characters.characters[i].getMinigameScore() > 14) {
-                return i;
+                winningPlayers.add(Players.values()[i]);
             }
         }
-        return -1;
+        return winningPlayers;
     }
 }

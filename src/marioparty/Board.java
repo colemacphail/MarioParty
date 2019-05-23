@@ -126,14 +126,11 @@ public class Board {
 
             case MINIGAME:
                 this.selectedMinigame.run();
-                if (this.selectedMinigame.isDone() != -1 || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
+                if (!this.selectedMinigame.isDone().isEmpty() || this.selectedMinigame.hasTimeoutOccurred()) { // if the minigame is done, finish
 
                     this.currentGameState = GameState.MINIGAME_END;
 
                     this.turn++;
-                    if (this.turn >= this.maxTurns) {
-                        this.currentGameState = GameState.END;
-                    }
                 }
                 break;
 
@@ -143,18 +140,21 @@ public class Board {
                 for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
                     this.dc.drawString(this.characters.characterAtI(i).getCoins(), this.dc.getWidth() / 4, this.dc.getHeight() / 4 * i + this.dc.getHeight() / 8);
                 }
-                if (this.counter > 1500) {
-                    try {
-                        Characters.characters[this.selectedMinigame.isDone()].changeCoins(10);
-                        System.out.println("Player " + (this.selectedMinigame.isDone() + 1) + " won!");
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Not a valid winner!");
+                if (this.counter == 75) {
+                    for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                        if (this.selectedMinigame.isDone().contains(Players.values()[i])){
+                            this.characters.characterAtI(i).changeCoins(10);
+                        }
                     }
                 }
 
-                if (this.counter > 3000) {
+                if (this.counter > 150) {
                     this.counter = 0;
-                    this.currentGameState = GameState.BOARD;
+                    if (this.turn >= this.maxTurns) {
+                        this.currentGameState = GameState.END;
+                    } else {
+                        this.currentGameState = GameState.BOARD;
+                    }
                 }
                 break;
             case END:
