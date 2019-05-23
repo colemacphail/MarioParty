@@ -1,9 +1,9 @@
 package Tiles;
 
-import DLibX.DConsole;
-import marioparty.Console;
-import marioparty.Character;
 import ControllerInput.InputAction;
+import DLibX.DConsole;
+import marioparty.Character;
+import marioparty.Console;
 
 /**
  *
@@ -37,5 +37,7 @@ public abstract class Tile {
     }
 
     public abstract void triggerEvent(Character player); // must provide an event when landing on
+    
+    public abstract void passingEvent(Character player);
 
 }

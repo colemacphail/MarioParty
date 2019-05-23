@@ -24,4 +24,9 @@ public class AddCoinTile extends Tile {
         player.changeCoins(3);
     }
 
+    @Override
+    public void passingEvent(Character player) {
+        //nothing happens
+    }
+
 }
