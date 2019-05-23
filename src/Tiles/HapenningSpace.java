@@ -32,5 +32,10 @@ public class HapenningSpace extends Tile {
     public void triggerEvent(Character player) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void passingEvent(Character player) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
