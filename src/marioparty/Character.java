@@ -121,10 +121,16 @@ public class Character {
 
     public void changeCoins(int coins) {
         this.coins += coins;
+        if (this.coins <= 0) {
+            this.coins = 0;
+        }
     }
 
     public void changeStars(int stars) {
         this.stars += stars;
+        if (this.stars <= 0) {
+            this.stars = 0;
+        }
     }
 
     public void changeMinigameScore(int delta) {
