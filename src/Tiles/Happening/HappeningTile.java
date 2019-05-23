@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tiles;
+package Tiles.Happening;
 
+import Tiles.Tile;
 import java.awt.Color;
 import marioparty.Character;
 import marioparty.Constants;
@@ -13,9 +14,9 @@ import marioparty.Constants;
  *
  * @author arnav
  */
-public class HapenningSpace extends Tile {
+public class HappeningTile extends Tile {
 
-    public HapenningSpace(int x, int y) {
+    public HappeningTile(int x, int y) {
         super(x, y);
     }
     

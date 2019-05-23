@@ -17,7 +17,7 @@ public abstract class Tile {
     protected int x;
     protected int y;
 
-    Tile(int x, int y) { // all tiles must have a position
+    public Tile(int x, int y) { // all tiles must have a position
         this.dc = Console.getInstance();
         this.x = x;
         this.y = y;
