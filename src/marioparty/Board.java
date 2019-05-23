@@ -165,6 +165,14 @@ public class Board {
     }
 
     //METHODS
+    public GameState getCurrentGameState() {
+        return this.currentGameState;
+    }
+    
+    public void setCurrentGameState(GameState desiredGameState) {
+        this.currentGameState = desiredGameState;
+    }
+    
     public int getCameraOffsetX() {
         return this.cameraOffsetX;
     }
