@@ -75,6 +75,7 @@ class Jumper extends MinigameObject {
     private Color color;
     private double yChange;
     private boolean pressed;
+    private boolean alive;
 
     public Jumper() {
         this.x = 30;
@@ -83,10 +84,20 @@ class Jumper extends MinigameObject {
         this.color = new Color(145, 30, 30);
         this.yChange = 0;
         this.pressed = false;
+        this.time = System.currentTimeMillis();
+        this.alive = true;
     }
 
     public int getSize() {
         return this.size;
+    }
+    
+    public boolean isAlive(){
+    return this.alive;
+    }
+    
+    public void dead(){
+    this.alive = false;
     }
 
     @Override
@@ -121,6 +132,7 @@ public class Jumpman extends Minigame {
 
     Block[] blocks = new Block[10];
     Jumper[] jumpers = new Jumper[Constants.NUM_OF_PLAYERS];
+    private long startTime = System.currentTimeMillis();
 
     public Jumpman() {
         super(MinigameType.FFA, 15000);
@@ -142,6 +154,11 @@ public class Jumpman extends Minigame {
     public void run() {
 
         for (Jumper jumper : jumpers) {
+            if(jumper.isAlive()){
+            jumper.updateTime();
+            jumper.setScore((int)(startTime - jumper.getTime()));
+            }else{
+            }
             for (Block block : blocks) {
 
                 if ((jumper.getX() + (jumper.getSize() / 2) >= block.getX() - (block.getWidth() / 2)
@@ -150,8 +167,9 @@ public class Jumpman extends Minigame {
                     System.out.println("hitting");
                     System.out.println(jumper.getX() + jumper.getSize()/2 + "," + (block.getX()- block.getWidth() / 2));
                     System.out.println(jumper.getY() + jumper.getSize()/2 + "," + (block.getY() - block.getLength() / 2));
-                    jumper.setY(-40);
-                    jumper.setX(-40);
+                    jumper.setX(10000);
+                    jumper.dead();
+                    
                     
                 }
             }
