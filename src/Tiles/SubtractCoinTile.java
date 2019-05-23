@@ -24,4 +24,9 @@ public class SubtractCoinTile extends Tile {
     public void triggerEvent(Character player) {
         player.changeCoins(-3);
     }
+
+    @Override
+    public void passingEvent(Character player) {
+        //Does nothing
+    }
 }

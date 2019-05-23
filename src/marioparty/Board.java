@@ -96,6 +96,7 @@ public class Board {
                             Characters.characters[playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
                             if (Characters.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
                                 this.currentRoll--;
+                                this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length].passingEvent(Characters.characters[playerTurn]);
                                 Characters.characters[playerTurn].setTilePos((Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length);
                             }
                         }
@@ -142,7 +143,7 @@ public class Board {
                 }
                 if (this.counter == 75) {
                     for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                        if (this.selectedMinigame.isDone().contains(Players.values()[i])){
+                        if (this.selectedMinigame.isDone().contains(Players.values()[i])) {
                             this.characters.characterAtI(i).changeCoins(10);
                         }
                     }
@@ -193,4 +194,11 @@ public class Board {
         this.dc.drawString(this.currentRoll, 450, 135);
     }
 
+    public void changeCurrentRoll(int delta) {
+        this.currentRoll += delta;
+    }
+
+    public Tilesets getSelectedTileset(){
+        return this.tileset;
+    }
 }
