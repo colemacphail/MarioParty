@@ -5,6 +5,8 @@
  */
 package Tiles.Happening;
 
+import marioparty.Character;
+
 /**
  *
  * @author arnav
@@ -13,6 +15,16 @@ public class WarpTile extends HappeningTile {
     
     public WarpTile(int x, int y) {
         super(x, y);
+    }
+
+    @Override
+    public void triggerEvent(Character player) {
+        throw new UnsupportedOperationException("Not supported yet."); //TODO: make this work
+    }
+
+    @Override
+    public void passingEvent(Character player) {
+//        Actually nothing
     }
     
 }
