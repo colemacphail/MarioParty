@@ -6,7 +6,6 @@
 package Tiles;
 
 import java.awt.Color;
-import java.awt.Font;
 import marioparty.Character;
 import marioparty.Constants;
 
@@ -19,7 +18,7 @@ public class ChanceTimeTile extends Tile {
     public ChanceTimeTile(int x, int y) {
         super(x, y);
     }
-    
+
     @Override
     public void draw() {
         this.dc.setPaint(Color.ORANGE);
@@ -31,12 +30,12 @@ public class ChanceTimeTile extends Tile {
 
     @Override
     public void triggerEvent(Character player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //TODO: make this do something
     }
 
     @Override
     public void passingEvent(Character player) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // actually nothing
     }
-    
+
 }
