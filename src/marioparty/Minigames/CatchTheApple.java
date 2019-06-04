@@ -145,6 +145,9 @@ public class CatchTheApple extends Minigame {
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
             this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getDia(), apple.getDia());
+            if (apple.getY() > this.dc.getHeight()) {
+                apple.remove();
+            }
         }
 
         for (Net net : nets) {
