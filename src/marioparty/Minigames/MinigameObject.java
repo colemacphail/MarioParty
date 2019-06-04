@@ -39,12 +39,12 @@ public abstract class MinigameObject {
         return this.score;
     }
     
-    public void setX(double x){
-    this.x = x;
+    public void setX(double destination){
+    this.x = destination;
     }
     
-    public void setY(double y){
-    this.y = y;
+    public void setY(double destination){
+    this.y = destination;
     //deep space presented by the boeing company
     }
     

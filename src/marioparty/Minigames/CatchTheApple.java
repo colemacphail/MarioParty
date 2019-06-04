@@ -145,6 +145,9 @@ public class CatchTheApple extends Minigame {
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
             this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getDia(), apple.getDia());
+            if (apple.getY() > this.dc.getHeight()) {
+                apple.remove();
+            }
         }
 
         for (Net net : nets) {
@@ -163,10 +166,27 @@ public class CatchTheApple extends Minigame {
     public Set isDone() {//TODO: have actual finishing condition
         Set<Players> winningPlayers = new HashSet<>();
 
-        if (this.dc.isKeyPressed(' ')) {
-            winningPlayers.add(Players.PLAYER_1);
-            return winningPlayers;
+        boolean isDone = true;
+
+        for (Apple apple : apples) {
+            if (apple.getFallspeed() != 0) {
+                isDone = false;
+            }
         }
+
+        if (isDone || this.hasTimeoutOccurred()) {
+            int maxScore = 0;
+            for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                maxScore = Math.max(maxScore, characters.characterAtI(i).getMinigameScore());
+            }
+
+            for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                if (characters.characterAtI(i).getMinigameScore() >= maxScore) {
+                    winningPlayers.add(Players.values()[i]);
+                }
+            }
+        }
+
         return winningPlayers;
     }
 }

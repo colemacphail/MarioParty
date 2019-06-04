@@ -40,5 +40,4 @@ public class WarpTile extends HappeningTile {
     public void passingEvent(Character player) {
         // Actually nothing.
     }
-    
 }

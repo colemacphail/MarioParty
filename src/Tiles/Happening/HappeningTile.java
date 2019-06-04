@@ -7,7 +7,6 @@ package Tiles.Happening;
 
 import Tiles.Tile;
 import java.awt.Color;
-import marioparty.Character;
 import marioparty.Constants;
 
 /**

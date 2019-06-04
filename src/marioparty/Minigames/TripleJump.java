@@ -20,6 +20,25 @@ class Athlete extends MinigameObject {
         this.pressed = false;
     }
 
+    public void jump() {
+        /* if (dc.isKeyPressed(' ')) {
+            if (!pressed) {
+                this.pressed = true;
+                this.yChange = -10;
+            }
+        }
+
+        this.y += this.yChange;
+
+        this.yChange += 0.5;
+
+        if (this.y >= 585) {
+            this.pressed = false;
+            this.yChange = 0;
+            this.y = 585; 
+        }*/
+    }
+
     @Override
     protected void draw() {
         dc.fillRect(x, y, size, size);
