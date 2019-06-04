@@ -174,7 +174,7 @@ public class CatchTheApple extends Minigame {
             }
         }
 
-        if (isDone) {
+        if (isDone || this.hasTimeoutOccurred()) {
             int maxScore = 0;
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
                 maxScore = Math.max(maxScore, characters.characterAtI(i).getMinigameScore());

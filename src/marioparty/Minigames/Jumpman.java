@@ -91,13 +91,13 @@ class Jumper extends MinigameObject {
     public int getSize() {
         return this.size;
     }
-    
-    public boolean isAlive(){
-    return this.alive;
+
+    public boolean isAlive() {
+        return this.alive;
     }
-    
-    public void dead(){
-    this.alive = false;
+
+    public void dead() {
+        this.alive = false;
     }
 
     @Override
@@ -154,10 +154,10 @@ public class Jumpman extends Minigame {
     public void run() {
 
         for (Jumper jumper : jumpers) {
-            if(jumper.isAlive()){
-            jumper.updateTime();
-            jumper.setScore((int)(startTime - jumper.getTime()));
-            }else{
+            if (jumper.isAlive()) {
+                jumper.updateTime();
+                jumper.setScore((int) (startTime - jumper.getTime()));
+            } else {
             }
             for (Block block : blocks) {
 
@@ -165,18 +165,17 @@ public class Jumpman extends Minigame {
                         && jumper.getX() - (jumper.getSize() / 2) <= block.getX() + (block.getWidth() / 2)
                         && jumper.getY() + (jumper.getSize() / 2) >= block.getY() - (block.getLength() / 2))) {
                     System.out.println("hitting");
-                    System.out.println(jumper.getX() + jumper.getSize()/2 + "," + (block.getX()- block.getWidth() / 2));
-                    System.out.println(jumper.getY() + jumper.getSize()/2 + "," + (block.getY() - block.getLength() / 2));
+                    System.out.println(jumper.getX() + jumper.getSize() / 2 + "," + (block.getX() - block.getWidth() / 2));
+                    System.out.println(jumper.getY() + jumper.getSize() / 2 + "," + (block.getY() - block.getLength() / 2));
                     jumper.setX(10000);
                     jumper.dead();
-                    
-                    
+
                 }
             }
         }
-        for (int i = 0; i < blocks.length; i++) {
-            blocks[i].move();
-            blocks[i].draw();
+        for (Block block : blocks) {
+            block.move();
+            block.draw();
         }
         for (int i = 0; i < jumpers.length; i++) {
             jumpers[i].jump();
@@ -188,9 +187,12 @@ public class Jumpman extends Minigame {
     public Set isDone() {
         Set<Players> winningPlayers = new HashSet<>();
 
-        if (this.dc.isKeyPressed('f')) {
-            winningPlayers.add(Players.PLAYER_1);
-            return winningPlayers;
+        if (this.hasTimeoutOccurred()) {
+            for (int i = 0; i < this.jumpers.length; i++) {
+                if (jumpers[i].isAlive()) {
+                    winningPlayers.add(Players.values()[i]);
+                }
+            }
         }
         return winningPlayers;
     }
