@@ -45,6 +45,7 @@ public class Board {
 
     //INITIALIZER
     private Board() {
+        Constants.init();
         this.currentGameState = GameState.INIT;
         this.characters = Characters.getInstance();
     }

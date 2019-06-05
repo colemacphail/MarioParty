@@ -1,5 +1,7 @@
 package marioparty.Minigames;
 
+import ControllerInput.Controllers;
+import ControllerInput.InputAction;
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Random;
@@ -104,7 +106,8 @@ class Net extends MinigameObject {
 
 public class CatchTheApple extends Minigame {
 
-    Characters characters = Characters.getInstance();
+    private Characters characters = Characters.getInstance();
+    private final Controllers controllers = Controllers.getInstance();
     private Apple[] apples = new Apple[12];
     private Net[] nets = new Net[Constants.NUM_OF_PLAYERS];
 
@@ -150,20 +153,20 @@ public class CatchTheApple extends Minigame {
             }
         }
 
-        for (Net net : nets) {
-            if (this.dc.isKeyPressed(68)) {
-                net.changeX(net.getSpeed());
-            } else if (this.dc.isKeyPressed(65)) {
-                net.changeX(-(net.getSpeed()));
+        for (int i = 0; i < nets.length; i++) {
+            if (this.controllers.getControllerInput(i).actions().contains(InputAction.MOVE_RIGHT)) {
+                nets[i].changeX(nets[i].getSpeed());
+            } else if (this.controllers.getControllerInput(i).actions().contains(InputAction.MOVE_LEFT)) {
+                nets[i].changeX(-(nets[i].getSpeed()));
             }
-            net.draw();
+            nets[i].draw();
         }
 
     }
 
     //END CLAUSE
     @Override
-    public Set isDone() {//TODO: have actual finishing condition
+    public Set isDone() {
         Set<Players> winningPlayers = new HashSet<>();
 
         boolean isDone = true;
