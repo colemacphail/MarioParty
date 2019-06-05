@@ -182,7 +182,7 @@ public class Jumpman extends Minigame {
             block.move();
             block.draw();
         }
-        for (int i = 0; i < jumpers.length; i++) { //TODO: Controller support
+        for (int i = 0; i < jumpers.length; i++) {
             if (this.controllers.getControllerInput(i).actions().contains(InputAction.A)) {
                 jumpers[i].jump();
             }
