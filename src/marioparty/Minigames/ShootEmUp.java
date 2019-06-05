@@ -83,6 +83,10 @@ class Crosshair extends MinigameObject {
         this.y += (int) (y * 10);
     }
 
+    public int getDiameter() {
+        return this.diameter;
+    }
+
 }
 
 public class ShootEmUp extends Minigame {
@@ -135,7 +139,7 @@ public class ShootEmUp extends Minigame {
             this.crosshairs[i].move(playerIn.getLeftStickX(), -playerIn.getLeftStickY());
             for (int j = 0; j < this.targets.size(); j++) {
                 double distance = Math.sqrt(Math.pow(this.crosshairs[i].getX() - targets.get(j).getX(), 2) + Math.pow(this.crosshairs[i].getY() - targets.get(j).getY(), 2));
-                if (distance < targets.get(j).getDiameter() / 2) {
+                if (distance < (targets.get(j).getDiameter() / 2 + crosshairs[i].getDiameter() / 2))  {
                     this.targets.remove(targets.get(j));
                     Characters.getInstance().characterAtI(i).changeMinigameScore(1);
                 }
@@ -145,7 +149,7 @@ public class ShootEmUp extends Minigame {
     }
 
     @Override
-    public Set isDone() {//TODO: have actual finishing condition
+    public Set isDone() {
         int winningPlayer = -1;
         Set<Players> winningPlayers = new HashSet<>();
         if (this.targets.isEmpty()) {
