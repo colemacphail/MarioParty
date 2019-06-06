@@ -72,6 +72,15 @@ public class Board {
 
             case BOARD:
                 this.tileset.draw();//draw all tiles
+                this.dc.setPaint(Color.BLACK);
+                for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                    this.dc.drawString(this.characters.characterAtI(i).getStars(),
+                            this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16,
+                            this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
+                    this.dc.drawString(this.characters.characterAtI(i).getCoins(), 
+                            this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1),
+                            this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
+                }
                 for (int i = 0; i < Characters.getLength(); i++) {
                     Characters.characters[i].draw(); //draw all characters
                 }
@@ -170,11 +179,11 @@ public class Board {
     public GameState getCurrentGameState() {
         return this.currentGameState;
     }
-    
+
     public void setCurrentGameState(GameState desiredGameState) {
         this.currentGameState = desiredGameState;
     }
-    
+
     public int getCameraOffsetX() {
         return this.cameraOffsetX;
     }
@@ -207,7 +216,7 @@ public class Board {
         this.currentRoll += delta;
     }
 
-    public Tilesets getSelectedTileset(){
+    public Tilesets getSelectedTileset() {
         return this.tileset;
     }
 }

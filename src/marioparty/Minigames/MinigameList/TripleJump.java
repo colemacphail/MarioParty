@@ -1,6 +1,7 @@
-package marioparty.Minigames;
+package marioparty.Minigames.MinigameList;
 
 import java.awt.Color;
+import marioparty.Minigames.MinigameObject;
 
 /**
  *
