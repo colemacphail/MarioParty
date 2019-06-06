@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package marioparty.Minigames;
+package marioparty.Minigames.MinigameList;
 
 import ControllerInput.Controllers;
 import ControllerInput.GamepadInput;
@@ -16,6 +16,9 @@ import java.util.Set;
 import marioparty.Characters;
 import marioparty.Console;
 import marioparty.Constants;
+import marioparty.Minigames.Minigame;
+import marioparty.Minigames.MinigameObject;
+import marioparty.Minigames.MinigameType;
 import marioparty.Players;
 
 /**

@@ -1,5 +1,11 @@
 package marioparty.Minigames;
 
+import marioparty.Minigames.MinigameList.ShootEmUp;
+import marioparty.Minigames.MinigameList.QuickTime;
+import marioparty.Minigames.MinigameList.PressAButton;
+import marioparty.Minigames.MinigameList.Masher;
+import marioparty.Minigames.MinigameList.Jumpman;
+import marioparty.Minigames.MinigameList.CatchTheApple;
 import java.util.ArrayList;
 import java.util.Random;
 

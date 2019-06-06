@@ -1,4 +1,4 @@
-package marioparty.Minigames;
+package marioparty.Minigames.MinigameList;
 
 import ControllerInput.Controllers;
 import ControllerInput.InputAction;
@@ -7,6 +7,8 @@ import java.util.Random;
 import java.util.Set;
 import marioparty.Characters;
 import marioparty.Constants;
+import marioparty.Minigames.Minigame;
+import marioparty.Minigames.MinigameType;
 import marioparty.Players;
 
 /**
