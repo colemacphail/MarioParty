@@ -5,6 +5,8 @@
  */
 package marioparty.Minigames;
 
+import ControllerInput.Controllers;
+import ControllerInput.InputAction;
 import DLibX.DConsole;
 import java.awt.Color;
 import java.util.HashSet;
@@ -108,12 +110,14 @@ class Jumper extends MinigameObject {
 
     public void jump() {
 
-        if (dc.isKeyPressed(' ')) {
-            if (!pressed) {
-                this.pressed = true;
-                this.yChange = -10;
-            }
+        if (!pressed) {
+            this.pressed = true;
+            this.yChange = -10;
         }
+
+    }
+
+    public void fall() {
 
         this.y += this.yChange;
 
@@ -132,6 +136,7 @@ public class Jumpman extends Minigame {
 
     Block[] blocks = new Block[10];
     Jumper[] jumpers = new Jumper[Constants.NUM_OF_PLAYERS];
+    Controllers controllers = Controllers.getInstance();
     private long startTime = System.currentTimeMillis();
 
     public Jumpman() {
@@ -157,8 +162,8 @@ public class Jumpman extends Minigame {
             if (jumper.isAlive()) {
                 jumper.updateTime();
                 jumper.setScore((int) (startTime - jumper.getTime()));
-            } else {
             }
+
             for (Block block : blocks) {
 
                 if ((jumper.getX() + (jumper.getSize() / 2) >= block.getX() - (block.getWidth() / 2)
@@ -178,9 +183,25 @@ public class Jumpman extends Minigame {
             block.draw();
         }
         for (int i = 0; i < jumpers.length; i++) {
-            jumpers[i].jump();
+            if (this.controllers.getControllerInput(i).actions().contains(InputAction.A)) {
+                jumpers[i].jump();
+            }
+            jumpers[i].fall();
             jumpers[i].draw();
         }
+    }
+
+    @Override
+    public boolean hasTimeoutOccurred() {
+        boolean isAllDead = true;
+
+        for (int i = 0; i < this.jumpers.length; i++) {
+            if (this.jumpers[i].isAlive()) {
+                isAllDead = false;
+            }
+        }
+
+        return super.hasTimeoutOccurred() || isAllDead;
     }
 
     @Override

@@ -18,6 +18,7 @@ public class PressAButton extends Minigame {
     private final Controllers controllers = Controllers.getInstance();
     private final Random rangen = new Random();
     private InputAction desiredAction;
+    private Players winningPlayer;
 
     public PressAButton() {
         super(MinigameType.FFA, 15000);
@@ -39,10 +40,15 @@ public class PressAButton extends Minigame {
 
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
 
-            if (Controllers.getInstance().getControllerInput(i).actions().contains(this.desiredAction)) {
-                winningPlayers.add(Players.values()[i]);
+            if (Controllers.getInstance().getControllerInput(i).actions().contains(this.desiredAction) && this.winningPlayer == null) {
+                this.winningPlayer = Players.values()[i];
             }
         }
+
+        if (this.winningPlayer != null) {
+            winningPlayers.add(winningPlayer);
+        }
+
         return winningPlayers;
     }
 

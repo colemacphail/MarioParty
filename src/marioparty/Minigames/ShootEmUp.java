@@ -7,7 +7,6 @@ package marioparty.Minigames;
 
 import ControllerInput.Controllers;
 import ControllerInput.GamepadInput;
-import ControllerInput.InputAction;
 import DLibX.DConsole;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -84,6 +83,10 @@ class Crosshair extends MinigameObject {
         this.y += (int) (y * 10);
     }
 
+    public int getDiameter() {
+        return this.diameter;
+    }
+
 }
 
 public class ShootEmUp extends Minigame {
@@ -134,20 +137,19 @@ public class ShootEmUp extends Minigame {
             GamepadInput playerIn = this.controllers.getControllerInput(i);
             this.crosshairs[i].draw();
             this.crosshairs[i].move(playerIn.getLeftStickX(), -playerIn.getLeftStickY());
-            if (playerIn.actions().contains(InputAction.A)) {
-                for (int j = 0; j < this.targets.size(); j++) {
-                    double distance = Math.sqrt(Math.pow(this.crosshairs[i].getX() - targets.get(j).getX(), 2) + Math.pow(this.crosshairs[i].getY() - targets.get(j).getY(), 2));
-                    if (distance < targets.get(j).getDiameter() / 2) {
-                        this.targets.remove(targets.get(j));
-                        Characters.getInstance().characterAtI(i).changeMinigameScore(1);
-                    }
+            for (int j = 0; j < this.targets.size(); j++) {
+                double distance = Math.sqrt(Math.pow(this.crosshairs[i].getX() - targets.get(j).getX(), 2) + Math.pow(this.crosshairs[i].getY() - targets.get(j).getY(), 2));
+                if (distance < (targets.get(j).getDiameter() / 2 + crosshairs[i].getDiameter() / 2))  {
+                    this.targets.remove(targets.get(j));
+                    Characters.getInstance().characterAtI(i).changeMinigameScore(1);
                 }
+
             }
         }
     }
 
     @Override
-    public Set isDone() {//TODO: have actual finishing condition
+    public Set isDone() {
         int winningPlayer = -1;
         Set<Players> winningPlayers = new HashSet<>();
         if (this.targets.isEmpty()) {
@@ -156,14 +158,10 @@ public class ShootEmUp extends Minigame {
                     winningPlayer = i;
                 }
             }
-            for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                if (Characters.getInstance().characterAtI(i).getMinigameScore() == (winningPlayer >= 0 ? Characters.getInstance().characterAtI(winningPlayer).getMinigameScore() : -1)) {
-                    winningPlayer += i * 10;
-                }
-            }
         }
         if (winningPlayer != -1) {
             winningPlayers.add(Players.values()[winningPlayer]);
+            System.out.println(winningPlayer);
         }
         return winningPlayers;
     }
