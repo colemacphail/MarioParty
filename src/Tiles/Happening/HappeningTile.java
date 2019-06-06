@@ -25,6 +25,6 @@ public abstract class HappeningTile extends Tile {
         super.draw();
         this.dc.setFont(Constants.TILES_TEXT);
         this.dc.setPaint(Color.WHITE);
-        this.dc.drawString("?", x, y);
+        this.dc.drawString("?", x, y - 4);
     }
 }
