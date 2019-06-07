@@ -6,5 +6,5 @@ package marioparty;
  */
 public enum TurnState {
     //TURN STATES YAY
-    ROLLING, MOVING, END
+    ITEM, ROLLING, MOVING, END
 }
