@@ -144,7 +144,7 @@ public class ShootEmUp extends Minigame {
                 double distance = Math.sqrt(Math.pow(this.crosshairs[i].getX() - targets.get(j).getX(), 2) + Math.pow(this.crosshairs[i].getY() - targets.get(j).getY(), 2));
                 if (distance < (targets.get(j).getDiameter() / 2 + crosshairs[i].getDiameter() / 2))  {
                     this.targets.remove(targets.get(j));
-                    Characters.getInstance().characterAtI(i).changeMinigameScore(1);
+                    Characters.getInstance().getCharacter(i).changeMinigameScore(1);
                 }
 
             }
@@ -157,7 +157,7 @@ public class ShootEmUp extends Minigame {
         Set<Players> winningPlayers = new HashSet<>();
         if (this.targets.isEmpty()) {
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                if (Characters.getInstance().characterAtI(i).getMinigameScore() > (winningPlayer >= 0 ? Characters.getInstance().characterAtI(winningPlayer).getMinigameScore() : -1)) {
+                if (Characters.getInstance().getCharacter(i).getMinigameScore() > (winningPlayer >= 0 ? Characters.getInstance().getCharacter(winningPlayer).getMinigameScore() : -1)) {
                     winningPlayer = i;
                 }
             }

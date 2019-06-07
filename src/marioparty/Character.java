@@ -3,6 +3,7 @@ package marioparty;
 import DLibX.DConsole;
 import Tiles.Tile;
 import java.awt.Color;
+import java.util.ArrayList;
 import marioparty.Items.Item;
 
 /**
@@ -26,10 +27,9 @@ public class Character {
     private int stars = 0;
     private int tilePos = 0;
     private int targetTilePos = 0;
-    private Item[] item = new Item[4];
+    private ArrayList<Item> items = new ArrayList();
     private boolean itemUsed = false;
     private int minigameScore = 0;
-    
 
     //CONSTRUCTOR
     public Character(double x, double y) {
@@ -77,9 +77,17 @@ public class Character {
         this.dc.drawRect(this.x, this.y, 40, 40);
     }
 
+    public void addItem(Item item) {
+        this.items.add(item);
+    }
+
     public void useItem(int itemPosition) {
-        this.item[itemPosition].TriggerEvent();
+        this.items.get(itemPosition).TriggerEvent();
         this.itemUsed = true;
+    }
+    
+    public ArrayList<Item> getItems(){
+        return this.items;
     }
 
     public void check() {
@@ -144,23 +152,23 @@ public class Character {
     public int getMinigameScore() {
         return this.minigameScore;
     }
-    
-    public void setPlayerNum(int i){
+
+    public void setPlayerNum(int i) {
         this.playerNum = i;
     }
-    
+
     public int getCoins() {
         return this.coins;
     }
-    
+
     public int getStars() {
         return this.stars;
     }
-    
+
     public void setX(double x) {
         this.x = x;
     }
-    
+
     public void setY(double y) {
         this.y = y;
     }
