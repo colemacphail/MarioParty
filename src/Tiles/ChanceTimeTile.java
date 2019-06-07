@@ -6,6 +6,7 @@
 package Tiles;
 
 import java.awt.Color;
+import java.util.Random;
 import marioparty.Character;
 import marioparty.Constants;
 
@@ -30,7 +31,10 @@ public class ChanceTimeTile extends Tile {
 
     @Override
     public void triggerEvent(Character player) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: make this do something
+        Random rand = new Random();
+        int playerGivingIndex;
+        int playerRecivingIndex;
+        System.out.println('h');
     }
 
     @Override
