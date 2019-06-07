@@ -1,7 +1,15 @@
 package marioparty.Minigames.MinigameList;
 
+import ControllerInput.Controllers;
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.Set;
+import marioparty.Characters;
+import marioparty.Constants;
+import marioparty.Minigames.Minigame;
 import marioparty.Minigames.MinigameObject;
+import marioparty.Minigames.MinigameType;
+import marioparty.Players;
 
 /**
  *
@@ -12,6 +20,8 @@ class Athlete extends MinigameObject {
     private int size;
     private Color color;
     private boolean pressed;
+    private double yChange;
+    private double xChange;
 
     public Athlete() {
         this.x = 30;
@@ -22,7 +32,7 @@ class Athlete extends MinigameObject {
     }
 
     public void jump() {
-        /* if (dc.isKeyPressed(' ')) {
+         if (dc.isKeyPressed(' ')) {
             if (!pressed) {
                 this.pressed = true;
                 this.yChange = -10;
@@ -37,7 +47,11 @@ class Athlete extends MinigameObject {
             this.pressed = false;
             this.yChange = 0;
             this.y = 585; 
-        }*/
+        }
+    }
+    
+    public double getXChange(){
+    return this.xChange;
     }
 
     @Override
@@ -46,6 +60,54 @@ class Athlete extends MinigameObject {
     }
 }
 
-public class TripleJump {
+public class TripleJump extends Minigame  {
+     private Characters characters = Characters.getInstance();
+    private final Controllers controllers = Controllers.getInstance();
+    Athlete[] athletes = new Athlete[Constants.NUM_OF_PLAYERS];
 
+    public TripleJump() {
+        super(MinigameType.FFA, 15000);
+    }
+
+    
+
+    @Override
+    public void init() {
+        for(int i = 0; i < athletes.length; i++){
+            athletes[i] = new Athlete();
+        }
+    }
+
+    @Override
+    public void run() {
+       
+    }
+
+    @Override
+    public Set<Players> isDone() {
+        Set<Players> winningPlayers = new HashSet<>();
+
+        boolean isDone = true;
+        
+        for(Athlete athlete: athletes){
+            if(athlete.getXChange() != 0){
+            isDone = false;
+            }
+        }
+        if (isDone || this.hasTimeoutOccurred()) {
+            int maxScore = 0;
+            for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                maxScore = Math.max(maxScore, characters.getCharacter(i).getMinigameScore());
+            }
+
+            for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+                if (characters.getCharacter(i).getMinigameScore() >= maxScore) {
+                    winningPlayers.add(Players.values()[i]);
+                }
+            }
+        }
+
+        return winningPlayers;
+    }
+   
 }

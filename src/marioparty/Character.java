@@ -14,7 +14,7 @@ public class Character {
 
     public enum CharacterName {
         LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT,
-        DONKEY_KONG, MR_L, ARNAV_EMOJI
+        DONKEY_KONG, MR_L, ARNAV_EMOJI,
     }
 
     //VARIABLES

@@ -74,13 +74,13 @@ public class Board {
                 this.tileset.draw();//draw all tiles
                 this.dc.setPaint(Color.BLACK);
                 for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                    this.dc.drawString("★" + this.characters.characterAtI(i).getStars(),
+                    this.dc.drawString("★" + this.characters.getCharacter(i).getStars(),
                             this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16,
                             this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
-                    this.dc.drawString("$" + this.characters.characterAtI(i).getCoins(),
+                    this.dc.drawString("$" + this.characters.getCharacter(i).getCoins(),
                             this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1),
                             this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
-                    for (int j = 0; j < this.characters.characterAtI(i).getItems().size(); j++) {
+                    for (int j = 0; j < this.characters.getCharacter(i).getItems().size(); j++) {
                         this.dc.drawString("🍬",
                                 this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16 + (20 * j + 1),
                                 this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() * 3 / 32);
@@ -157,13 +157,13 @@ public class Board {
                 this.counter++;
                 this.selectedMinigame.drawHorizontalSplitscreen();
                 for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                    this.dc.drawString(this.characters.characterAtI(i).getCoins(),
-                            this.dc.getWidth() / 4, this.dc.getHeight() / 4 * i + this.dc.getHeight() / 8);
+                    this.dc.drawString(this.characters.getCharacter(i).getCoins(), this.dc.getWidth() / 4,
+                            this.dc.getHeight() / 4 * i + this.dc.getHeight() / 8);
                 }
                 if (this.counter == 75) {
                     for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
                         if (this.selectedMinigame.isDone().contains(Players.values()[i])) {
-                            this.characters.characterAtI(i).changeCoins(10);
+                            this.characters.getCharacter(i).changeCoins(10);
                         }
                     }
                 }
