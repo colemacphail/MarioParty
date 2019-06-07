@@ -97,11 +97,11 @@ public class TripleJump extends Minigame  {
         if (isDone || this.hasTimeoutOccurred()) {
             int maxScore = 0;
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                maxScore = Math.max(maxScore, characters.characterAtI(i).getMinigameScore());
+                maxScore = Math.max(maxScore, characters.getCharacter(i).getMinigameScore());
             }
 
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                if (characters.characterAtI(i).getMinigameScore() >= maxScore) {
+                if (characters.getCharacter(i).getMinigameScore() >= maxScore) {
                     winningPlayers.add(Players.values()[i]);
                 }
             }
