@@ -142,7 +142,7 @@ public class CatchTheApple extends Minigame {
                         && (apple.getX() - (apple.getDia() / 2) <= nets[i].getX() + nets[i].getWidth() / 2)
                         && apple.getY() >= nets[i].getY() - apple.getDia()
                         && apple.getY() <= nets[i].getY()) {
-                    characters.characterAtI(i).changeMinigameScore(100);
+                    characters.getCharacter(i).changeMinigameScore(100);
                     apple.remove();
                 }
             }
@@ -183,11 +183,11 @@ public class CatchTheApple extends Minigame {
         if (isDone || this.hasTimeoutOccurred()) {
             int maxScore = 0;
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                maxScore = Math.max(maxScore, characters.characterAtI(i).getMinigameScore());
+                maxScore = Math.max(maxScore, characters.getCharacter(i).getMinigameScore());
             }
 
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-                if (characters.characterAtI(i).getMinigameScore() >= maxScore) {
+                if (characters.getCharacter(i).getMinigameScore() >= maxScore) {
                     winningPlayers.add(Players.values()[i]);
                 }
             }

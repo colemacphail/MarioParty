@@ -57,7 +57,7 @@ public abstract class Minigame {
     public void displayMinigameScoreCornerSplitscreen() {
         this.dc.setPaint(Color.BLACK);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-            this.dc.drawString(this.characters.characterAtI(i).getMinigameScore(),
+            this.dc.drawString(this.characters.getCharacter(i).getMinigameScore(),
                     this.dc.getWidth() / 8 * (i % 2 == 1 ? 5 : 1) - this.dc.getWidth() / 16,
                     this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
         }
@@ -74,7 +74,7 @@ public abstract class Minigame {
     public void displayMinigameScoreVerticalSplitscreen() {
         this.dc.setPaint(Color.BLACK);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-            this.dc.drawString(this.characters.characterAtI(i).getMinigameScore(),
+            this.dc.drawString(this.characters.getCharacter(i).getMinigameScore(),
                     this.dc.getWidth() / 8 * (i) + this.dc.getWidth() / 8 * (i + 1),
                     this.dc.getHeight() / 8 * (7));
         }
@@ -91,7 +91,7 @@ public abstract class Minigame {
     public void displayMinigameScoreHorizontalSplitscreen() {
         this.dc.setPaint(Color.BLACK);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-            this.dc.drawString(this.characters.characterAtI(i).getMinigameScore(),
+            this.dc.drawString(this.characters.getCharacter(i).getMinigameScore(),
                     this.dc.getWidth() / 8 * (7),
                     this.dc.getHeight() / 8 * (i) + this.dc.getHeight() / 8 * (i + 1));
         }

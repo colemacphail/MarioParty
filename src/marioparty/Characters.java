@@ -33,7 +33,7 @@ public class Characters {
         //TODO: also sort by coins
     }
     
-    public Character characterAtI(int i) {
-        return characters[i];
+    public Character getCharacter(int n) {
+        return characters[n];
     }
 }
