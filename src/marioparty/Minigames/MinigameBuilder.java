@@ -8,6 +8,7 @@ import marioparty.Minigames.MinigameList.Jumpman;
 import marioparty.Minigames.MinigameList.CatchTheApple;
 import java.util.ArrayList;
 import java.util.Random;
+import marioparty.Minigames.MinigameList.TripleJump;
 
 /**
  *
@@ -37,6 +38,7 @@ public class MinigameBuilder {
         this.minigames.add(new Masher());
         this.minigames.add(new QuickTime());
         this.minigames.add(new PressAButton());
+        this.minigames.add(new TripleJump());
     }
 
     //takes in an array of valid types and spits out a minigame that matches one of the types
