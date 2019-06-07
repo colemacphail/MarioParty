@@ -77,7 +77,7 @@ public class Board {
                     this.dc.drawString(this.characters.characterAtI(i).getStars(),
                             this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16,
                             this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
-                    this.dc.drawString(this.characters.characterAtI(i).getCoins(), 
+                    this.dc.drawString(this.characters.characterAtI(i).getCoins(),
                             this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1),
                             this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
                 }
@@ -85,29 +85,32 @@ public class Board {
                     Characters.characters[i].draw(); //draw all characters
                 }
 
-                switch (currentTurnState) {
+                switch (this.currentTurnState) {
+                    case ITEM:
+                        
+                        break;
                     case ROLLING:
                         this.drawRollingDie();//draw the die
                         if (this.dc.isKeyPressed(' ') || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {//if you press space, roll the die
                             this.currentTurnState = TurnState.MOVING;
                             //set selected tile to current position + whatever you rolled
-                            Characters.characters[playerTurn].setTargetTilePos((Characters.characters[playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
+                            Characters.characters[this.playerTurn].setTargetTilePos((Characters.characters[this.playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
                         }
                         break;
 
                     case MOVING:
                         this.drawCountDownDie(); // draw the die as the player moves
-                        if (Characters.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[Characters.characters[playerTurn].getTargetTile()])
-                                && Characters.characters[playerTurn].getTilePos() == Characters.characters[playerTurn].getTargetTile()
+                        if (Characters.characters[this.playerTurn].isWithinRange(this.tileset.getSelectedTileset()[Characters.characters[this.playerTurn].getTargetTile()])
+                                && Characters.characters[this.playerTurn].getTilePos() == Characters.characters[this.playerTurn].getTargetTile()
                                 && this.currentRoll == 0) { //if you're on the last tile, end turn
-                            Characters.characters[playerTurn].setTilePos(Characters.characters[playerTurn].getTargetTile());
+                            Characters.characters[this.playerTurn].setTilePos(Characters.characters[this.playerTurn].getTargetTile());
                             this.currentTurnState = TurnState.END;
                         } else { // if you're not on the last tile, move towards the next one
-                            Characters.characters[playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
-                            if (Characters.characters[playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
+                            Characters.characters[this.playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
+                            if (Characters.characters[this.playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
                                 this.currentRoll--;
-                                this.tileset.getSelectedTileset()[(Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length].passingEvent(Characters.characters[playerTurn]);
-                                Characters.characters[playerTurn].setTilePos((Characters.characters[playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length);
+                                this.tileset.getSelectedTileset()[(Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length].passingEvent(Characters.characters[playerTurn]);
+                                Characters.characters[this.playerTurn].setTilePos((Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length);
                             }
                         }
                         break;
