@@ -21,6 +21,7 @@ public abstract class Minigame {
     protected long timeout;
     private final Characters characters = Characters.getInstance();
     private final MinigameType type;
+    private long pausedTime;
 
     //CONSTRUCTOR
     public Minigame(MinigameType type, long timeout) { // all minigames must have a type and timeout
@@ -34,7 +35,7 @@ public abstract class Minigame {
     public abstract void run();
 
     public boolean hasTimeoutOccurred() {
-        return System.currentTimeMillis() > this.startTime + this.timeout;
+        return System.currentTimeMillis() > this.startTime + this.timeout + this.pausedTime;
     }
 
     /**
@@ -79,7 +80,7 @@ public abstract class Minigame {
                     this.dc.getHeight() / 8 * (7));
         }
     }
-    
+
     public void drawHorizontalSplitscreen() {
         this.dc.setPaint(Color.BLACK);
         this.dc.setStroke(new BasicStroke(2));
@@ -99,6 +100,10 @@ public abstract class Minigame {
 
     public void setStartTime() {
         this.startTime = System.currentTimeMillis();
+    }
+
+    public void addPausedTime(long timePaused) {
+        this.pausedTime += timePaused;
     }
 
 }

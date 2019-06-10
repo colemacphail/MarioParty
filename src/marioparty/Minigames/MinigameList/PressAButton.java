@@ -28,7 +28,7 @@ public class PressAButton extends Minigame {
 
     @Override
     public void init() {
-        this.desiredAction = InputAction.values()[rangen.nextInt(InputAction.values().length - 4) + 4];
+        this.desiredAction = InputAction.values()[rangen.nextInt(InputAction.values().length - 5) + 5];
     }
 
     @Override

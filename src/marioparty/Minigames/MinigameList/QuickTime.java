@@ -31,7 +31,7 @@ class Button {
 
     public Button() {
         this.controller = Controllers.getInstance();
-        this.buttonType = InputAction.values()[this.rand.nextInt(6) + 4];
+        this.buttonType = InputAction.values()[this.rand.nextInt(6) + 5];
     }
 
     public boolean isPressed(int i) {
