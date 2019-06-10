@@ -5,7 +5,9 @@
  */
 package Tiles;
 
+import java.awt.Color;
 import marioparty.Character;
+import marioparty.Constants;
 import marioparty.Items.Item;
 import marioparty.Items.ItemBuilder;
 
@@ -20,6 +22,14 @@ public class ItemTile extends PassingTile {
 
     public ItemTile(int x, int y) {
         super(x, y);
+    }
+    
+    
+    @Override 
+    public void draw() {
+        dc.setFont(Constants.TILES_TEXT);
+        this.dc.setPaint(Color.BLACK);
+        this.dc.drawString("🍬", x, y - 4);
     }
 
     @Override
