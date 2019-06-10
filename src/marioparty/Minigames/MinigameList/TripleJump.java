@@ -15,13 +15,30 @@ import marioparty.Players;
  *
  * @author Jacob
  */
+class jumpBar {
+    
+    private int redW = 300;
+    private int orangeW = 200;
+    private int yellowW = 100;
+    private int greenW = 50;
+            
+    
+    private double[] targets = new double[3];
+    private int x = 450;
+    private int y = 300;
+    private int width = 300;
+    private int height = 30;
+    
+    
+}
+
 class Athlete extends MinigameObject {
 
     private int size;
     private Color color;
     private boolean pressed;
     private double yChange;
-    private double xChange;
+    private double xChange = 1;
 
     public Athlete() {
         this.x = 30;
@@ -32,7 +49,7 @@ class Athlete extends MinigameObject {
     }
 
     public void jump() {
-         if (dc.isKeyPressed(' ')) {
+        if (dc.isKeyPressed(' ')) {
             if (!pressed) {
                 this.pressed = true;
                 this.yChange = -10;
@@ -46,12 +63,16 @@ class Athlete extends MinigameObject {
         if (this.y >= 585) {
             this.pressed = false;
             this.yChange = 0;
-            this.y = 585; 
+            this.y = 585;
         }
     }
-    
-    public double getXChange(){
-    return this.xChange;
+
+    public double getXChange() {
+        return this.xChange;
+    }
+
+    public void setX() {
+        this.x += this.xChange;
     }
 
     @Override
@@ -60,27 +81,39 @@ class Athlete extends MinigameObject {
     }
 }
 
-public class TripleJump extends Minigame  {
-     private Characters characters = Characters.getInstance();
+public class TripleJump extends Minigame {
+
+    private Characters characters = Characters.getInstance();
     private final Controllers controllers = Controllers.getInstance();
     Athlete[] athletes = new Athlete[Constants.NUM_OF_PLAYERS];
+    int[][] lines = new int[3][2];
 
     public TripleJump() {
         super(MinigameType.FFA, 15000);
     }
 
-    
-
     @Override
     public void init() {
-        for(int i = 0; i < athletes.length; i++){
+        for (int i = 0; i < athletes.length; i++) {
             athletes[i] = new Athlete();
         }
+        for (int i = 0; i < 3; i++) {
+            lines[i][0] = i * 225 + 300;
+            lines[i][1] = 595;
+        }
+
     }
 
     @Override
     public void run() {
-       
+        for (Athlete athlete : athletes) {
+            athlete.draw();
+            athlete.setX();
+        }
+        for (int i = 0; i < 3; i++) {
+            dc.fillRect(lines[i][0], lines[i][1], 20, 10);
+        }
+        dc.drawRect(450,300,400, 30);
     }
 
     @Override
@@ -88,10 +121,10 @@ public class TripleJump extends Minigame  {
         Set<Players> winningPlayers = new HashSet<>();
 
         boolean isDone = true;
-        
-        for(Athlete athlete: athletes){
-            if(athlete.getXChange() != 0){
-            isDone = false;
+
+        for (Athlete athlete : athletes) {
+            if (athlete.getXChange() != 0) {
+                isDone = false;
             }
         }
         if (isDone || this.hasTimeoutOccurred()) {
@@ -109,5 +142,5 @@ public class TripleJump extends Minigame  {
 
         return winningPlayers;
     }
-   
+
 }
