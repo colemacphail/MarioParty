@@ -15,21 +15,37 @@ import marioparty.Players;
  *
  * @author Jacob
  */
-class jumpBar {
-    
-    private int redW = 300;
-    private int orangeW = 200;
-    private int yellowW = 100;
-    private int greenW = 50;
-            
-    
-    private double[] targets = new double[3];
-    private int x = 450;
-    private int y = 300;
-    private int width = 300;
-    private int height = 30;
-    
-    
+class JumpBar {
+
+    private int redW = 150;
+    private int orangeW = 100;
+    private int yellowW = 50;
+    private int greenW = 25;
+
+    private double cursorX;
+    private double cXChange = 1;
+    private final double ACCEL = 1.1;
+    private final double CURSOR_Y = 250;
+
+    public void run() {
+        this.cursorX = 250;
+        this.cursorX += cXChange;
+        cXChange *= ACCEL;
+
+        if (this.cursorX >= 600) {
+            this.cXChange = 0;
+            this.cursorX = 600;
+        }
+    }
+
+    public double getCX() {
+        return this.cursorX;
+    }
+
+    public double getCY() {
+        return this.CURSOR_Y;
+    }
+
 }
 
 class Athlete extends MinigameObject {
@@ -38,7 +54,7 @@ class Athlete extends MinigameObject {
     private Color color;
     private boolean pressed;
     private double yChange;
-    private double xChange = 1;
+    private double xChange = 5;
 
     public Athlete() {
         this.x = 30;
@@ -78,6 +94,7 @@ class Athlete extends MinigameObject {
     @Override
     protected void draw() {
         dc.fillRect(x, y, size, size);
+
     }
 }
 
@@ -86,7 +103,10 @@ public class TripleJump extends Minigame {
     private Characters characters = Characters.getInstance();
     private final Controllers controllers = Controllers.getInstance();
     Athlete[] athletes = new Athlete[Constants.NUM_OF_PLAYERS];
+    JumpBar jumpbar = new JumpBar();
+    double[] targets = new double[3];
     int[][] lines = new int[3][2];
+    boolean targeted = false;
 
     public TripleJump() {
         super(MinigameType.FFA, 15000);
@@ -101,19 +121,53 @@ public class TripleJump extends Minigame {
             lines[i][0] = i * 225 + 300;
             lines[i][1] = 595;
         }
+        for (int i = 0; i < 3; i++) {
+            targets[i] = i * 225 + 300;
+        }
 
     }
 
     @Override
     public void run() {
-        for (Athlete athlete : athletes) {
-            athlete.draw();
-            athlete.setX();
-        }
         for (int i = 0; i < 3; i++) {
             dc.fillRect(lines[i][0], lines[i][1], 20, 10);
         }
-        dc.drawRect(450,300,400, 30);
+        for (Athlete athlete : athletes) {
+            athlete.draw();
+        }
+        if (!targeted) {
+            for (Athlete athlete : athletes) {
+                athlete.setX();
+            }
+        for (Athlete athlete : athletes) {
+            for (int i = 0; i < targets.length; i++) {
+                if (athlete.getX() < targets[i] && athlete.getX() >= targets[i] - 25) {
+                    targeted = true;
+                }
+            }
+        }
+        
+        } else if (targeted) {
+            
+            if(jumpbar.getCX() >= 580){
+            targeted = false;
+            
+            }
+
+            jumpbar.run();
+            dc.setPaint(Color.RED);
+            dc.fillRect(450, 301, 400, 30); //RED
+            dc.setPaint(Color.ORANGE);
+            dc.fillRect(450, 301, 250, 30); //ORNAGE
+            dc.setPaint(Color.YELLOW);
+            dc.fillRect(450, 301, 150, 30); //YELLOW
+            dc.setPaint(Color.GREEN);
+            dc.fillRect(450, 301, 50, 30); //GREEN
+            dc.setPaint(Color.BLACK);
+            dc.drawRect(450, 300, 400, 30); //BOX
+
+            dc.fillRect(jumpbar.getCX(), jumpbar.getCY(), 10, 50);
+        }
     }
 
     @Override
