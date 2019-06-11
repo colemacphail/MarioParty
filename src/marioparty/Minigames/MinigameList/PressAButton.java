@@ -23,7 +23,7 @@ public class PressAButton extends Minigame {
     private Players winningPlayer;
 
     public PressAButton() {
-        super(MinigameType.FFA, 15000);
+        super(MinigameType.FFA, 5000);
     }
 
     @Override
@@ -49,6 +49,10 @@ public class PressAButton extends Minigame {
 
         if (this.winningPlayer != null) {
             winningPlayers.add(winningPlayer);
+        }
+        
+        if (this.dc.getKeyPress(' ')){
+            winningPlayers.add(Players.values()[0]);
         }
 
         return winningPlayers;

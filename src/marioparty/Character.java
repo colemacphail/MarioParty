@@ -82,7 +82,7 @@ public class Character {
     }
 
     public void useItem(int itemPosition) {
-        this.items.get(itemPosition).TriggerEvent();
+        this.items.get(itemPosition).triggerEvent();
         this.itemUsed = true;
     }
     

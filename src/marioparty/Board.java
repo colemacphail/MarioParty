@@ -6,7 +6,9 @@ import DLibX.DConsole;
 import Tiles.Tilesets;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Random;
+import marioparty.Items.Item;
 import marioparty.Minigames.Minigame;
 import marioparty.Minigames.MinigameBuilder;
 import marioparty.Minigames.MinigameType;
@@ -44,11 +46,14 @@ public class Board {
     private int counter = 0;
     private boolean isPaused = false;
     private long pauseTime;
+    private RollState currentRollState;
+    private int selectedItem = -1;
 
     //INITIALIZER
     private Board() {
         Constants.init();
         this.currentGameState = GameState.INIT;
+        this.currentRollState = RollState.DEFAULT;
         this.characters = Characters.getInstance();
     }
 
@@ -88,7 +93,7 @@ public class Board {
                         Characters.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY());
                     }
                     this.currentGameState = GameState.BOARD;
-                    this.currentTurnState = TurnState.ROLLING;
+                    this.currentTurnState = TurnState.ITEM;
                     break;
 
                 case BOARD:
@@ -113,7 +118,30 @@ public class Board {
 
                     switch (this.currentTurnState) {
                         case ITEM:
-
+                            ArrayList<Item> items = Characters.characters[playerTurn].getItems();
+                            for (int i = 0; i < items.size() + 1; i++) {
+                                this.dc.setPaint(Color.BLACK);
+                                if (i == this.selectedItem + 1) {
+                                    this.dc.setPaint(Color.RED);
+                                }
+                                this.dc.drawRect(this.dc.getWidth() / 2 - (items.size() * 38) + i * 75, this.dc.getHeight() / 4, 50, 50);
+                            }
+                            if (this.dc.getKeyPress(37)) {
+                                this.selectedItem--;
+                                this.selectedItem = Math.max(this.selectedItem, -1);
+                            }
+                            if (this.dc.getKeyPress(39)) {
+                                this.selectedItem++;
+                                this.selectedItem = Math.min(this.selectedItem, items.size() - 1);
+                            }
+                            if (this.dc.getKeyPress(' ')) {
+                                if (this.selectedItem >= 0) {
+                                    items.get(selectedItem).triggerEvent();
+                                    items.remove(this.selectedItem);
+                                }
+                                this.selectedItem = -1;
+                                this.currentTurnState = TurnState.ROLLING;
+                            }
                             break;
                         case ROLLING:
                             this.drawRollingDie();//draw the die
@@ -143,7 +171,7 @@ public class Board {
 
                         case END://if the turn is over, trigger the tile and go to the next turn
                             this.tileset.getSelectedTileset()[Characters.characters[this.playerTurn].getTargetTile()].triggerEvent(Characters.characters[this.playerTurn]);
-                            this.currentTurnState = TurnState.ROLLING;
+                            this.currentTurnState = TurnState.ITEM;
                             this.playerTurn = (this.playerTurn + 1) % (Constants.NUM_OF_PLAYERS);
                             if (this.playerTurn == 0) {
                                 this.currentGameState = GameState.MINIGAME_INIT;//if finished turn order, play a minigame
@@ -253,5 +281,9 @@ public class Board {
 
     public int getPlayerTurn() {
         return this.playerTurn;
+    }
+
+    public void setRollState(RollState state) {
+
     }
 }
