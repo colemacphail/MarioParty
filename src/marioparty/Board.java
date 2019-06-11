@@ -250,4 +250,8 @@ public class Board {
     public Tilesets getSelectedTileset() {
         return this.tileset;
     }
+
+    public int getPlayerTurn() {
+        return this.playerTurn;
+    }
 }
