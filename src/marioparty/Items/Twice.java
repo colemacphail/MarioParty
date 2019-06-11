@@ -9,13 +9,17 @@ package marioparty.Items;
  *
  * @author arnav
  */
-
 //STRUCTURE FOR A CANDY
 public class Twice extends Item {
 
     @Override
-    public void TriggerEvent() {
-        
+    public void triggerEvent() {
+
     }
-    
+
+    @Override
+    public void draw(int x, int y) {
+        this.dc.drawString('2', x, y);
+    }
+
 }
