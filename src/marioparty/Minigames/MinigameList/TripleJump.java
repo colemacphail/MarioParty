@@ -1,10 +1,12 @@
 package marioparty.Minigames.MinigameList;
 
 import ControllerInput.Controllers;
+import DLibX.DConsole;
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 import marioparty.Characters;
+import marioparty.Console;
 import marioparty.Constants;
 import marioparty.Minigames.Minigame;
 import marioparty.Minigames.MinigameObject;
@@ -17,30 +19,45 @@ import marioparty.Players;
  */
 class JumpBar {
 
-    private int redW = 150;
-    private int orangeW = 100;
-    private int yellowW = 50;
-    private int greenW = 25;
-
     private double cursorX;
     private double cXChange;
-    private final double ACCEL = 1.1;
-    private final double CURSOR_Y = 250;
+
+    private final double CURSOR_Y = 275;
+    private DConsole dc = Console.getInstance();
 
     public void init() {
-        this.cursorX = 250;
-        this.cXChange = 1;
+        this.cursorX = 300;
+
     }
 
     public void run() {
 
-        this.cursorX += cXChange;
-        cXChange *= ACCEL;
-
         if (this.cursorX >= 600) {
-            this.cXChange = 0;
-            this.cursorX = 600;
+            this.cursorX = 599;
+            this.cXChange = -1;
+
         }
+
+        this.cXChange = -0.166666 * (Math.pow((this.cXChange - 1), 3)) + 5;
+        this.cursorX += cXChange;
+
+        //RED
+        dc.setPaint(Color.RED);
+        dc.fillRect(450, 300, 300, 30);
+        //ORANGE
+        dc.setPaint(Color.ORANGE);
+        dc.fillRect(450, 300, 200, 30);
+        //YELLOW
+        dc.setPaint(Color.YELLOW);
+        dc.fillRect(450, 300, 100, 30);
+        //GREEN
+        dc.setPaint(Color.GREEN);
+        dc.fillRect(450, 300, 25, 30);
+        //Box
+        dc.setPaint(Color.BLACK);
+        dc.drawRect(450, 300, 300, 30);
+        //Cursor
+        dc.fillRect(this.cursorX, this.CURSOR_Y, 1, 30);
     }
 
     public double getCX() {
@@ -86,6 +103,10 @@ class Athlete extends MinigameObject {
         this.x += this.xChange;
     }
 
+    public boolean jump() {
+        return dc.getKeyPress(' ');
+    }
+
     @Override
     protected void draw() {
         dc.fillRect(x, y, size, size);
@@ -109,6 +130,7 @@ public class TripleJump extends Minigame {
 
     @Override
     public void init() {
+        this.jumpbar.init();
         for (int i = 0; i < this.athletes.length; i++) {
             this.athletes[i] = new Athlete();
         }
@@ -130,8 +152,9 @@ public class TripleJump extends Minigame {
         for (Athlete athlete : this.athletes) {
             athlete.draw();
             for (double target : this.targets) {
-                if (athlete.getX() < target && athlete.getX() > target - 25) {
+                if (athlete.getX() <= target && athlete.getX() > target - 25) {
                     this.targeted = true;
+
                 }
             }
         }
@@ -140,28 +163,18 @@ public class TripleJump extends Minigame {
                 athlete.setX();
             }
 
-        } else if (this.targeted) {
-            this.jumpbar.init();
-            while (this.targeted) {
-                this.jumpbar.run();
-                
-                
-                //RED
-                dc.setPaint(Color.RED);
-                dc.fillRect(450, 300, 300, 30);
-                //ORANGE
-                dc.setPaint(Color.ORANGE);
-                dc.fillRect(450, 300, 200, 30);
-                //YELLOW
-                dc.setPaint(Color.YELLOW);
-                dc.fillRect(450, 300, 100, 30);
-                //GREEN
-                dc.setPaint(Color.GREEN);
-                dc.fillRect(450,300,50,30);
-                //Box
-                dc.setPaint(Color.BLACK);
-                dc.drawRect(450, 300, 300, 30);
+        } else {
+            this.jumpbar.run();
+            for (Athlete athlete : athletes) {
+                if (athlete.jump()) {
+                    jumpbar.init();
+                    athlete.changeScore((int) Math.abs(this.jumpbar.getCX() - athlete.getX()));
+                    athlete.shift();
+                    this.targeted = false;
+
+                }
             }
+
         }
 
     }
