@@ -5,6 +5,9 @@
  */
 package marioparty.Items;
 
+import marioparty.Board;
+import marioparty.RollState;
+
 /**
  *
  * @author arnav
@@ -14,7 +17,7 @@ public class Twice extends Item {
 
     @Override
     public void triggerEvent() {
-
+        Board.getInstance().setRollState(RollState.TWICE);
     }
 
     @Override
