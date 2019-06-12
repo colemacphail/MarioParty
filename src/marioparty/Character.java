@@ -4,6 +4,7 @@ import DLibX.DConsole;
 import Tiles.Tile;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 import marioparty.Items.Item;
 
 /**
@@ -13,14 +14,14 @@ import marioparty.Items.Item;
 public class Character {
 
     public enum CharacterName {
-        LUIGI, WARIO, WALUIGI, YOSHI, GOOMBA, BOWSER, PEACH, PIRANHA_PLANT,
-        DONKEY_KONG, MR_L, ARNAV_EMOJI,
+        LUIGI, WALUIGI, YOSHI, BOWSER, PEACH, DONKEY_KONG,
     }
 
     //VARIABLES
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
     private int playerNum;
+    private Random rand = new Random();
     protected double x;
     protected double y;
     private int coins = 0;
@@ -33,6 +34,7 @@ public class Character {
 
     //CONSTRUCTOR
     public Character(double x, double y) {
+        name = CharacterName.values()[rand.nextInt(6)];
         this.x = x;
         this.y = y;
     }
@@ -77,6 +79,9 @@ public class Character {
         this.dc.drawRect(this.x, this.y, 40, 40);
     }
 
+    public CharacterName getName () {
+        return this.name;
+    }
     public void addItem(Item item) {
         this.items.add(item);
     }
@@ -85,8 +90,8 @@ public class Character {
         this.items.get(itemPosition).triggerEvent();
         this.itemUsed = true;
     }
-    
-    public ArrayList<Item> getItems(){
+
+    public ArrayList<Item> getItems() {
         return this.items;
     }
 
@@ -134,11 +139,19 @@ public class Character {
         }
     }
 
+    public void setCoins(int coins) {
+        this.coins = Math.abs(coins);
+    }
+
     public void changeStars(int stars) {
         this.stars += stars;
         if (this.stars <= 0) {
             this.stars = 0;
         }
+    }
+
+    public void setStars(int stars) {
+        this.stars = Math.abs(stars);
     }
 
     public void changeMinigameScore(int delta) {

@@ -260,14 +260,14 @@ public class Board {
         this.dc.setPaint(Color.BLACK);
         this.dc.drawRect(450, 150, 100, 100);
         this.currentRoll = ranGen.nextInt(10) + 1;
-        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
+        this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.currentRoll, 450, 135);
     }
 
     public void drawCountDownDie() {
         this.dc.setPaint(Color.BLACK);
         this.dc.drawRect(450, 150, 100, 100);
-        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
+        this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.currentRoll, 450, 135);
     }
 
