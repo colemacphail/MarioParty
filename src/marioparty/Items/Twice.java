@@ -5,6 +5,7 @@
  */
 package marioparty.Items;
 
+import java.awt.Color;
 import marioparty.Board;
 import marioparty.RollState;
 
@@ -22,6 +23,7 @@ public class Twice extends Item {
 
     @Override
     public void draw(int x, int y) {
+        this.dc.setPaint(Color.BLACK);
         this.dc.drawString('2', x, y);
     }
 

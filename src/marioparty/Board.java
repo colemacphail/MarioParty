@@ -128,6 +128,9 @@ public class Board {
                                     this.dc.setPaint(Color.RED);
                                 }
                                 this.dc.drawRect(this.dc.getWidth() / 2 - (items.size() * 38) + i * 75, this.dc.getHeight() / 4, 50, 50);
+                                if (i < items.size()) {
+                                    items.get(i).draw(this.dc.getWidth() / 2 - (items.size() * 38) + (i + 1) * 75, this.dc.getHeight() / 4 - 5);
+                                }
                             }
                             if (this.dc.getKeyPress(37)) {
                                 this.selectedItem--;
