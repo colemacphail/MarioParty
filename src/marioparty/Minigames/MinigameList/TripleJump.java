@@ -23,12 +23,17 @@ class JumpBar {
     private int greenW = 25;
 
     private double cursorX;
-    private double cXChange = 1;
+    private double cXChange;
     private final double ACCEL = 1.1;
     private final double CURSOR_Y = 250;
 
-    public void run() {
+    public void init() {
         this.cursorX = 250;
+        this.cXChange = 1;
+    }
+
+    public void run() {
+
         this.cursorX += cXChange;
         cXChange *= ACCEL;
 
@@ -44,6 +49,11 @@ class JumpBar {
 
     public double getCY() {
         return this.CURSOR_Y;
+    }
+
+    public void reset() {
+        this.cursorX = 0;
+        this.cXChange = 0;
     }
 
 }
@@ -64,23 +74,8 @@ class Athlete extends MinigameObject {
         this.pressed = false;
     }
 
-    public void jump() {
-        if (dc.isKeyPressed(' ')) {
-            if (!pressed) {
-                this.pressed = true;
-                this.yChange = -10;
-            }
-        }
-
-        this.y += this.yChange;
-
-        this.yChange += 0.5;
-
-        if (this.y >= 585) {
-            this.pressed = false;
-            this.yChange = 0;
-            this.y = 585;
-        }
+    public void shift() {
+        this.x += this.size;
     }
 
     public double getXChange() {
@@ -114,15 +109,15 @@ public class TripleJump extends Minigame {
 
     @Override
     public void init() {
-        for (int i = 0; i < athletes.length; i++) {
-            athletes[i] = new Athlete();
+        for (int i = 0; i < this.athletes.length; i++) {
+            this.athletes[i] = new Athlete();
         }
         for (int i = 0; i < 3; i++) {
-            lines[i][0] = i * 225 + 300;
-            lines[i][1] = 595;
+            this.lines[i][0] = i * 225 + 300;
+            this.lines[i][1] = 595;
         }
         for (int i = 0; i < 3; i++) {
-            targets[i] = i * 225 + 300;
+            this.targets[i] = i * 225 + 300;
         }
 
     }
@@ -130,44 +125,45 @@ public class TripleJump extends Minigame {
     @Override
     public void run() {
         for (int i = 0; i < 3; i++) {
-            dc.fillRect(lines[i][0], lines[i][1], 20, 10);
+            dc.fillRect(this.lines[i][0], this.lines[i][1], 20, 10);
         }
-        for (Athlete athlete : athletes) {
+        for (Athlete athlete : this.athletes) {
             athlete.draw();
-        }
-        if (!targeted) {
-            for (Athlete athlete : athletes) {
-                athlete.setX();
-            }
-        for (Athlete athlete : athletes) {
-            for (int i = 0; i < targets.length; i++) {
-                if (athlete.getX() < targets[i] && athlete.getX() >= targets[i] - 25) {
-                    targeted = true;
+            for (double target : this.targets) {
+                if (athlete.getX() < target && athlete.getX() > target - 25) {
+                    this.targeted = true;
                 }
             }
         }
-        
-        } else if (targeted) {
-            
-            if(jumpbar.getCX() >= 580){
-            targeted = false;
-            
+        if (!targeted) {
+            for (Athlete athlete : this.athletes) {
+                athlete.setX();
             }
 
-            jumpbar.run();
-            dc.setPaint(Color.RED);
-            dc.fillRect(450, 301, 400, 30); //RED
-            dc.setPaint(Color.ORANGE);
-            dc.fillRect(450, 301, 250, 30); //ORNAGE
-            dc.setPaint(Color.YELLOW);
-            dc.fillRect(450, 301, 150, 30); //YELLOW
-            dc.setPaint(Color.GREEN);
-            dc.fillRect(450, 301, 50, 30); //GREEN
-            dc.setPaint(Color.BLACK);
-            dc.drawRect(450, 300, 400, 30); //BOX
-
-            dc.fillRect(jumpbar.getCX(), jumpbar.getCY(), 10, 50);
+        } else if (this.targeted) {
+            this.jumpbar.init();
+            while (this.targeted) {
+                this.jumpbar.run();
+                
+                
+                //RED
+                dc.setPaint(Color.RED);
+                dc.fillRect(450, 300, 300, 30);
+                //ORANGE
+                dc.setPaint(Color.ORANGE);
+                dc.fillRect(450, 300, 200, 30);
+                //YELLOW
+                dc.setPaint(Color.YELLOW);
+                dc.fillRect(450, 300, 100, 30);
+                //GREEN
+                dc.setPaint(Color.GREEN);
+                dc.fillRect(450,300,50,30);
+                //Box
+                dc.setPaint(Color.BLACK);
+                dc.drawRect(450, 300, 300, 30);
+            }
         }
+
     }
 
     @Override
