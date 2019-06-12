@@ -48,6 +48,9 @@ public class Board {
     private long pauseTime;
     private RollState currentRollState;
     private int selectedItem = -1;
+    private int totalRoll = 0;
+    private int timesRolled = 0;
+    private boolean isButtonPressed = false;
 
     //INITIALIZER
     private Board() {
@@ -125,6 +128,9 @@ public class Board {
                                     this.dc.setPaint(Color.RED);
                                 }
                                 this.dc.drawRect(this.dc.getWidth() / 2 - (items.size() * 38) + i * 75, this.dc.getHeight() / 4, 50, 50);
+                                if (i < items.size()) {
+                                    items.get(i).draw(this.dc.getWidth() / 2 - (items.size() * 38) + (i + 1) * 75, this.dc.getHeight() / 4 - 5);
+                                }
                             }
                             if (this.dc.getKeyPress(37)) {
                                 this.selectedItem--;
@@ -144,25 +150,58 @@ public class Board {
                             }
                             break;
                         case ROLLING:
-                            this.drawRollingDie();//draw the die
-                            if (this.dc.isKeyPressed(' ') || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {//if you press space, roll the die
-                                this.currentTurnState = TurnState.MOVING;
-                                //set selected tile to current position + whatever you rolled
-                                Characters.characters[this.playerTurn].setTargetTilePos((Characters.characters[this.playerTurn].getTilePos() + this.currentRoll) % this.tileset.getSelectedTileset().length);
+                            switch (this.currentRollState) {
+                                case DEFAULT:
+
+                                    this.drawRollingDie();//draw the die
+                                    if (this.dc.isKeyPressed(' ') || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {//if you press space, roll the die
+                                        this.totalRoll += this.currentRoll;
+                                        this.currentTurnState = TurnState.MOVING;
+                                        //set selected tile to current position + whatever you rolled
+                                        Characters.characters[this.playerTurn].setTargetTilePos((Characters.characters[this.playerTurn].getTilePos() + this.totalRoll) % this.tileset.getSelectedTileset().length);
+                                    }
+
+                                    break;
+
+                                case TWICE:
+
+                                    this.drawRollingDie();
+                                    if (this.dc.getKeyPress(' ') || (this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A) && !this.isButtonPressed)) {
+                                        this.isButtonPressed = true;
+                                        this.totalRoll += this.currentRoll;
+                                        this.timesRolled++;
+                                    } else {
+                                        this.isButtonPressed = false;
+                                    }
+
+                                    if (this.timesRolled == 1) {
+                                        this.dc.setPaint(Color.BLACK);
+                                        this.dc.drawRect(450, 60, 50, 50);
+                                        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 40));
+                                        this.dc.drawString(this.totalRoll, 450, 50);
+                                    }
+
+                                    if (this.timesRolled == 2) {
+                                        Characters.characters[this.playerTurn].setTargetTilePos((Characters.characters[this.playerTurn].getTilePos() + this.totalRoll) % this.tileset.getSelectedTileset().length);
+                                        this.currentTurnState = TurnState.MOVING;
+                                        this.timesRolled = 0;
+                                    }
+
+                                    break;
                             }
                             break;
 
                         case MOVING:
+                            this.currentRollState = RollState.DEFAULT;
                             this.drawCountDownDie(); // draw the die as the player moves
                             if (Characters.characters[this.playerTurn].isWithinRange(this.tileset.getSelectedTileset()[Characters.characters[this.playerTurn].getTargetTile()])
-                                    && Characters.characters[this.playerTurn].getTilePos() == Characters.characters[this.playerTurn].getTargetTile()
-                                    && this.currentRoll == 0) { //if you're on the last tile, end turn
+                                    && Characters.characters[this.playerTurn].getTilePos() == Characters.characters[this.playerTurn].getTargetTile()) { //if you're on the last tile, end turn
                                 Characters.characters[this.playerTurn].setTilePos(Characters.characters[this.playerTurn].getTargetTile());
                                 this.currentTurnState = TurnState.END;
                             } else { // if you're not on the last tile, move towards the next one
                                 Characters.characters[this.playerTurn].moveToNextTile(this.tileset.getSelectedTileset()[(Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length]);
                                 if (Characters.characters[this.playerTurn].isWithinRange(this.tileset.getSelectedTileset()[(Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length])) {
-                                    this.currentRoll--;
+                                    this.totalRoll--;
                                     this.tileset.getSelectedTileset()[(Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length].passingEvent(Characters.characters[playerTurn]);
                                     Characters.characters[this.playerTurn].setTilePos((Characters.characters[this.playerTurn].getTilePos() + 1) % this.tileset.getSelectedTileset().length);
                                 }
@@ -260,19 +299,19 @@ public class Board {
         this.dc.setPaint(Color.BLACK);
         this.dc.drawRect(450, 150, 100, 100);
         this.currentRoll = ranGen.nextInt(10) + 1;
-        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
+        this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.currentRoll, 450, 135);
     }
 
     public void drawCountDownDie() {
         this.dc.setPaint(Color.BLACK);
         this.dc.drawRect(450, 150, 100, 100);
-        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
-        this.dc.drawString(this.currentRoll, 450, 135);
+        this.dc.setFont(Constants.ROLLING_FONT);
+        this.dc.drawString(this.totalRoll, 450, 135);
     }
 
     public void changeCurrentRoll(int delta) {
-        this.currentRoll += delta;
+        this.totalRoll += delta;
     }
 
     public Tilesets getSelectedTileset() {
@@ -284,6 +323,6 @@ public class Board {
     }
 
     public void setRollState(RollState state) {
-
+        this.currentRollState = state;
     }
 }
