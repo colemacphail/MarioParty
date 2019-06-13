@@ -19,6 +19,8 @@ import marioparty.Players;
  */
 class JumpBar {
 
+    //-0.0001(x-375)^2 (x-525)
+    private double cAccel;
     private double cursorX;
     private double cXChange;
 
@@ -27,18 +29,20 @@ class JumpBar {
 
     public void init() {
         this.cursorX = 300;
+        this.cXChange = 0;
+        this.cAccel = 0;
 
     }
 
     public void run() {
 
-        if (this.cursorX >= 600) {
-            this.cursorX = 599;
-            this.cXChange = -1;
+        /*if (this.cursorX >= 600 || this.cursorX <= 300) {
+            
+            this.cXChange *= -1;
 
-        }
-
-        this.cXChange = -0.166666 * (Math.pow((this.cXChange - 1), 3)) + 5;
+        }*/
+        this.cAccel = -0.000003 * (Math.pow((this.cursorX - 375), 2)) * (this.cursorX - 525);
+        this.cXChange += this.cAccel;
         this.cursorX += cXChange;
 
         //RED
@@ -165,11 +169,11 @@ public class TripleJump extends Minigame {
 
         } else {
             this.jumpbar.run();
-            for (Athlete athlete : athletes) {
-                if (athlete.jump()) {
+            for (int i = 0; i < athletes.length; i++) {
+                if (athletes[i].jump()) {
                     jumpbar.init();
-                    athlete.changeScore((int) Math.abs(this.jumpbar.getCX() - athlete.getX()));
-                    athlete.shift();
+                    characters.getCharacter(i).changeMinigameScore(100);
+                    athletes[i].shift();
                     this.targeted = false;
 
                 }
@@ -186,7 +190,7 @@ public class TripleJump extends Minigame {
         boolean isDone = true;
 
         for (Athlete athlete : athletes) {
-            if (athlete.getXChange() != 0) {
+            if (athlete.getX() <= 900) {
                 isDone = false;
             }
         }
@@ -194,6 +198,7 @@ public class TripleJump extends Minigame {
             int maxScore = 0;
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
                 maxScore = Math.max(maxScore, characters.getCharacter(i).getMinigameScore());
+                System.out.println(characters.getCharacter(i).getMinigameScore());
             }
 
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
@@ -202,7 +207,7 @@ public class TripleJump extends Minigame {
                 }
             }
         }
-
+        
         return winningPlayers;
     }
 
