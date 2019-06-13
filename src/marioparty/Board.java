@@ -188,6 +188,32 @@ public class Board {
                                     }
 
                                     break;
+
+                                case THRICE:
+
+                                    this.drawRollingDie();
+                                    if (this.dc.getKeyPress(' ') || (this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A) && !this.isButtonPressed)) {
+                                        this.isButtonPressed = true;
+                                        this.totalRoll += this.currentRoll;
+                                        this.timesRolled++;
+                                    } else {
+                                        this.isButtonPressed = false;
+                                    }
+
+                                    if (this.timesRolled == 1 || this.timesRolled == 2) {
+                                        this.dc.setPaint(Color.BLACK);
+                                        this.dc.drawRect(450, 60, 50, 50);
+                                        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 40));
+                                        this.dc.drawString(this.totalRoll, 450, 50);
+                                    }
+
+                                    if (this.timesRolled == 3) {
+                                        Characters.characters[this.playerTurn].setTargetTilePos((Characters.characters[this.playerTurn].getTilePos() + this.totalRoll) % this.tileset.getSelectedTileset().length);
+                                        this.currentTurnState = TurnState.MOVING;
+                                        this.timesRolled = 0;
+                                    }
+
+                                    break;
                             }
                             break;
 
@@ -195,7 +221,8 @@ public class Board {
                             this.currentRollState = RollState.DEFAULT;
                             this.drawCountDownDie(); // draw the die as the player moves
                             if (Characters.characters[this.playerTurn].isWithinRange(this.tileset.getSelectedTileset()[Characters.characters[this.playerTurn].getTargetTile()])
-                                    && Characters.characters[this.playerTurn].getTilePos() == Characters.characters[this.playerTurn].getTargetTile()) { //if you're on the last tile, end turn
+                                    && Characters.characters[this.playerTurn].getTilePos() == Characters.characters[this.playerTurn].getTargetTile()
+                                    && this.totalRoll == 0) { //if you're on the last tile, end turn
                                 Characters.characters[this.playerTurn].setTilePos(Characters.characters[this.playerTurn].getTargetTile());
                                 this.currentTurnState = TurnState.END;
                             } else { // if you're not on the last tile, move towards the next one

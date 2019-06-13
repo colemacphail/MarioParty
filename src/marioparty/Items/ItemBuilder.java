@@ -26,6 +26,7 @@ public class ItemBuilder {
         // add all created items here
         // i.e. this.items.add(new CoolItem());
         this.items.add(new Twice());
+        this.items.add(new Thrice());
     }
 
     //spits out an item at random
