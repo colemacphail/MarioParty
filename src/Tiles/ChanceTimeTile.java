@@ -36,7 +36,7 @@ public class ChanceTimeTile extends Tile {
         super.draw();
         this.dc.setFont(Constants.TILES_TEXT);
         this.dc.setPaint(Color.WHITE);
-        this.dc.drawString("☭", x, y);
+        this.dc.drawString("☭", x, y - 4);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ChanceTimeTile extends Tile {
             }
             while (counter < 5000) {
                 dc.clear();
-                dc.setFont(new Font("Comic Sans", Font.BOLD, 60));
+                dc.setFont(Constants.ROLLING_FONT);
                 if (counter > 1000) {
                     dc.drawString(this.characters.getCharacter(playerRecivingIndex).getName(), dc.getWidth() / 4, dc.getHeight() / 2);
                 }
@@ -91,9 +91,10 @@ public class ChanceTimeTile extends Tile {
                     dc.drawString(this.characters.getCharacter(playerGivingIndex).getName(), dc.getWidth() * 3 / 4, dc.getHeight() / 2);
                 }
                 if (counter > 4000) {
-                    dc.drawString(event.toString(), dc.getWidth() / 2, dc.getHeight() / 2);
+                    dc.drawString(event.toString(), dc.getWidth() / 2, dc.getHeight() / 4);
                 }
                 dc.redraw();
+                counter++;
             }
         } else {
             System.out.println("you have no friends.");

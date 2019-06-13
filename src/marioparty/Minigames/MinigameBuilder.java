@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import marioparty.Minigames.MinigameList.PressAButton;
 import marioparty.Minigames.MinigameList.TripleJump;
+import marioparty.Minigames.MinigameList.CatchTheApple;
 
 /**
  *
@@ -28,11 +29,11 @@ public class MinigameBuilder {
         // add all created minigames here
         // i.e. this.minigames.add(new FunGame());
         //this.minigames.add(new Jumpman());
-        //this.minigames.add(new CatchTheApple());
+//        this.minigames.add(new CatchTheApple());
         //this.minigames.add(new ShootEmUp());
         //this.minigames.add(new Masher());
         //this.minigames.add(new QuickTime());
-        //this.minigames.add(new PressAButton());
+//        this.minigames.add(new PressAButton());
         this.minigames.add(new TripleJump());
     }
 

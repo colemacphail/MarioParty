@@ -105,14 +105,14 @@ public class Board {
                     for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
                         this.dc.drawString("★" + this.characters.getCharacter(i).getStars(),
                                 this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16,
-                                this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
+                                this.dc.getHeight() / 8 * (i > 1 ? 7 : 1) - this.dc.getHeight() / 16);
                         this.dc.drawString("$" + this.characters.getCharacter(i).getCoins(),
                                 this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1),
-                                this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
+                                this.dc.getHeight() / 8 * (i > 1 ? 7 : 1) - this.dc.getHeight() / 16);
                         for (int j = 0; j < this.characters.getCharacter(i).getItems().size(); j++) {
                             this.dc.drawString("🍬",
                                     this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16 + (20 * j + 1),
-                                    this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() * 3 / 32);
+                                    this.dc.getHeight() / 8 * (i > 1 ? 7 : 1) - this.dc.getHeight() * 3 / 32);
                         }
                     }
                     for (int i = 0; i < Characters.getLength(); i++) {
@@ -308,6 +308,7 @@ public class Board {
         this.dc.drawRect(450, 150, 100, 100);
         this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.totalRoll, 450, 135);
+
     }
 
     public void changeCurrentRoll(int delta) {
