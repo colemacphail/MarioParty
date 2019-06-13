@@ -105,14 +105,14 @@ public class Board {
                     for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
                         this.dc.drawString("★" + this.characters.getCharacter(i).getStars(),
                                 this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16,
-                                this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
+                                this.dc.getHeight() / 8 * (i > 1 ? 7 : 1) - this.dc.getHeight() / 16);
                         this.dc.drawString("$" + this.characters.getCharacter(i).getCoins(),
                                 this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1),
-                                this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() / 16);
+                                this.dc.getHeight() / 8 * (i > 1 ? 7 : 1) - this.dc.getHeight() / 16);
                         for (int j = 0; j < this.characters.getCharacter(i).getItems().size(); j++) {
                             this.dc.drawString("🍬",
                                     this.dc.getWidth() / 8 * (i % 2 == 1 ? 7.5 : 1) - this.dc.getWidth() / 16 + (20 * j + 1),
-                                    this.dc.getHeight() / 8 * (i > 1 ? 5 : 1) - this.dc.getHeight() * 3 / 32);
+                                    this.dc.getHeight() / 8 * (i > 1 ? 7 : 1) - this.dc.getHeight() * 3 / 32);
                         }
                     }
                     for (int i = 0; i < Characters.getLength(); i++) {
@@ -188,6 +188,32 @@ public class Board {
                                     }
 
                                     break;
+
+                                case THRICE:
+
+                                    this.drawRollingDie();
+                                    if (this.dc.getKeyPress(' ') || (this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A) && !this.isButtonPressed)) {
+                                        this.isButtonPressed = true;
+                                        this.totalRoll += this.currentRoll;
+                                        this.timesRolled++;
+                                    } else {
+                                        this.isButtonPressed = false;
+                                    }
+
+                                    if (this.timesRolled == 1 || this.timesRolled == 2) {
+                                        this.dc.setPaint(Color.BLACK);
+                                        this.dc.drawRect(450, 60, 50, 50);
+                                        this.dc.setFont(new Font("Comic Sans", Font.BOLD, 40));
+                                        this.dc.drawString(this.totalRoll, 450, 50);
+                                    }
+
+                                    if (this.timesRolled == 3) {
+                                        Characters.characters[this.playerTurn].setTargetTilePos((Characters.characters[this.playerTurn].getTilePos() + this.totalRoll) % this.tileset.getSelectedTileset().length);
+                                        this.currentTurnState = TurnState.MOVING;
+                                        this.timesRolled = 0;
+                                    }
+
+                                    break;
                             }
                             break;
 
@@ -195,7 +221,8 @@ public class Board {
                             this.currentRollState = RollState.DEFAULT;
                             this.drawCountDownDie(); // draw the die as the player moves
                             if (Characters.characters[this.playerTurn].isWithinRange(this.tileset.getSelectedTileset()[Characters.characters[this.playerTurn].getTargetTile()])
-                                    && Characters.characters[this.playerTurn].getTilePos() == Characters.characters[this.playerTurn].getTargetTile()) { //if you're on the last tile, end turn
+                                    && Characters.characters[this.playerTurn].getTilePos() == Characters.characters[this.playerTurn].getTargetTile()
+                                    && this.totalRoll == 0) { //if you're on the last tile, end turn
                                 Characters.characters[this.playerTurn].setTilePos(Characters.characters[this.playerTurn].getTargetTile());
                                 this.currentTurnState = TurnState.END;
                             } else { // if you're not on the last tile, move towards the next one
@@ -308,6 +335,7 @@ public class Board {
         this.dc.drawRect(450, 150, 100, 100);
         this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.totalRoll, 450, 135);
+
     }
 
     public void changeCurrentRoll(int delta) {

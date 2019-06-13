@@ -13,7 +13,7 @@ import java.util.Comparator;
  * @author arnav
  */
 public class Characters {
-    
+
     private static Characters instance;
 
     public static Characters getInstance() {
@@ -27,12 +27,12 @@ public class Characters {
     public static int getLength() {
         return Constants.NUM_OF_PLAYERS;
     }
-    
+
     public static void sortCharacters() {
         Arrays.sort(characters, Comparator.comparing(Character::getStars));
         //TODO: also sort by coins
     }
-    
+
     public Character getCharacter(int n) {
         return characters[n];
     }
