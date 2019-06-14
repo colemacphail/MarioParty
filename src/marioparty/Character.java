@@ -21,7 +21,6 @@ public class Character {
     private final DConsole dc = Console.getInstance();
     private CharacterName name;
     private int playerNum;
-    private Random rand = new Random();
     protected double x;
     protected double y;
     private int coins = 0;
@@ -34,7 +33,6 @@ public class Character {
 
     //CONSTRUCTOR
     public Character(double x, double y) {
-        name = CharacterName.values()[rand.nextInt(6)];
         this.x = x;
         this.y = y;
     }
@@ -68,7 +66,6 @@ public class Character {
             xChange = -Math.cos((angle));
             yChange = -Math.sin((angle));
         }
-
         this.move(xChange * 2, yChange * 2);
     }
 
@@ -79,9 +76,14 @@ public class Character {
         this.dc.drawRect(this.x, this.y, 40, 40);
     }
 
-    public CharacterName getName () {
+    public CharacterName getName() {
         return this.name;
     }
+    
+    public void setName(CharacterName name) {
+        this.name = name;
+    }
+
     public void addItem(Item item) {
         this.items.add(item);
     }

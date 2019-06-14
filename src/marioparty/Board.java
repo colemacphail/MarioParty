@@ -58,6 +58,7 @@ public class Board {
         this.currentGameState = GameState.INIT;
         this.currentRollState = RollState.DEFAULT;
         this.characters = Characters.getInstance();
+        this.characters.setCharacterNames();
     }
 
     public void update() {

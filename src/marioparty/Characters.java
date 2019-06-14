@@ -23,9 +23,15 @@ public class Characters {
         return Characters.instance;
     }
     public static final Character[] characters = new Character[Constants.NUM_OF_PLAYERS];
-    
+
     public static int getLength() {
         return Constants.NUM_OF_PLAYERS;
+    }
+
+    public void setCharacterNames() {
+        for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
+            characters[i].setName(Character.CharacterName.values()[i]);
+        }
     }
 
     public static void sortCharacters() {
