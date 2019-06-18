@@ -30,7 +30,7 @@ public class Characters {
 
     public void setCharacterNames() {
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
-//            characters[i].setName(Character.CharacterName.values()[i]);
+            characters[i].setName(Character.CharacterName.values()[i]);
         }
     }
 

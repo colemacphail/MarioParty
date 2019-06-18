@@ -2,6 +2,7 @@ package marioparty;
 
 import DLibX.DConsole;
 import Tiles.Tile;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,7 +15,7 @@ import marioparty.Items.Item;
 public class Character {
 
     public enum CharacterName {
-        LUIGI, WALUIGI, YOSHI, BOWSER, PEACH, DONKEY_KONG,
+        RED, BLUE, GREEN, YELLOW
     }
 
     //VARIABLES
@@ -30,6 +31,7 @@ public class Character {
     private ArrayList<Item> items = new ArrayList();
     private boolean itemUsed = false;
     private int minigameScore = 0;
+    private Color colour;
 
     //CONSTRUCTOR
     public Character(double x, double y) {
@@ -70,18 +72,35 @@ public class Character {
     }
 
     public void draw() {
-//        this.dc.drawImage(this.name.toString() + ".png", x, y);
-        //place holders
-        this.dc.setPaint(Color.BLACK);
+        this.dc.setPaint(colour);
+        this.dc.setStroke(Constants.CHARACTER_STROKE);
         this.dc.drawRect(this.x, this.y, 40, 40);
+        this.dc.setStroke(Constants.REGULAR_STROKE);
     }
 
     public CharacterName getName() {
         return this.name;
     }
-    
+
     public void setName(CharacterName name) {
         this.name = name;
+        switch (name) {
+            case RED:
+                colour = Color.RED;
+                break;
+            case YELLOW:
+                colour = Color.YELLOW;
+                break;
+            case GREEN:
+                colour = Color.GREEN;
+                break;
+            case BLUE:
+                colour = Color.BLUE;
+                break;
+            default:
+                colour = Color.BLACK;
+                break;
+        }
     }
 
     public void addItem(Item item) {
@@ -186,5 +205,9 @@ public class Character {
 
     public void setY(double y) {
         this.y = y;
+    }
+    
+    public Color getColour() {
+        return this.colour;
     }
 }
