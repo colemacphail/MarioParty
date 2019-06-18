@@ -33,7 +33,7 @@ public class PressAButton extends Minigame {
 
     @Override
     public void run() {
-        this.dc.drawString("Press " + this.desiredAction, 450, 300);
+        this.dc.drawString("Press " + this.desiredAction, this.dc.getWidth() / 2, this.dc.getHeight() / 2);
     }
 
     @Override

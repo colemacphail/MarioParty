@@ -37,8 +37,8 @@ class Target {
 
     public Target() {
         this.diameter = 50;
-        this.x = rg.nextInt(850) + 50;
-        this.y = rg.nextInt(550) + 50;
+        this.x = rg.nextInt(this.dc.getWidth() - 50) + 50;
+        this.y = rg.nextInt(this.dc.getHeight() - 50) + 50;
     }
 
     public int getX() {
@@ -142,7 +142,7 @@ public class ShootEmUp extends Minigame {
             this.crosshairs[i].move(playerIn.getLeftStickX(), -playerIn.getLeftStickY());
             for (int j = 0; j < this.targets.size(); j++) {
                 double distance = Math.sqrt(Math.pow(this.crosshairs[i].getX() - targets.get(j).getX(), 2) + Math.pow(this.crosshairs[i].getY() - targets.get(j).getY(), 2));
-                if (distance < (targets.get(j).getDiameter() / 2 + crosshairs[i].getDiameter() / 2))  {
+                if (distance < (targets.get(j).getDiameter() / 2 + crosshairs[i].getDiameter() / 2)) {
                     this.targets.remove(targets.get(j));
                     Characters.getInstance().getCharacter(i).changeMinigameScore(1);
                 }

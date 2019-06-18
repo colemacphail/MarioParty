@@ -127,21 +127,22 @@ public class Board {
                                     items.get(i).draw(this.dc.getWidth() / 2 - (items.size() * 38) + (i + 1) * 75, this.dc.getHeight() / 4 - 5);
                                 }
                             }
-                            if (this.dc.getKeyPress(37)) {
+                            if (this.dc.getKeyPress(37) || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.MOVE_LEFT)) {
                                 this.selectedItem--;
                                 this.selectedItem = Math.max(this.selectedItem, -1);
                             }
-                            if (this.dc.getKeyPress(39)) {
+                            if (this.dc.getKeyPress(39) || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.MOVE_RIGHT)) {
                                 this.selectedItem++;
                                 this.selectedItem = Math.min(this.selectedItem, items.size() - 1);
                             }
-                            if (this.dc.getKeyPress(' ')) {
+                            if (this.dc.getKeyPress(' ') || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {
                                 if (this.selectedItem >= 0) {
                                     items.get(selectedItem).triggerEvent();
                                     items.remove(this.selectedItem);
                                 }
                                 this.selectedItem = -1;
                                 this.currentTurnState = TurnState.ROLLING;
+                                this.isButtonPressed = true;
                             }
                             break;
                         case ROLLING:
@@ -149,11 +150,13 @@ public class Board {
                                 case DEFAULT:
 
                                     this.drawRollingDie();//draw the die
-                                    if (this.dc.isKeyPressed(' ') || this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {//if you press space, roll the die
+                                    if (this.dc.getKeyPress(' ') || (this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A) && !this.isButtonPressed)) {
                                         this.totalRoll += this.currentRoll;
                                         this.currentTurnState = TurnState.MOVING;
                                         //set selected tile to current position + whatever you rolled
                                         Characters.characters[this.playerTurn].setTargetTilePos((Characters.characters[this.playerTurn].getTilePos() + this.totalRoll) % this.tileset.getSelectedTileset().length);
+                                    } else if (!this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {
+                                        this.isButtonPressed = false;
                                     }
 
                                     break;
@@ -165,7 +168,7 @@ public class Board {
                                         this.isButtonPressed = true;
                                         this.totalRoll += this.currentRoll;
                                         this.timesRolled++;
-                                    } else {
+                                    } else if (!this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {
                                         this.isButtonPressed = false;
                                     }
 
@@ -191,7 +194,7 @@ public class Board {
                                         this.isButtonPressed = true;
                                         this.totalRoll += this.currentRoll;
                                         this.timesRolled++;
-                                    } else {
+                                    } else if (!this.controllers.getControllerInput(this.playerTurn).actions().contains(InputAction.A)) {
                                         this.isButtonPressed = false;
                                     }
 
@@ -319,7 +322,7 @@ public class Board {
 
     public void drawRollingDie() {
         this.dc.setPaint(Color.BLACK);
-        this.dc.drawRect(450, 150, 100, 100);
+        this.dc.drawRect(this.dc.getWidth() / 2, this.dc.getHeight() / 4, 100, 100);
         this.currentRoll = ranGen.nextInt(10) + 1;
         this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.currentRoll, 450, 135);
@@ -327,7 +330,7 @@ public class Board {
 
     public void drawCountDownDie() {
         this.dc.setPaint(Color.BLACK);
-        this.dc.drawRect(450, 150, 100, 100);
+        this.dc.drawRect(this.dc.getWidth() / 2, this.dc.getHeight() / 4, 100, 100);
         this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.totalRoll, 450, 135);
 

@@ -44,23 +44,12 @@ public abstract class MinigameObject {
     }
     
     public void setY(double destination){
-    this.y = destination;
-    //deep space presented by the boeing company
+    this.y = destination; //deep space presented by the boeing company
     }
     
     public void updateTime(){
     this.time = System.currentTimeMillis();
     }
-    
-    public void setScore(int score){
-        this.score = score;
-    }
-    
-    public void changeScore(int delta){
-    this.score += delta;
-    }
 
-    
-    
     protected abstract void draw();
 }
