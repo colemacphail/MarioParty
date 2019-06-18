@@ -58,7 +58,6 @@ public class Board {
         this.currentGameState = GameState.INIT;
         this.currentRollState = RollState.DEFAULT;
         this.characters = Characters.getInstance();
-        this.characters.setCharacterNames();
     }
 
     public void update() {
@@ -83,19 +82,14 @@ public class Board {
         } else {
             //TURN STATES
             switch (this.currentGameState) {
-                case MENU: //TODO: make an actual menu
-                    // dc.drawImage("menu.jpg",0,0);
-                    //JPanel p = new JPanel();
-                    //p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
-
-                    break;
                 case INIT:
                     this.minigameBuilder = MinigameBuilder.getInstance();
-                    this.tileset = new Tilesets(Tilesets.BASIC); //create the tileset //TODO: make a tileset selector
+                    this.tileset = new Tilesets(Tilesets.WORKING); //create the tileset //TODO: make a tileset selector
 
                     for (int i = 0; i < Characters.getLength(); i++) {//create all characters 
                         Characters.characters[i] = new Character(this.tileset.getSelectedTileset()[0].getX(), this.tileset.getSelectedTileset()[0].getY());
                     }
+                    this.characters.setCharacterNames();
                     this.currentGameState = GameState.BOARD;
                     this.currentTurnState = TurnState.ITEM;
                     break;
