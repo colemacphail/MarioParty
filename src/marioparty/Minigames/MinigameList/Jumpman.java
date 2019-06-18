@@ -164,7 +164,6 @@ public class Jumpman extends Minigame {
         for (Jumper jumper : jumpers) {
             if (jumper.isAlive()) {
                 jumper.updateTime();
-                jumper.setScore((int) (startTime - jumper.getTime()));
             }
 
             for (Block block : blocks) {
