@@ -24,7 +24,7 @@ class Apple {
     //VARIABLES
     private int x;
     private int y;
-    private int radius;
+    private int diameter;
     private Color color;
     private int fallspeed;
     private Random rg = new Random();
@@ -33,7 +33,7 @@ class Apple {
     //INIT
     public Apple() {
         this.fallspeed = rg.nextInt(6) + 4;
-        this.radius = 10;
+        this.diameter = 10;
         this.x = rg.nextInt(this.dc.getWidth());
         this.y = rg.nextInt(300) - 500;
         this.color = Color.RED;
@@ -49,7 +49,7 @@ class Apple {
     }
 
     public int getDia() {
-        return this.radius;
+        return this.diameter;
     }
 
     public int getFallspeed() {
@@ -64,6 +64,10 @@ class Apple {
         this.x = -5;
         this.y = -5;
         this.fallspeed = 0;
+    }
+    
+    public void draw() {
+        this.dc.drawEllipse(this.x, this.y, this.diameter, this.diameter);
     }
 }
 
@@ -153,7 +157,7 @@ public class CatchTheApple extends Minigame {
 
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
-            this.dc.fillEllipse(apple.getX(), apple.getY(), apple.getDia(), apple.getDia());
+            apple.draw();
             if (apple.getY() > this.dc.getHeight()) {
                 apple.remove();
             }
@@ -165,6 +169,7 @@ public class CatchTheApple extends Minigame {
             } else if (this.controllers.getControllerInput(i).actions().contains(InputAction.MOVE_LEFT)) {
                 nets[i].changeX(-(nets[i].getSpeed()));
             }
+            characters.getCharacter(i).getColour();
             nets[i].draw();
         }
 

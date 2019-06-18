@@ -11,6 +11,7 @@ import DLibX.DConsole;
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
+import marioparty.Characters;
 import marioparty.Console;
 import marioparty.Constants;
 import marioparty.Minigames.Minigame;
@@ -140,6 +141,7 @@ public class Jumpman extends Minigame {
     Block[] blocks = new Block[10];
     Jumper[] jumpers = new Jumper[Constants.NUM_OF_PLAYERS];
     Controllers controllers = Controllers.getInstance();
+    Characters characters = Characters.getInstance();
     private long startTime = System.currentTimeMillis();
 
     public Jumpman() {
@@ -182,6 +184,7 @@ public class Jumpman extends Minigame {
         }
         for (Block block : blocks) {
             block.move();
+            dc.setPaint(Color.BLACK);
             block.draw();
         }
         for (int i = 0; i < jumpers.length; i++) {
@@ -189,6 +192,7 @@ public class Jumpman extends Minigame {
                 jumpers[i].jump();
             }
             jumpers[i].fall();
+            characters.getCharacter(i).getColour();
             jumpers[i].draw();
         }
     }
