@@ -1,6 +1,7 @@
 package marioparty.Minigames.MinigameList;
 
 import ControllerInput.Controllers;
+import ControllerInput.InputAction;
 import DLibX.DConsole;
 import java.awt.Color;
 import java.util.HashSet;
@@ -23,8 +24,9 @@ class JumpBar {
     private double cAccel;
     private double cursorX;
     private double cXChange;
+    private double y;
 
-    private final double CURSOR_Y = 275;
+    private double cursorY;
     private DConsole dc = Console.getInstance();
 
     public void init() {
@@ -47,21 +49,21 @@ class JumpBar {
 
         //RED
         dc.setPaint(Color.RED);
-        dc.fillRect(450, 300, 300, 30);
+        dc.fillRect(450, this.y, 300, 30);
         //ORANGE
         dc.setPaint(Color.ORANGE);
-        dc.fillRect(450, 300, 200, 30);
+        dc.fillRect(450, this.y, 200, 30);
         //YELLOW
         dc.setPaint(Color.YELLOW);
-        dc.fillRect(450, 300, 100, 30);
+        dc.fillRect(450, this.y, 100, 30);
         //GREEN
         dc.setPaint(Color.GREEN);
-        dc.fillRect(450, 300, 25, 30);
+        dc.fillRect(450, this.y, 25, 30);
         //Box
         dc.setPaint(Color.BLACK);
-        dc.drawRect(450, 300, 300, 30);
+        dc.drawRect(450, this.y, 300, 30);
         //Cursor
-        dc.fillRect(this.cursorX, this.CURSOR_Y, 1, 30);
+        dc.fillRect(this.cursorX, this.y - 10, 1, 30);
     }
 
     public double getCX() {
@@ -69,7 +71,11 @@ class JumpBar {
     }
 
     public double getCY() {
-        return this.CURSOR_Y;
+        return this.cursorY;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public void reset() {
@@ -86,10 +92,10 @@ class Athlete extends MinigameObject {
     private boolean pressed;
     private double yChange;
     private double xChange = 5;
+    
 
     public Athlete() {
         this.x = 30;
-        this.y = 585;
         this.size = 30;
         this.color = new Color(145, 30, 30);
         this.pressed = false;
@@ -106,10 +112,22 @@ class Athlete extends MinigameObject {
     public void setX() {
         this.x += this.xChange;
     }
-
-    public boolean jump() {
-        return dc.getKeyPress(' ');
+    public void setY(int y){
+    this.y = y;
     }
+    
+    public void latch(){
+    if (this.pressed == true){
+    this.pressed = false;
+    }else{
+    this.pressed = true;
+    }
+    }
+    public boolean isLatched(){
+    return pressed;
+    }
+
+    
 
     @Override
     protected void draw() {
@@ -123,7 +141,7 @@ public class TripleJump extends Minigame {
     private Characters characters = Characters.getInstance();
     private final Controllers controllers = Controllers.getInstance();
     Athlete[] athletes = new Athlete[Constants.NUM_OF_PLAYERS];
-    JumpBar jumpbar = new JumpBar();
+    JumpBar[] jumpbars = new JumpBar[Constants.NUM_OF_PLAYERS];
     double[] targets = new double[3];
     int[][] lines = new int[3][2];
     boolean targeted = false;
@@ -134,9 +152,13 @@ public class TripleJump extends Minigame {
 
     @Override
     public void init() {
-        this.jumpbar.init();
+
         for (int i = 0; i < this.athletes.length; i++) {
             this.athletes[i] = new Athlete();
+            this.athletes[i].setY((i * dc.getHeight() / Constants.NUM_OF_PLAYERS) + (dc.getHeight() / Constants.NUM_OF_PLAYERS - 10));
+            jumpbars[i] = new JumpBar();
+            jumpbars[i].setY((i * dc.getHeight() / Constants.NUM_OF_PLAYERS) + 20);
+            jumpbars[i].init();
         }
         for (int i = 0; i < 3; i++) {
             this.lines[i][0] = i * 225 + 300;
@@ -168,14 +190,16 @@ public class TripleJump extends Minigame {
             }
 
         } else {
-            this.jumpbar.run();
-            for (int i = 0; i < athletes.length; i++) {
-                if (athletes[i].jump()) {
-                    jumpbar.init();
-                    characters.getCharacter(i).changeMinigameScore(100);
-                    athletes[i].shift();
-                    this.targeted = false;
+            for (JumpBar jumpbar : jumpbars) {
+                jumpbar.run();
+                for (int i = 0; i < athletes.length; i++) {
+                    if (this.controllers.getControllerInput(i).actions().contains(InputAction.A)) {
+                        jumpbar.init();
+                        characters.getCharacter(i).changeMinigameScore(100);
+                        athletes[i].shift();
+                        this.targeted = false;
 
+                    }
                 }
             }
 
@@ -207,7 +231,7 @@ public class TripleJump extends Minigame {
                 }
             }
         }
-        
+
         return winningPlayers;
     }
 
