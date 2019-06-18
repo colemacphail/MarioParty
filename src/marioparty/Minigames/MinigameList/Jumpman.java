@@ -35,7 +35,7 @@ class Block {
 
     public Block() {
 
-        this.y = 560;
+        this.y = this.dc.getHeight() - 40;
         this.width = 20;
         this.length = 80;
         this.movespeed = 5;
@@ -84,7 +84,7 @@ class Jumper extends MinigameObject {
 
     public Jumper() {
         this.x = 30;
-        this.y = 585;
+        this.y = this.dc.getHeight() - 15;
         this.size = 30;
         this.color = new Color(145, 30, 30);
         this.yChange = 0;
@@ -126,10 +126,10 @@ class Jumper extends MinigameObject {
 
         this.yChange += 0.5;
 
-        if (this.y >= 585) {
+        if (this.y >= this.dc.getHeight() - 15) {
             this.pressed = false;
             this.yChange = 0;
-            this.y = 585;
+            this.y = this.dc.getHeight() - 15;
         }
     }
 
@@ -151,7 +151,7 @@ public class Jumpman extends Minigame {
         for (int i = 0; i < 10; i++) {
 
             blocks[i] = new Block();
-            blocks[i].setX((i * 275) + 900);
+            blocks[i].setX((i * (this.dc.getWidth() / 3)) + 900);
         }
         for (int i = 0; i < jumpers.length; i++) {
             jumpers[i] = new Jumper();

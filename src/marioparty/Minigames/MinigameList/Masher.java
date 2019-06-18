@@ -33,7 +33,7 @@ public class Masher extends Minigame {
 
     @Override
     public void run() {
-        this.dc.drawString("Mash " + this.desiredAction, 450, 300);
+        this.dc.drawString("Mash " + this.desiredAction, this.dc.getWidth() / 2, this.dc.getHeight() / 2);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             if (this.controllers.getControllerInput(i).actions().contains(this.desiredAction) && !this.buttonWasPressed[i]) {
                 Characters.characters[i].changeMinigameScore(1);

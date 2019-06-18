@@ -328,7 +328,7 @@ public class Board {
 
     public void drawRollingDie() {
         this.dc.setPaint(Color.BLACK);
-        this.dc.drawRect(450, 150, 100, 100);
+        this.dc.drawRect(this.dc.getWidth() / 2, this.dc.getHeight() / 4, 100, 100);
         this.currentRoll = ranGen.nextInt(10) + 1;
         this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.currentRoll, 450, 135);
@@ -336,7 +336,7 @@ public class Board {
 
     public void drawCountDownDie() {
         this.dc.setPaint(Color.BLACK);
-        this.dc.drawRect(450, 150, 100, 100);
+        this.dc.drawRect(this.dc.getWidth() / 2, this.dc.getHeight() / 4, 100, 100);
         this.dc.setFont(Constants.ROLLING_FONT);
         this.dc.drawString(this.totalRoll, 450, 135);
 

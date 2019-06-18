@@ -2,11 +2,13 @@ package marioparty.Minigames.MinigameList;
 
 import ControllerInput.Controllers;
 import ControllerInput.InputAction;
+import DLibX.DConsole;
 import java.awt.Color;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import marioparty.Characters;
+import marioparty.Console;
 import marioparty.Constants;
 import marioparty.Minigames.Minigame;
 import marioparty.Minigames.MinigameObject;
@@ -26,12 +28,13 @@ class Apple {
     private Color color;
     private int fallspeed;
     private Random rg = new Random();
+    private DConsole dc = Console.getInstance();
 
     //INIT
     public Apple() {
         this.fallspeed = rg.nextInt(6) + 4;
         this.radius = 10;
-        this.x = rg.nextInt(900);
+        this.x = rg.nextInt(this.dc.getWidth());
         this.y = rg.nextInt(300) - 500;
         this.color = Color.RED;
     }
@@ -74,8 +77,8 @@ class Net extends MinigameObject {
 
     //INIT
     public Net() {
-        this.x = 30;
-        this.y = 580;
+        this.x = this.dc.getWidth() / 2;
+        this.y = this.dc.getHeight() - 20;
 
         this.width = 30;
         this.height = 10;
