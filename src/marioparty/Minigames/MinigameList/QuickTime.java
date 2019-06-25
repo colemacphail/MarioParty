@@ -8,6 +8,7 @@ package marioparty.Minigames.MinigameList;
 import ControllerInput.Controllers;
 import ControllerInput.InputAction;
 import DLibX.DConsole;
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -71,6 +72,7 @@ public class QuickTime extends Minigame {
 
     @Override
     public void run() {
+        this.cons.setPaint(Color.BLACK);
         for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
             this.cons.drawString(this.buttonList[this.characters.getCharacter(i).getMinigameScore()].getButtonType(),
                     this.cons.getWidth() / 4 * (i % 2 == 1 ? 3 : 1),
