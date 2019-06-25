@@ -4,7 +4,6 @@ import DLibX.DConsole;
 import Tiles.Tile;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Random;
 import marioparty.Items.Item;
 
 /**
@@ -66,7 +65,7 @@ public class Character {
             xChange = -Math.cos((angle));
             yChange = -Math.sin((angle));
         }
-        this.move(xChange * 2, yChange * 2);
+        this.move(xChange * 2.5, yChange * 2.5);
     }
 
     public void draw() {
