@@ -92,13 +92,14 @@ class Athlete extends MinigameObject {
     private boolean pressed;
     private double yChange;
     private double xChange = 5;
-    
+    private boolean targeted;
 
     public Athlete() {
         this.x = 30;
         this.size = 30;
         this.color = new Color(145, 30, 30);
         this.pressed = false;
+        this.targeted = false;
     }
 
     public void shift() {
@@ -112,22 +113,35 @@ class Athlete extends MinigameObject {
     public void setX() {
         this.x += this.xChange;
     }
-    public void setY(int y){
-    this.y = y;
-    }
-    
-    public void latch(){
-    if (this.pressed == true){
-    this.pressed = false;
-    }else{
-    this.pressed = true;
-    }
-    }
-    public boolean isLatched(){
-    return pressed;
+
+    public void setY(int y) {
+        this.y = y;
     }
 
-    
+    public void latch() {
+        if (this.pressed == true) {
+            this.pressed = false;
+        } else {
+            this.pressed = true;
+        }
+    }
+
+    public boolean isLatched() {
+        return pressed;
+    }
+
+    public boolean isTargeted() {
+        return this.targeted;
+    }
+
+    public void target() {
+        this.targeted = true;
+
+    }
+
+    public void untarget() {
+        this.targeted = false;
+    }
 
     @Override
     protected void draw() {
@@ -144,7 +158,6 @@ public class TripleJump extends Minigame {
     JumpBar[] jumpbars = new JumpBar[Constants.NUM_OF_PLAYERS];
     double[] targets = new double[3];
     int[][] lines = new int[3][2];
-    boolean targeted = false;
 
     public TripleJump() {
         super(MinigameType.FFA, 15000);
@@ -179,32 +192,33 @@ public class TripleJump extends Minigame {
             athlete.draw();
             for (double target : this.targets) {
                 if (athlete.getX() <= target && athlete.getX() > target - 25) {
-                    this.targeted = true;
+                    athlete.target();
 
                 }
             }
         }
-        if (!targeted) {
-            for (Athlete athlete : this.athletes) {
-                athlete.setX();
-            }
+        for (int i = 0; i < athletes.length; i++) {
+            if (!athletes[i].isTargeted()) {
 
-        } else {
-            for (JumpBar jumpbar : jumpbars) {
-                jumpbar.run();
-                for (int i = 0; i < athletes.length; i++) {
-                    if (this.controllers.getControllerInput(i).actions().contains(InputAction.A)) {
-                        jumpbar.init();
-                        characters.getCharacter(i).changeMinigameScore(100);
-                        athletes[i].shift();
-                        this.targeted = false;
+                athletes[i].setX();
 
-                    }
+            } else if (athletes[i].isTargeted()) {
+
+                jumpbars[i].run();
+
+                if (this.controllers.getControllerInput(i).actions().contains(InputAction.A)) {
+                    
+                    characters.getCharacter(i).changeMinigameScore((int)(1000/(Math.abs(450 - jumpbars[i].getCX()))));
+                    System.out.println("Athlete at " + i + " score equals " + characters.getCharacter(i).getMinigameScore() );
+                    jumpbars[i].init();
+                    athletes[i].shift();
+                    athletes[i].untarget();
+
                 }
+
             }
 
         }
-
     }
 
     @Override
@@ -222,7 +236,7 @@ public class TripleJump extends Minigame {
             int maxScore = 0;
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
                 maxScore = Math.max(maxScore, characters.getCharacter(i).getMinigameScore());
-                System.out.println(characters.getCharacter(i).getMinigameScore());
+
             }
 
             for (int i = 0; i < Constants.NUM_OF_PLAYERS; i++) {
