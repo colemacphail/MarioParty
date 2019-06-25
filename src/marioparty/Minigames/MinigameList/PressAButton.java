@@ -2,6 +2,7 @@ package marioparty.Minigames.MinigameList;
 
 import ControllerInput.Controllers;
 import ControllerInput.InputAction;
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -33,6 +34,7 @@ public class PressAButton extends Minigame {
 
     @Override
     public void run() {
+        this.dc.setPaint(Color.BLACK);
         this.dc.drawString("Press " + this.desiredAction, this.dc.getWidth() / 2, this.dc.getHeight() / 2);
     }
 
@@ -50,8 +52,8 @@ public class PressAButton extends Minigame {
         if (this.winningPlayer != null) {
             winningPlayers.add(winningPlayer);
         }
-        
-        if (this.dc.getKeyPress(' ')){
+
+        if (this.dc.getKeyPress(' ')) {
             winningPlayers.add(Players.values()[0]);
         }
 
