@@ -291,14 +291,17 @@ public class Board {
                     }
                     break;
                 case END:
+                    dc.clear();
+                    dc.setFont(Constants.ROLLING_FONT);
+                    dc.drawString("THANK'S FOR PLAYING!", dc.getWidth() / 2, dc.getHeight() / 2);
+                    for (counter = 0; counter < 2000; counter++);
                     System.exit(1);
                     break;
-
             }
         }
     }
+    
     //METHODS
-
     public GameState getCurrentGameState() {
         return this.currentGameState;
     }

@@ -45,37 +45,37 @@ public class ChanceTimeTile extends Tile {
             Random rand = new Random();
             int counter = 0;
             int playerGivingIndex = rand.nextInt(Constants.NUM_OF_PLAYERS);
-            int playerRecivingIndex = rand.nextInt(Constants.NUM_OF_PLAYERS - 1);
+            int playerReceivingIndex = rand.nextInt(Constants.NUM_OF_PLAYERS - 1);
             ChanceTimeEvents event = ChanceTimeEvents.values()[rand.nextInt(5)];
 
-            if (playerGivingIndex == playerRecivingIndex) {
-                playerRecivingIndex = Constants.NUM_OF_PLAYERS - 1;
+            if (playerGivingIndex == playerReceivingIndex) {
+                playerReceivingIndex = Constants.NUM_OF_PLAYERS - 1;
             }
 
             int coins1 = this.characters.getCharacter(playerGivingIndex).getCoins();
             int stars1 = this.characters.getCharacter(playerGivingIndex).getStars();
-            int coins2 = this.characters.getCharacter(playerRecivingIndex).getCoins();
-            int stars2 = this.characters.getCharacter(playerRecivingIndex).getStars();
+            int coins2 = this.characters.getCharacter(playerReceivingIndex).getCoins();
+            int stars2 = this.characters.getCharacter(playerReceivingIndex).getStars();
             switch (event) {
                 case GIVE_20_COINS:
                     this.characters.getCharacter(playerGivingIndex).changeCoins(-(coins1 < 20 ? coins1 : 20));
-                    this.characters.getCharacter(playerRecivingIndex).changeCoins((coins1 < 20 ? coins1 : 20));
+                    this.characters.getCharacter(playerReceivingIndex).changeCoins((coins1 < 20 ? coins1 : 20));
                     break;
                 case GIVE_ALL_COINS:
                     this.characters.getCharacter(playerGivingIndex).changeCoins(-coins1);
-                    this.characters.getCharacter(playerRecivingIndex).changeCoins(coins1);
+                    this.characters.getCharacter(playerReceivingIndex).changeCoins(coins1);
                     break;
                 case SWAP_COINS:
                     this.characters.getCharacter(playerGivingIndex).setCoins(coins2);
-                    this.characters.getCharacter(playerRecivingIndex).setCoins(coins1);
+                    this.characters.getCharacter(playerReceivingIndex).setCoins(coins1);
                     break;
                 case GIVE_STAR:
                     this.characters.getCharacter(playerGivingIndex).changeStars(-(stars1 < 1 ? 0 : 1));
-                    this.characters.getCharacter(playerRecivingIndex).changeStars((stars1 < 1 ? 0 : 1));
+                    this.characters.getCharacter(playerReceivingIndex).changeStars((stars1 < 1 ? 0 : 1));
                     break;
                 case SWAP_STARS:
                     this.characters.getCharacter(playerGivingIndex).setStars(stars2);
-                    this.characters.getCharacter(playerRecivingIndex).setStars(stars1);
+                    this.characters.getCharacter(playerReceivingIndex).setStars(stars1);
                     break;
                 default:
                     System.out.println("BRUH NO CHANCETIME???");
@@ -85,15 +85,19 @@ public class ChanceTimeTile extends Tile {
                 dc.clear();
                 dc.setFont(Constants.ROLLING_FONT);
                 if (counter > 1000) {
-                    dc.drawString(this.characters.getCharacter(playerRecivingIndex).getName(), dc.getWidth() / 4, dc.getHeight() / 2);
+                    dc.setPaint(this.characters.getCharacter(playerReceivingIndex).getColour());
+                    dc.drawString(this.characters.getCharacter(playerReceivingIndex).getName(), dc.getWidth() / 4, dc.getHeight() / 2);
                 }
                 if (counter > 2000) {
+                    dc.setPaint(this.characters.getCharacter(playerGivingIndex).getColour());
                     dc.drawString(this.characters.getCharacter(playerGivingIndex).getName(), dc.getWidth() * 3 / 4, dc.getHeight() / 2);
                 }
                 if (counter > 4000) {
+                    dc.setPaint(Color.BLACK);
                     dc.drawString(event.toString(), dc.getWidth() / 2, dc.getHeight() / 4);
                 }
                 dc.redraw();
+                dc.setFont(Constants.TILES_TEXT);
                 counter++;
             }
         } else {
