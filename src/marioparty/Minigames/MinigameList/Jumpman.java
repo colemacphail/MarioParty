@@ -29,7 +29,6 @@ class Block {
     private int y;
     private int width;
     private int length;
-    private Color color;
     private int movespeed;
 
     private DConsole dc = Console.getInstance();
@@ -108,7 +107,6 @@ class Jumper extends MinigameObject {
 
     @Override
     protected void draw() {
-        dc.setPaint(this.color);
         dc.fillRect(this.x, this.y, this.size, this.size);
     }
 
@@ -191,8 +189,8 @@ public class Jumpman extends Minigame {
             if (this.controllers.getControllerInput(i).actions().contains(InputAction.A)) {
                 jumpers[i].jump();
             }
-            jumpers[i].fall();
-            characters.getCharacter(i).getColour();
+            jumpers[i].fall();         
+            dc.setPaint(characters.getCharacter(i).getColour());
             jumpers[i].draw();
         }
     }

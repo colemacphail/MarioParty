@@ -188,11 +188,12 @@ public class TripleJump extends Minigame {
         for (int i = 0; i < 3; i++) {
             dc.fillRect(this.lines[i][0], this.lines[i][1], 20, 10);
         }
-        for (Athlete athlete : this.athletes) {
-            athlete.draw();
+        for (int i = 0; i < athletes.length; i++) {
+            dc.setPaint(characters.getCharacter(i).getColour());
+            athletes[i].draw();
             for (double target : this.targets) {
-                if (athlete.getX() <= target && athlete.getX() > target - 25) {
-                    athlete.target();
+                if (athletes[i].getX() <= target && athletes[i].getX() > target - 25) {
+                    athletes[i].target();
 
                 }
             }
@@ -209,7 +210,6 @@ public class TripleJump extends Minigame {
                 if (this.controllers.getControllerInput(i).actions().contains(InputAction.A)) {
                     
                     characters.getCharacter(i).changeMinigameScore((int)(1000/(Math.abs(450 - jumpbars[i].getCX()))));
-                    System.out.println("Athlete at " + i + " score equals " + characters.getCharacter(i).getMinigameScore() );
                     jumpbars[i].init();
                     athletes[i].shift();
                     athletes[i].untarget();
