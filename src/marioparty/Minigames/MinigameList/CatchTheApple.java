@@ -154,7 +154,7 @@ public class CatchTheApple extends Minigame {
                 }
             }
         }
-
+        this.dc.setPaint(Color.BLACK);
         for (Apple apple : this.apples) {
             apple.setY(apple.getFallspeed());
             apple.draw();
@@ -169,7 +169,7 @@ public class CatchTheApple extends Minigame {
             } else if (this.controllers.getControllerInput(i).actions().contains(InputAction.MOVE_LEFT)) {
                 nets[i].changeX(-(nets[i].getSpeed()));
             }
-            characters.getCharacter(i).getColour();
+            this.dc.setPaint(characters.getCharacter(i).getColour());
             nets[i].draw();
         }
 
